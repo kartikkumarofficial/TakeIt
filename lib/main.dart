@@ -15,6 +15,11 @@ class MyApp extends StatelessWidget {
     return GetMaterialApp(
     debugShowCheckedModeBanner: false,
     title: 'GetX Theme Demo',
+      locale: Locale('en','US'), //default is english
+      fallbackLocale: Locale('en','US'),
+      // theme: ThemeData.dark(), // Default theme
+      darkTheme: ThemeData.dark(), // Dark theme
+      themeMode: ThemeMode.light, // Initial theme mode
     translations: Languages(),
       theme: ThemeData(
 
