@@ -9,6 +9,11 @@ class OnboardingScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: Color.fromRGBO(59,145,242,1.0),
+      body:Container(
+        height: double.infinity,
+        width: double.infinity,
+      ),
 
     );
   }
