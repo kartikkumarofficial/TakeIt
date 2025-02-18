@@ -45,14 +45,21 @@ class OnboardingScreen extends StatelessWidget {
                     )],
                   ),
                 ),
-                Row(
-                  children: [
-                    Text('TakeIt'.tr,style:GoogleFonts.inter(
-                      color: Colors.orange,fontSize:Get.width*0.1
-                    ),),
-                    Image.asset('assets/images/onboardingscreen/suitcase.png',
-                    height: 50,)
-                  ],
+                Padding(
+                  padding: EdgeInsets.only(top:Get.height*0.3 ),
+                  child: Row(
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    children: [
+                      Padding(
+                        padding: EdgeInsets.only(left: Get.width*0.3),
+                        child: Text('TakeIt'.tr,style:GoogleFonts.inter(
+                          color: Colors.orange,fontSize:Get.width*0.1,fontStyle:FontStyle.italic,fontWeight: FontWeight.bold
+                        )),
+                      ),
+                      Image.asset('assets/images/onboardingscreen/suitcase.png',
+                      height: 50,)
+                    ],
+                  ),
                 ),
 
 

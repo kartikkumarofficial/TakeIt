@@ -5,6 +5,7 @@ class Languages extends Translations{
   @override
   Map<String , Map<String,String>> get keys =>{
     'en_US':{
+      'TakeIt':'TakeIt',
       'message':'What is your name ',
       'name': 'Kartik',
       'localisation':'English',
@@ -14,7 +15,8 @@ class Languages extends Translations{
       'message':'आपका क्या नाम है ',
       'name': 'कार्तिक',
       'localisation':'हिन्दी',
-      'language':'टाइल भाषा बदलना'
+      // 'language':'टाइल भाषा बदलना'
+      'TakeIt': 'TakeIt',
 
     },
   };
