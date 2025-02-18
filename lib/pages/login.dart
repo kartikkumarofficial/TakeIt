@@ -1,0 +1,242 @@
+import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+import 'package:google_fonts/google_fonts.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+
+class LoginScreen extends StatefulWidget {
+  @override
+  _LoginScreenState createState() => _LoginScreenState();
+}
+
+class _LoginScreenState extends State<LoginScreen> {
+  bool isChecked = false;
+  bool passwordVisible = false;
+  bool confirmPasswordVisible = false;
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      body: Stack(
+        children: [
+          Positioned(
+              top: Get.width*0.3,
+              right: Get.width*0.05,
+              child: Image.asset('assets/images/auth/drone.png',height: 150,width: 200,)),
+          Positioned(
+              top: Get.width*0.3,
+              right: Get.width*0.5,
+              child: Text("TakeIt",
+                style: GoogleFonts.poppins(
+                  fontSize: Get.width*0.1,
+                  fontWeight: FontWeight.bold,
+                  color: Colors.blue,
+                  fontStyle: FontStyle.italic,
+                ),)),
+
+
+
+          SingleChildScrollView(
+            child: Padding(
+              padding: EdgeInsets.symmetric(horizontal: 24, vertical: 40),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text("Create",
+                      style: GoogleFonts.interTight(
+                        fontSize: Get.width*0.08,
+                        fontWeight: FontWeight.w800,
+                        color: Colors.black,
+                      ),),
+                  Text("Your",
+                      style: GoogleFonts.interTight(
+                        fontSize: Get.width*0.08,
+                        fontWeight: FontWeight.w800,
+                        color: Colors.black,
+                      ),),
+                  Text("Account",
+                      style: GoogleFonts.interTight(
+                        fontSize: Get.width*0.08,
+                        fontWeight: FontWeight.w800,
+                        color: Colors.black,
+                      ),),
+
+                  Hero(tag: 'takeit',child: SizedBox(height: 20)),
+
+                  Padding(
+                    padding:  EdgeInsets.only(top: Get.height*0.3),
+                    child: _buildTextField("Username", Icons.person),
+                  ),
+                  SizedBox(height: 12),
+                  _buildTextField("Email", Icons.email),
+                  SizedBox(height: 12),
+                  _buildPasswordField("Password", true),
+                  SizedBox(height: 12),
+                  _buildPasswordField("Confirm Password", false),
+
+
+                  Row(
+                    children: [
+                      Checkbox(
+                        value: isChecked,
+                        activeColor: Colors.amber,
+                        onChanged: (value) {
+                          setState(() {
+                            isChecked = value!;
+                          });
+                        },
+                      ),
+                      Text(
+                        "I agree to the Terms & Conditions",
+                        style: GoogleFonts.poppins(fontSize: 14),
+                      ),
+                    ],
+                  ),
+
+                  SizedBox(height: 10),
+                  SizedBox(
+                    width: double.infinity,
+                    height: 50,
+                    child: ElevatedButton(
+                      onPressed: () {},
+                      style: ElevatedButton.styleFrom(
+                        backgroundColor: Colors.blue,
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(30),
+                        ),
+                      ),
+                      child: Text(
+                        "Sign Up",
+                        style: GoogleFonts.poppins(
+                          fontSize: 18,
+                          fontWeight: FontWeight.bold,
+                          color: Colors.white,
+                        ),
+                      ),
+                    ),
+                  ),
+
+
+                  SizedBox(height: 16),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      Container(
+                        width: 100,
+                        height: 1,
+                        color: Colors.grey,
+                      ),
+                      SizedBox(width: 8),
+                      Text("or", style: GoogleFonts.poppins(fontSize: 16)),
+                      SizedBox(width: 8),
+                      Container(
+                        width: 100,
+                        height: 1,
+                        color: Colors.grey,
+                      ),
+                    ],
+                  ),
+
+
+                  SizedBox(height: 16),
+                  SizedBox(
+                    width: double.infinity,
+                    height: 50,
+                    child: OutlinedButton.icon(
+                      onPressed: () {},
+                      icon: FaIcon(FontAwesomeIcons.google, color: Colors.red),
+                      label: Text(
+                        "Continue with Google",
+                        style: GoogleFonts.poppins(fontSize: 16, color: Colors.black),
+                      ),
+                      style: OutlinedButton.styleFrom(
+                        side: BorderSide(color: Colors.grey),
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(30),
+                        ),
+                      ),
+                    ),
+                  ),
+
+                  SizedBox(height: 16),
+                  Center(
+                    child: Text.rich(
+                      TextSpan(
+                        text: "Already have an account? ",
+                        style: GoogleFonts.poppins(fontSize: 14),
+                        children: [
+                          TextSpan(
+                            text: "Login",
+                            style: GoogleFonts.poppins(
+                              fontSize: 14,
+                              fontWeight: FontWeight.bold,
+                              color: Colors.blue,
+                            ),
+                          ),
+                        ],
+                      ),
+                    ),
+                  ),
+                ],
+              ),
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+
+
+  Widget _buildTextField(String hintText, IconData icon) {
+    return TextField(
+      decoration: InputDecoration(
+        prefixIcon: Icon(icon, color: Colors.black),
+        hintText: hintText,
+        hintStyle: GoogleFonts.poppins(),
+        border: OutlineInputBorder(
+          borderRadius: BorderRadius.circular(10),
+          borderSide: BorderSide(color: Colors.grey),
+        ),
+        focusedBorder: OutlineInputBorder(
+          borderRadius: BorderRadius.circular(10),
+          borderSide: BorderSide(color: Colors.blue),
+        ),
+      ),
+    );
+  }
+
+  Widget _buildPasswordField(String hintText, bool isPassword) {
+    return TextField(
+      obscureText: isPassword ? !passwordVisible : !confirmPasswordVisible,
+      decoration: InputDecoration(
+        prefixIcon: Icon(Icons.lock, color: Colors.black),
+        suffixIcon: IconButton(
+          icon: Icon(
+            isPassword
+                ? (passwordVisible ? Icons.visibility : Icons.visibility_off)
+                : (confirmPasswordVisible ? Icons.visibility : Icons.visibility_off),
+            color: Colors.black,
+          ),
+          onPressed: () {
+            setState(() {
+              if (isPassword) {
+                passwordVisible = !passwordVisible;
+              } else {
+                confirmPasswordVisible = !confirmPasswordVisible;
+              }
+            });
+          },
+        ),
+        hintText: hintText,
+        hintStyle: GoogleFonts.poppins(),
+        border: OutlineInputBorder(
+          borderRadius: BorderRadius.circular(10),
+          borderSide: BorderSide(color: Colors.grey),
+        ),
+        focusedBorder: OutlineInputBorder(
+          borderRadius: BorderRadius.circular(10),
+          borderSide: BorderSide(color: Colors.blue),
+        ),
+      ),
+    );
+  }
+}

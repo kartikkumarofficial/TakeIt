@@ -1,3 +1,4 @@
+import 'package:TakeIt/pages/login.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -13,7 +14,7 @@ class OnboardingScreen extends StatefulWidget {
 
 class _OnboardingScreenState extends State<OnboardingScreen> {
   String? selectedLanguage;
-  List<String> languages= ['English','Hindi'];
+  List<String> arrlanguages= ['English','Hindi'];
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -95,31 +96,37 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
                   padding:  EdgeInsets.only(top: Get.width*0.2),
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.end,
-                    children: [Container(
+                    children: [
+                      Container(
+                        decoration: BoxDecoration(
+                            color: Color.fromRGBO(254,179,1,1.0),
+                            borderRadius: BorderRadius.only(bottomLeft: Radius.circular(30))
+                        ),
+                        
+                        height: Get.height*0.03,
+                        width: Get.width*0.3,
                       // child: DropdownMenu(label: Text('Language'), dropdownMenuEntries: [],),
-                      child: DropdownButtonHideUnderline(
-                          child: DropdownButton<String>(
-                              value: selectedLanguage, // Selected value
-                              hint: Text("Select Language",style: TextStyle(fontSize: 5),), // Placeholder text
-                              icon: Icon(Icons.arrow_drop_down, color: Colors.black), // Dropdown icon color
-                              dropdownColor: Colors.yellow, 
-                              items: languages.map((String lang) {
-                                return DropdownMenuItem<String>(
-                                  value: lang,
-                                  child: Text(lang, style: TextStyle(color: Colors.black)), // Text color
-                                );
-                              }).toList(),
-                              onChanged: (String? newValue) {
-                                setState(() {
-                                  selectedLanguage = newValue;
-                                });
-                              },),),
-                      decoration: BoxDecoration(
-                        color: Color.fromRGBO(254,179,1,1.0),
-                        borderRadius: BorderRadius.only(bottomLeft: Radius.circular(30))
-                      ),
-                      height: Get.height*0.03,
-                      width: Get.width*0.3,
+                      child: PopupMenuButton<String>(
+
+                      onSelected: (String value){},
+            itemBuilder: (context) => arrlanguages.map((item) {
+              return PopupMenuItem<String>(
+                value: item,
+                child: Text('Languages',style: GoogleFonts.poppins(color: Colors.black),)
+              );
+            }).toList(),
+            child: Padding(
+              padding: EdgeInsets.all(10),
+              // child: Text(
+              //   'Languages'.tr,
+              //   style: GoogleFonts.poppins(
+              //     color: Colors.black,
+              //     fontWeight: FontWeight.bold,
+              //   ),
+              // ),
+            ),
+          ),
+
                     )],
                   ),
                 ),
@@ -130,9 +137,12 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
                     children: [
                       Padding(
                         padding: EdgeInsets.only(left: Get.width*0.18),
-                        child: Text('TakeIt'.tr,style:GoogleFonts.inter(
-                          color: Colors.orange,fontSize:Get.width*0.15,fontStyle:FontStyle.italic,fontWeight: FontWeight.bold
-                        )),
+                        child: Hero(
+                          tag: 'takeit',
+                          child: Text('TakeIt'.tr,style:GoogleFonts.inter(
+                            color: Colors.orange,fontSize:Get.width*0.15,fontStyle:FontStyle.italic,fontWeight: FontWeight.bold
+                          )),
+                        ),
                       ),
 
                     ],
@@ -180,7 +190,9 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
                           height: Get.width*0.13,
                           child: ElevatedButton(
 
-                              onPressed: (){},
+                              onPressed: (){
+                                Get.to(LoginScreen());
+                              },
                               style: ElevatedButton.styleFrom(
                                 backgroundColor: Color.fromRGBO(255, 179, 0, 1),
                                 shadowColor: Colors.black,
