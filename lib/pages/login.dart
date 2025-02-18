@@ -99,8 +99,14 @@ class _LoginScreenState extends State<LoginScreen> {
                   Row(
                     children: [
                       Checkbox(
+                  fillColor: WidgetStateProperty.resolveWith<Color>((Set<WidgetState> states) {
+          if (states.contains(WidgetState.selected)) {
+          return Color.fromRGBO(255, 179, 0, 1); // Checked color
+          }
+          return Color.fromRGBO(255, 179, 0, 1);}),
                         value: isChecked,
                         activeColor:Color.fromRGBO(255, 179, 0, 1),
+                        checkColor: Colors.black,
 
                         onChanged: (value) {
                           setState(() {
@@ -116,23 +122,25 @@ class _LoginScreenState extends State<LoginScreen> {
                   ),
 
                   SizedBox(height: 10),
-                  SizedBox(
-                    width: double.infinity,
-                    height: 50,
-                    child: ElevatedButton(
-                      onPressed: () {},
-                      style: ElevatedButton.styleFrom(
-                        backgroundColor: Colors.blue,
-                        shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(30),
+                  Center(
+                    child: SizedBox(
+                      width: Get.width*0.6,
+                      height: Get.width*0.1,
+                      child: ElevatedButton(
+                        onPressed: () {},
+                        style: ElevatedButton.styleFrom(
+                          backgroundColor: Color.fromRGBO(0,113,220,1.0,),
+                          shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(30),
+                          ),
                         ),
-                      ),
-                      child: Text(
-                        "Sign Up",
-                        style: GoogleFonts.poppins(
-                          fontSize: 18,
-                          fontWeight: FontWeight.bold,
-                          color: Colors.white,
+                        child: Text(
+                          "Sign Up",
+                          style: GoogleFonts.poppins(
+                            fontSize: Get.width*0.045,
+                            fontWeight: FontWeight.w600,
+                            color: Colors.white,
+                          ),
                         ),
                       ),
                     ),
