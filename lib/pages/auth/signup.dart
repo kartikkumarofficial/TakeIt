@@ -161,20 +161,22 @@ class _SignUpScreenState extends State<SignUpScreen> {
 
 
                 SizedBox(height: 16),
-                SizedBox(
-                  width: double.infinity,
-                  height: 50,
-                  child: OutlinedButton.icon(
-                    onPressed: () {},
-                    icon: Image.asset('assets/images/auth/google.png',height: 32,),
-                    label: Text(
-                      "Continue with Google",
-                      style: GoogleFonts.poppins(fontSize: 16, color: Colors.black),
-                    ),
-                    style: OutlinedButton.styleFrom(
-                      side: BorderSide(color: Colors.grey,width: 1.5),
-                      shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(30),
+                Hero(tag: 'google',
+                  child: SizedBox(
+                    width: double.infinity,
+                    height: 50,
+                    child: OutlinedButton.icon(
+                      onPressed: () {},
+                      icon: Image.asset('assets/images/auth/google.png',height: 32,),
+                      label: Text(
+                        "Continue with Google",
+                        style: GoogleFonts.poppins(fontSize: 16, color: Colors.black),
+                      ),
+                      style: OutlinedButton.styleFrom(
+                        side: BorderSide(color: Colors.grey,width: 1.5),
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(30),
+                        ),
                       ),
                     ),
                   ),

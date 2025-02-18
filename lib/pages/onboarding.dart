@@ -188,22 +188,24 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
                         child: Container(
                           width: Get.width*0.8,
                           height: Get.width*0.13,
-                          child: ElevatedButton(
+                          child: Hero(tag: 'google',
+                            child: ElevatedButton(
 
-                              onPressed: (){
-                                Get.to(SignUpScreen());
-                              },
-                              style: ElevatedButton.styleFrom(
-                                backgroundColor: Color.fromRGBO(255, 179, 0, 1),
-                                shadowColor: Colors.black,
-                                elevation: 8,
-                                shape: RoundedRectangleBorder(
-                                  borderRadius: BorderRadius.circular(10)
-                                )
+                                onPressed: (){
+                                  Get.to(SignUpScreen());
+                                },
+                                style: ElevatedButton.styleFrom(
+                                  backgroundColor: Color.fromRGBO(255, 179, 0, 1),
+                                  shadowColor: Colors.black,
+                                  elevation: 8,
+                                  shape: RoundedRectangleBorder(
+                                    borderRadius: BorderRadius.circular(10)
+                                  )
 
-                              ),
+                                ),
 
-                              child:Text('GET STARTED'.tr,style: GoogleFonts.poppins(fontWeight: FontWeight.w700,fontSize: Get.width*0.065,color: Colors.black),) ),
+                                child:Text('GET STARTED'.tr,style: GoogleFonts.poppins(fontWeight: FontWeight.w700,fontSize: Get.width*0.065,color: Colors.black),) ),
+                          ),
                         ),
                       )
                     ],
