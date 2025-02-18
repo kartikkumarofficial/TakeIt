@@ -135,6 +135,7 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
                   child: Row(
                     crossAxisAlignment: CrossAxisAlignment.center,
                     children: [
+
                       Padding(
                         padding: EdgeInsets.only(left: Get.width*0.18),
                         child: Hero(

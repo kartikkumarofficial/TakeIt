@@ -1,4 +1,5 @@
 import 'package:TakeIt/pages/auth/login.dart';
+import 'package:TakeIt/pages/dashboard.dart';
 import 'package:animate_do/animate_do.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -127,7 +128,9 @@ class _SignUpScreenState extends State<SignUpScreen> {
                     width: Get.width*0.65,
                     height: Get.width*0.101,
                     child: ElevatedButton(
-                      onPressed: () {},
+                      onPressed: () {
+                        Get.to(DashboardScreen(),transition: Transition.fadeIn,duration: Duration(milliseconds: 500));
+                      },
                       style: ElevatedButton.styleFrom(
                         elevation: 8,
                         backgroundColor: Color.fromRGBO(0,113,220,1.0,),
