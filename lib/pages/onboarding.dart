@@ -4,9 +4,16 @@ import 'package:google_fonts/google_fonts.dart';
 
 
 
-class OnboardingScreen extends StatelessWidget {
+class OnboardingScreen extends StatefulWidget {
   const OnboardingScreen({super.key});
 
+  @override
+  State<OnboardingScreen> createState() => _OnboardingScreenState();
+}
+
+class _OnboardingScreenState extends State<OnboardingScreen> {
+  String? selectedLanguage;
+  List<String> languages= ['English','Hindi'];
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -36,7 +43,7 @@ class OnboardingScreen extends StatelessWidget {
             ),
           ),
           Positioned(
-            top: Get.width*0.7,
+            top: Get.width*0.75,
             left: -28,
             width: 70,
             height: 70,
@@ -89,7 +96,24 @@ class OnboardingScreen extends StatelessWidget {
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.end,
                     children: [Container(
-                      child: DropdownMenu(label: Text('Language'), dropdownMenuEntries: [],),
+                      // child: DropdownMenu(label: Text('Language'), dropdownMenuEntries: [],),
+                      child: DropdownButtonHideUnderline(
+                          child: DropdownButton<String>(
+                              value: selectedLanguage, // Selected value
+                              hint: Text("Select Language",style: TextStyle(fontSize: 5),), // Placeholder text
+                              icon: Icon(Icons.arrow_drop_down, color: Colors.black), // Dropdown icon color
+                              dropdownColor: Colors.yellow, 
+                              items: languages.map((String lang) {
+                                return DropdownMenuItem<String>(
+                                  value: lang,
+                                  child: Text(lang, style: TextStyle(color: Colors.black)), // Text color
+                                );
+                              }).toList(),
+                              onChanged: (String? newValue) {
+                                setState(() {
+                                  selectedLanguage = newValue;
+                                });
+                              },),),
                       decoration: BoxDecoration(
                         color: Color.fromRGBO(254,179,1,1.0),
                         borderRadius: BorderRadius.only(bottomLeft: Radius.circular(30))
@@ -151,14 +175,24 @@ class OnboardingScreen extends StatelessWidget {
                       ),
                       Padding(
                         padding:  EdgeInsets.only(top: Get.width*0.03),
-                        child: ElevatedButton(
-                            onPressed: (){},
-                            style: ElevatedButton.styleFrom(
-                              backgroundColor: Color.fromRGBO(255, 179, 0, 1),
-                              shadowColor: Colors.black,
-                            ),
+                        child: Container(
+                          width: Get.width*0.8,
+                          height: Get.width*0.13,
+                          child: ElevatedButton(
 
-                            child:Text('GET STARTED'.tr,style: GoogleFonts.poppins(),) ),
+                              onPressed: (){},
+                              style: ElevatedButton.styleFrom(
+                                backgroundColor: Color.fromRGBO(255, 179, 0, 1),
+                                shadowColor: Colors.black,
+                                elevation: 8,
+                                shape: RoundedRectangleBorder(
+                                  borderRadius: BorderRadius.circular(10)
+                                )
+
+                              ),
+
+                              child:Text('GET STARTED'.tr,style: GoogleFonts.poppins(fontWeight: FontWeight.w700,fontSize: Get.width*0.065,color: Colors.black),) ),
+                        ),
                       )
                     ],
                   ),
