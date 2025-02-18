@@ -14,6 +14,7 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return GetMaterialApp(
     debugShowCheckedModeBanner: false,
+    debugShowMaterialGrid: false,
     title: 'GetX Theme Demo',
       locale: Locale('en','US'), //default is english
       fallbackLocale: Locale('en','US'),

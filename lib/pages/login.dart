@@ -1,3 +1,4 @@
+import 'package:animate_do/animate_do.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -19,19 +20,23 @@ class _LoginScreenState extends State<LoginScreen> {
       body: Stack(
         children: [
           Positioned(
-              top: Get.width*0.3,
+              top: Get.width*0.2,
               right: Get.width*0.05,
               child: Image.asset('assets/images/auth/drone.png',height: 150,width: 200,)),
           Positioned(
-              top: Get.width*0.3,
-              right: Get.width*0.5,
-              child: Text("TakeIt",
-                style: GoogleFonts.poppins(
-                  fontSize: Get.width*0.1,
-                  fontWeight: FontWeight.bold,
-                  color: Colors.blue,
-                  fontStyle: FontStyle.italic,
-                ),)),
+              top: Get.width*0.5,
+              right: Get.width*0.48,
+              child: Hero(transitionOnUserGestures: false,
+
+                tag: 'takeit',
+                child: Text("TakeIt",
+                  style: GoogleFonts.poppins(
+                    fontSize: Get.width*0.1,
+                    fontWeight: FontWeight.bold,
+                    color: Color.fromRGBO(0,113,220,1.0,),
+                    fontStyle: FontStyle.italic,
+                  ),),
+              )),
 
 
 
@@ -41,44 +46,62 @@ class _LoginScreenState extends State<LoginScreen> {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  Text("Create",
-                      style: GoogleFonts.interTight(
-                        fontSize: Get.width*0.08,
-                        fontWeight: FontWeight.w800,
-                        color: Colors.black,
-                      ),),
+                  Padding(
+                    padding:  EdgeInsets.only(top: Get.width*0.1),
+                    child: Text("Create",
+                        style: GoogleFonts.interTight(
+                          fontSize: Get.width*0.1,
+                          fontWeight: FontWeight.w800,
+                          color: Colors.black,
+                          height: 1
+                        ),),
+                  ),
                   Text("Your",
-                      style: GoogleFonts.interTight(
-                        fontSize: Get.width*0.08,
-                        fontWeight: FontWeight.w800,
-                        color: Colors.black,
-                      ),),
+                    style: GoogleFonts.interTight(
+                      fontSize: Get.width*0.1,
+                      fontWeight: FontWeight.w800,
+                      color: Colors.black,
+                      height: 1
+                    ),),
                   Text("Account",
+                    style: GoogleFonts.interTight(
+                      fontSize: Get.width*0.1,
+                      fontWeight: FontWeight.w800,
+                      color: Colors.black,
+                      height: 1
+                    ),),
+                  Padding(
+                    padding: EdgeInsets.only(top: 8.0),
+                    child: Text("  And",
                       style: GoogleFonts.interTight(
-                        fontSize: Get.width*0.08,
+                        fontSize: Get.width*0.05,
                         fontWeight: FontWeight.w800,
-                        color: Colors.black,
+                        color: Color.fromRGBO(255, 179, 0, 1),
+                        // height: 1
                       ),),
+                  ),
 
-                  Hero(tag: 'takeit',child: SizedBox(height: 20)),
+
+                  SizedBox(height: 20),
 
                   Padding(
-                    padding:  EdgeInsets.only(top: Get.height*0.3),
-                    child: _buildTextField("Username", Icons.person),
+                    padding:  EdgeInsets.only(top: Get.height*0.05),
+                    child: _buildTextField("Username".tr, Icons.person),
                   ),
                   SizedBox(height: 12),
-                  _buildTextField("Email", Icons.email),
+                  _buildTextField("Email".tr, Icons.email),
                   SizedBox(height: 12),
-                  _buildPasswordField("Password", true),
+                  _buildPasswordField("Password".tr, true),
                   SizedBox(height: 12),
-                  _buildPasswordField("Confirm Password", false),
+                  _buildPasswordField("Confirm Password".tr, false),
 
 
                   Row(
                     children: [
                       Checkbox(
                         value: isChecked,
-                        activeColor: Colors.amber,
+                        activeColor:Color.fromRGBO(255, 179, 0, 1),
+
                         onChanged: (value) {
                           setState(() {
                             isChecked = value!;
@@ -86,7 +109,7 @@ class _LoginScreenState extends State<LoginScreen> {
                         },
                       ),
                       Text(
-                        "I agree to the Terms & Conditions",
+                        "I agree to the Terms & Conditions".tr,
                         style: GoogleFonts.poppins(fontSize: 14),
                       ),
                     ],
