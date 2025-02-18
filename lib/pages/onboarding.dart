@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:google_fonts/google_fonts.dart';
 
 
 
@@ -32,7 +33,7 @@ class OnboardingScreen extends StatelessWidget {
             ),
             Row(
               children: [
-                Text('TakeIt'.tr,style: TextStyle(
+                Text('TakeIt'.tr,style: GoogleFonts.Inter(
                   color: Colors.orange,fontSize:Get.width*0.2
                 ),),
                 Image.asset('assets/images/onboardingscreen/suitcase.png')
