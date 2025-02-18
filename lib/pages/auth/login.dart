@@ -101,7 +101,7 @@ class _LoginScreenState extends State<LoginScreen> {
                         ),
                       ),
                       child: Text(
-                        "Sign Up",
+                        "Login",
                         style: GoogleFonts.poppins(
                           fontSize: Get.width*0.045,
                           fontWeight: FontWeight.w600,
@@ -119,27 +119,29 @@ class _LoginScreenState extends State<LoginScreen> {
                   children: [
 
                     // SizedBox(width: 8),
-                    Text("or", style: GoogleFonts.poppins(fontSize: 16,fontWeight: FontWeight.bold,color: Colors.grey)),
+                    Text("or", style: GoogleFonts.poppins(fontSize: 18,fontWeight: FontWeight.bold,color: Colors.grey)),
 
                   ],
                 ),
 
 
                 SizedBox(height: 16),
-                SizedBox(
-                  width: double.infinity,
-                  height: 50,
-                  child: OutlinedButton.icon(
-                    onPressed: () {},
-                    icon: Image.asset('assets/images/auth/google.png',height: 32,),
-                    label: Text(
-                      "Continue with Google",
-                      style: GoogleFonts.poppins(fontSize: 16, color: Colors.black),
-                    ),
-                    style: OutlinedButton.styleFrom(
-                      side: BorderSide(color: Colors.grey),
-                      shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(30),
+                Center(
+                  child: SizedBox(
+                    width: Get.width*0.82,
+                    height: 44,
+                    child: OutlinedButton.icon(
+                      onPressed: () {},
+                      icon: Image.asset('assets/images/auth/google.png',height: 30,),
+                      label: Text(
+                        "Continue with Google",
+                        style: GoogleFonts.poppins(fontSize: 16, color: Colors.black),
+                      ),
+                      style: OutlinedButton.styleFrom(
+                        side: BorderSide(color: Colors.grey,width: 1.5),
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(30),
+                        ),
                       ),
                     ),
                   ),
@@ -147,7 +149,7 @@ class _LoginScreenState extends State<LoginScreen> {
 
                 // SizedBox(height: 30),
                 Padding(
-                  padding:  EdgeInsets.only(top: Get.width*0.07),
+                  padding:  EdgeInsets.only(top: Get.width*0.30),
                   child: Center(
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.center,

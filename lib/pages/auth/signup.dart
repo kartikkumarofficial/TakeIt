@@ -172,7 +172,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
                       style: GoogleFonts.poppins(fontSize: 16, color: Colors.black),
                     ),
                     style: OutlinedButton.styleFrom(
-                      side: BorderSide(color: Colors.grey),
+                      side: BorderSide(color: Colors.grey,width: 1.5),
                       shape: RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(30),
                       ),
