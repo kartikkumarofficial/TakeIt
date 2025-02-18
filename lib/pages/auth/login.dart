@@ -1,3 +1,4 @@
+import 'package:TakeIt/pages/auth/signup.dart';
 import 'package:animate_do/animate_do.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -20,11 +21,14 @@ class _LoginScreenState extends State<LoginScreen> {
       body: Stack(
         children: [
           Positioned(
-              top: Get.width*0.2,
-              right: Get.width*0.05,
-              child: Image.asset('assets/images/auth/drone.png',height: 150,width: 200,)),
+              top: Get.width*0.4,
+              right: Get.width*0.1,
+              child: Transform.rotate(angle: 0.2,
+                  child: Image.asset('assets/images/onboardingscreen/box.png',
+                    height: 150,
+                    width: 150,))),
           Positioned(
-              top: Get.width*0.5,
+              top: Get.width*0.4,
               right: Get.width*0.48,
               child: Hero(transitionOnUserGestures: false,
 
@@ -46,8 +50,8 @@ class _LoginScreenState extends State<LoginScreen> {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Padding(
-                  padding:  EdgeInsets.only(top: Get.width*0.1),
-                  child: Text("Create",
+                  padding:  EdgeInsets.only(top: Get.width*0.2),
+                  child: Text("Login",
                       style: GoogleFonts.interTight(
                         fontSize: Get.width*0.1,
                         fontWeight: FontWeight.w800,
@@ -55,20 +59,7 @@ class _LoginScreenState extends State<LoginScreen> {
                         height: 1
                       ),),
                 ),
-                Text("Your",
-                  style: GoogleFonts.interTight(
-                    fontSize: Get.width*0.1,
-                    fontWeight: FontWeight.w800,
-                    color: Colors.black,
-                    height: 1
-                  ),),
-                Text("Account",
-                  style: GoogleFonts.interTight(
-                    fontSize: Get.width*0.1,
-                    fontWeight: FontWeight.w800,
-                    color: Colors.black,
-                    height: 1
-                  ),),
+
                 Padding(
                   padding: EdgeInsets.only(top: 8.0),
                   child: Text("  And",
@@ -84,43 +75,18 @@ class _LoginScreenState extends State<LoginScreen> {
                 SizedBox(height: 20),
 
                 Padding(
-                  padding:  EdgeInsets.only(top: Get.height*0.05),
-                  child: _buildTextField("Username".tr, Icons.person),
+                  padding:  EdgeInsets.only(top: Get.height*0.18),
+                  child: _buildTextField("Email".tr, Icons.email),
                 ),
                 SizedBox(height: 12),
-                _buildTextField("Email".tr, Icons.email),
-                SizedBox(height: 12),
+
                 _buildPasswordField("Password".tr, true),
-                SizedBox(height: 12),
-                _buildPasswordField("Confirm Password".tr, false),
 
 
-                Row(
-                  children: [
-                    Checkbox(
-                fillColor: WidgetStateProperty.resolveWith<Color>((Set<WidgetState> states) {
-                    if (states.contains(WidgetState.selected)) {
-                    return Color.fromRGBO(255, 179, 0, 1); // Checked color
-                    }
-                    return Color.fromRGBO(255, 179, 0, 1);}),
-                      value: isChecked,
-                      activeColor:Color.fromRGBO(255, 179, 0, 1),
-                      checkColor: Colors.black,
 
-                      onChanged: (value) {
-                        setState(() {
-                          isChecked = value!;
-                        });
-                      },
-                    ),
-                    Text(
-                      "I agree to the Terms & Conditions".tr,
-                      style: GoogleFonts.poppins(fontSize: 14),
-                    ),
-                  ],
-                ),
 
-                SizedBox(height: 10),
+
+                SizedBox(height: 30),
                 Center(
                   child: SizedBox(
                     width: Get.width*0.65,
@@ -183,21 +149,29 @@ class _LoginScreenState extends State<LoginScreen> {
                 Padding(
                   padding:  EdgeInsets.only(top: Get.width*0.07),
                   child: Center(
-                    child: Text.rich(
-                      TextSpan(
-                        text: "Already have an account? ",
-                        style: GoogleFonts.poppins(fontSize: 14),
-                        children: [
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        Text.rich(
                           TextSpan(
-                            text: "Login",
+                            text: "Don't have an account? ",
+                            style: GoogleFonts.poppins(fontSize: 14),
+                            children: [
+                            ],
+                          ),
+                        ),
+                        InkWell(
+                          onTap: (){
+                            Get.to(SignUpScreen());
+                          },
+                          child: Text("Sign Up",
                             style: GoogleFonts.poppins(
                               fontSize: 14,
                               fontWeight: FontWeight.w500,
                               color: Color.fromRGBO(255,179,0,1),
-                            ),
-                          ),
-                        ],
-                      ),
+                            ),),
+                        )
+                      ],
                     ),
                   ),
                 ),

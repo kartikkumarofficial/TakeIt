@@ -1,4 +1,4 @@
-import 'package:TakeIt/pages/login.dart';
+import 'package:TakeIt/pages/auth/signup.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -191,7 +191,7 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
                           child: ElevatedButton(
 
                               onPressed: (){
-                                Get.to(LoginScreen());
+                                Get.to(SignUpScreen());
                               },
                               style: ElevatedButton.styleFrom(
                                 backgroundColor: Color.fromRGBO(255, 179, 0, 1),
