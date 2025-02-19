@@ -22,8 +22,17 @@ class _DashboardScreenState extends State<DashboardScreen> {
             color: Color.fromRGBO(0,113,220,1.0,),
             fontStyle: FontStyle.italic,
           ),),
+        
 
       ),
+      bottomNavigationBar: BottomNavigationBar(
+        items: [
+          BottomNavigationBarItem(icon: Icon(Icons.home), label: "Home"),
+          BottomNavigationBarItem(icon: Icon(Icons.category_outlined), label: "Categories"),
+          BottomNavigationBarItem(icon: Icon(Icons.pets), label: "Community"),
+          BottomNavigationBarItem(icon: Icon(Icons.person), label: "Profile"),
+          BottomNavigationBarItem(icon: Icon(Icons.account_circle_outlined), label: "Account"),
+        ], ),
     );
   }
 }
