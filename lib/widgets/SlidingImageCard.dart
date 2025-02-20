@@ -10,12 +10,9 @@ class _SlidingImageCardState extends State<SlidingImageCard> {
   PageController(initialPage: 0, viewportFraction: 0.9);
   int _currentPage = 0;
   final List<String> images = [
-    'assets/images/happy1.jpg',
-    'assets/images/happy2.jpg',
-    'assets/images/happy3.jpg',
-    'assets/images/happy4.jpg',
-    'assets/images/happy5.jpg',
-    'assets/images/happy6.png',
+    'assets/images/homescreen/samsung.jpeg',
+    'assets/images/homescreen/samsung.jpeg',
+
 
   ];
 
