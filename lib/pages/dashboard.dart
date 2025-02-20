@@ -81,7 +81,7 @@ class _DashboardScreenState extends State<DashboardScreen> {
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
               Icon(Icons.location_on),
-                Text(location.tr,style: GoogleFonts.inter(color: Colors.grey),),
+                Text('12 Ram Bhavan,36 Street road ,Mullana,',style: GoogleFonts.inter(color: Colors.grey),overflow: TextOverflow.ellipsis,),
                 IconButton(onPressed: (){}, icon: Icon(Icons.arrow_drop_down_sharp))
             ],),
             SlidingImageCard(),
@@ -126,7 +126,7 @@ class _DashboardScreenState extends State<DashboardScreen> {
               ),
             ),
             Padding(
-              padding: const EdgeInsets.all(8.0),
+              padding: EdgeInsets.all(8.0),
               child: Text("Recently Viewed Items", style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold)),
             ),
             SizedBox(
