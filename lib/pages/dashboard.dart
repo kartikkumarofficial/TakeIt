@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 
+import '../widgets/bottomnavigationbar.dart';
+
 class DashboardScreen extends StatefulWidget {
   const DashboardScreen({super.key});
 
@@ -10,51 +12,150 @@ class DashboardScreen extends StatefulWidget {
 }
 
 class _DashboardScreenState extends State<DashboardScreen> {
+  int _selectedIndex = 0;
+
+  void _onItemTapped(int index) {
+    setState(() {
+      _selectedIndex = index;
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        backgroundColor: Color.fromRGBO(0,113,220,1.0,),
-        title: Text("TakeIt",
+        backgroundColor: Color.fromRGBO(0, 113, 220, 1.0),
+        title: Text(
+          "TakeIt",
           style: GoogleFonts.poppins(
-            fontSize: Get.width*0.1,
+            fontSize: Get.width * 0.08,
             fontWeight: FontWeight.bold,
             color: Colors.white,
             fontStyle: FontStyle.italic,
-          ),),
-        
-
-      ),
-      bottomNavigationBar: BottomNavigationBar(
-
-        items: [
-          BottomNavigationBarItem(icon: Icon(Icons.home), label: "Home"),
-          BottomNavigationBarItem(icon: Icon(Icons.category_outlined), label: "Categories"),
-          BottomNavigationBarItem(icon: Icon(Icons.pets), label: "Community"),
-          BottomNavigationBarItem(icon: Icon(Icons.person), label: "Profile"),
-          BottomNavigationBarItem(icon: Icon(Icons.account_circle_outlined), label: "Account"),
+          ),
+        ),
+        actions: [
+          IconButton(onPressed: () {}, icon: Icon(Icons.account_balance_wallet_outlined)),
+          IconButton(onPressed: () {}, icon: Icon(Icons.favorite_border)),
         ],
-
       ),
+      bottomNavigationBar: BottomNavBar(
+        selectedIndex: _selectedIndex,
+        onItemTapped: _onItemTapped,
+      ),
+      body: SingleChildScrollView(
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: Container(
+                decoration: BoxDecoration(
+                  color: Colors.white,
+                  borderRadius: BorderRadius.circular(8),
+                  boxShadow: [BoxShadow(color: Colors.black12, blurRadius: 5)],
+                ),
+                child: Row(
+                  children: [
+                    IconButton(onPressed: () {}, icon: Icon(Icons.search)),
+                    Expanded(
+                      child: TextFormField(
+                        decoration: InputDecoration(
+                          hintText: "Search",
+                          border: InputBorder.none,
+                        ),
+                      ),
+                    ),
+                    IconButton(
+                      onPressed: () {},
+                      icon: Icon(Icons.mic),
+                      color: Colors.blue,
+                    ),
+                  ],
+                ),
+              ),
+            ),
+            Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 8.0),
+              child: ClipRRect(
+                borderRadius: BorderRadius.circular(10),
+                child: Image.asset(
+                  'assets/images/homescreen/banner.png',
+                  width: double.infinity,
+                  fit: BoxFit.cover,
+                ),
+              ),
+            ),
+            SizedBox(height: 10),
+            SizedBox(
+              height: 100,
+              child: ListView(
+                scrollDirection: Axis.horizontal,
+                children: [
+                  categoryItem('Male', 'male.png'),
+                  categoryItem('Female', 'female.png'),
+                  categoryItem('Kids', 'kids.png'),
+                  categoryItem('Electronics', 'electronics.png'),
+                  categoryItem('Home', 'home.png'),
+                ],
+              ),
+            ),
+            Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: Text("Recently Viewed Items", style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold)),
+            ),
+            SizedBox(
+              height: 120,
+              child: ListView(
+                scrollDirection: Axis.horizontal,
+                children: [
+                  productItem('Kids Clothing', 'kids_clothing.png'),
+                  productItem('Gifts', 'gifts.png'),
+                  productItem('Men’s Watches', 'mens_watch.png'),
+                  productItem('Body Lotion', 'body_lotion.png'),
+                ],
+              ),
+            ),
+          ],
+        ),
+      ),
+    );
+  }
 
-      body: Row(
+  Widget categoryItem(String title, String imagePath) {
+    return Padding(
+      padding: const EdgeInsets.symmetric(horizontal: 8.0),
+      child: Column(
+        children: [
+          CircleAvatar(
+            radius: 30,
+            backgroundImage: AssetImage('assets/images/homescreen/$imagePath'),
+          ),
+          SizedBox(height: 5),
+          Text(title, style: TextStyle(fontSize: 14)),
+        ],
+      ),
+    );
+  }
+
+  Widget productItem(String title, String imagePath) {
+    return Padding(
+      padding: const EdgeInsets.symmetric(horizontal: 8.0),
+      child: Column(
         children: [
           Container(
-            color: Colors.white,
-            child:Row(
-              children: [
-                IconButton(onPressed: (){}, icon: Icon(Icons.search)),
-                TextFormField(),
-                Container(
-                  decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(8),
-                    color: Color.fromRGBO(147,203,255,1.0)
-                  ),
-                )
-              ],
-            )
-            ,
-          )
+            width: 80,
+            height: 80,
+            decoration: BoxDecoration(
+              borderRadius: BorderRadius.circular(10),
+              image: DecorationImage(
+                image: AssetImage('assets/images/homescreen/$imagePath'),
+                fit: BoxFit.cover,
+              ),
+            ),
+          ),
+          SizedBox(height: 5),
+          Text(title, style: TextStyle(fontSize: 12)),
         ],
       ),
     );
