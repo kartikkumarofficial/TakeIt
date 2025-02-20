@@ -140,12 +140,12 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
                         padding: EdgeInsets.only(left: Get.width*0.18),
                         child: Hero(
                           tag: 'takeit',
-                          flightShuttleBuilder: (flightContext, animation, direction, fromContext, toContext) {
-                            return FadeTransition(
-                              opacity: animation.drive(Tween(begin: 0.3, end: 1.0 ).chain(CurveTween(curve: Curves.easeInOut))),
-                              child: toContext.widget,
-                            );
-                          },
+                          // flightShuttleBuilder: (flightContext, animation, direction, fromContext, toContext) {
+                          //   return FadeTransition(
+                          //     opacity: animation.drive(Tween(begin: 1.0, end: 2.0 ).chain(CurveTween(curve: Curves.easeInOut))),
+                          //     child: toContext.widget,
+                          //   );
+                          // },
                           child: Text(
                             'TakeIt'.tr,
                             style: GoogleFonts.inter(
