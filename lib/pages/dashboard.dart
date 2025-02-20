@@ -1,3 +1,4 @@
+import 'package:TakeIt/widgets/SlidingImageCard.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -12,6 +13,7 @@ class DashboardScreen extends StatefulWidget {
 }
 
 class _DashboardScreenState extends State<DashboardScreen> {
+  String location = '12 Ram Bhavan,36 Street road ,Mullana,';
   int _selectedIndex = 0;
 
   void _onItemTapped(int index) {
@@ -75,6 +77,14 @@ class _DashboardScreenState extends State<DashboardScreen> {
                 ),
               ),
             ),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+              Icon(Icons.location_on),
+                Text(location.tr,style: GoogleFonts.inter(color: Colors.grey),),
+                IconButton(onPressed: (){}, icon: Icon(Icons.arrow_drop_down_sharp))
+            ],),
+            SlidingImageCard(),
             Stack(
               children: [
                 ClipRRect(

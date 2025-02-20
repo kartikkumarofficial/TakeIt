@@ -12,6 +12,8 @@ class _SlidingImageCardState extends State<SlidingImageCard> {
   final List<String> images = [
     'assets/images/homescreen/samsung.jpeg',
     'assets/images/homescreen/samsung.jpeg',
+    'assets/images/homescreen/earbuds.png',
+    'assets/images/homescreen/earbuds.png',
 
 
   ];
@@ -41,19 +43,17 @@ class _SlidingImageCardState extends State<SlidingImageCard> {
   @override
   Widget build(BuildContext context) {
     return SizedBox(
-      height: 200,
+      // height: 200,
       child: PageView.builder(
         controller: _controller,
         itemCount: images.length,
         itemBuilder: (context, index) {
-          return Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 8.0),
-            child: ClipRRect(
-              borderRadius: BorderRadius.circular(15),
-              child: Image.asset(
-                images[index],
-                fit: BoxFit.cover,
-              ),
+          return ClipRRect(
+            // borderRadius: BorderRadius.circular(15),
+            child: Image.asset(
+              images[index],
+              width: double.infinity,
+              fit: BoxFit.cover,
             ),
           );
         },
