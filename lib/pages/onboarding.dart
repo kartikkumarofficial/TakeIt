@@ -140,10 +140,23 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
                         padding: EdgeInsets.only(left: Get.width*0.18),
                         child: Hero(
                           tag: 'takeit',
-                          child: Text('TakeIt'.tr,style:GoogleFonts.inter(
-                            color: Colors.orange,fontSize:Get.width*0.15,fontStyle:FontStyle.italic,fontWeight: FontWeight.bold
-                          )),
+                          flightShuttleBuilder: (flightContext, animation, direction, fromContext, toContext) {
+                            return FadeTransition(
+                              opacity: animation.drive(Tween(begin: 0.3, end: 1.0 ).chain(CurveTween(curve: Curves.easeInOut))),
+                              child: toContext.widget,
+                            );
+                          },
+                          child: Text(
+                            'TakeIt'.tr,
+                            style: GoogleFonts.inter(
+                              color: Colors.orange,
+                              fontSize: Get.width * 0.15, // Larger in Screen 1
+                              fontStyle: FontStyle.italic,
+                              fontWeight: FontWeight.bold,
+                            ),
+                          ),
                         ),
+
                       ),
 
                     ],
@@ -205,7 +218,11 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
 
                                 ),
 
-                                child:Text('GET STARTED'.tr,style: GoogleFonts.poppins(fontWeight: FontWeight.w700,fontSize: Get.width*0.065,color: Colors.black),) ),
+                                child:Text('GET STARTED'.tr,style: GoogleFonts.poppins(
+                                    fontWeight: FontWeight.w700,
+                                    fontSize: Get.width*0.065,
+                                    color: Colors.black
+                                ),) ),
                           ),
                         ),
                       )
