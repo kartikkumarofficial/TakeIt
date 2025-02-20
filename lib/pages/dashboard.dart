@@ -1,3 +1,5 @@
+import 'dart:ui';
+
 import 'package:TakeIt/widgets/SlidingImageCard.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -13,8 +15,11 @@ class DashboardScreen extends StatefulWidget {
 }
 
 class _DashboardScreenState extends State<DashboardScreen> {
+  late AnimationController _controller;
+  late Animation<double> _animation;
   String location = '12 Ram Bhavan,36 Street road ,Mullana,';
   int _selectedIndex = 0;
+
 
   void _onItemTapped(int index) {
     setState(() {
@@ -27,19 +32,34 @@ class _DashboardScreenState extends State<DashboardScreen> {
     return Scaffold(
       appBar: AppBar(
         backgroundColor: Color.fromRGBO(0, 113, 220, 1.0),
-        title: Text(
-          "TakeIt",
-          style: GoogleFonts.poppins(
-            fontSize: Get.width * 0.08,
-            fontWeight: FontWeight.bold,
-            color: Colors.white,
-            fontStyle: FontStyle.italic,
+        title: Hero(
+          tag: 'takeit',
+          flightShuttleBuilder: (flightContext, animation, flightDirection, fromHeroContext, toHeroContext) {
+            return AnimatedBuilder(
+              animation: animation,
+              builder: (context, child) {
+                return Text(
+                  "TakeIt",
+                  style: GoogleFonts.poppins(
+                    fontSize: lerpDouble(Get.width * 0.1, Get.width * 0.08, animation.value),
+                    fontWeight: FontWeight.bold,
+                    color: Colors.white,
+                    fontStyle: FontStyle.italic,
+                  ),
+                );
+              },
+            );
+          },
+          child: Text(
+            "TakeIt",
+            style: GoogleFonts.poppins(
+              fontSize: Get.width * 0.08, // Original size
+              fontWeight: FontWeight.bold,
+              color: Colors.white,
+              fontStyle: FontStyle.italic,
+            ),
           ),
         ),
-        actions: [
-          IconButton(onPressed: () {}, icon: Icon(Icons.account_balance_wallet_outlined)),
-          IconButton(onPressed: () {}, icon: Icon(Icons.favorite_border)),
-        ],
       ),
       bottomNavigationBar: BottomNavBar(
         selectedIndex: _selectedIndex,
@@ -84,7 +104,7 @@ class _DashboardScreenState extends State<DashboardScreen> {
                 Text('12 Ram Bhavan,36 Street road ,Mullana,',style: GoogleFonts.inter(color: Colors.grey),overflow: TextOverflow.ellipsis,),
                 IconButton(onPressed: (){}, icon: Icon(Icons.arrow_drop_down_sharp))
             ],),
-            SlidingImageCard(),
+            // SlidingImageCard(),
             Stack(
               children: [
                 ClipRRect(
@@ -152,6 +172,7 @@ class _DashboardScreenState extends State<DashboardScreen> {
       padding: const EdgeInsets.symmetric(horizontal: 8.0),
       child: Column(
         children: [
+
           CircleAvatar(
             radius: 30,
             backgroundImage: AssetImage('assets/images/homescreen/$imagePath'),
