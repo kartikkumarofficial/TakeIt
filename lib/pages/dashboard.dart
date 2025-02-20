@@ -75,16 +75,31 @@ class _DashboardScreenState extends State<DashboardScreen> {
                 ),
               ),
             ),
-            Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 8.0),
-              child: ClipRRect(
-                borderRadius: BorderRadius.circular(10),
-                child: Image.asset(
-                  'assets/images/homescreen/banner.png',
-                  width: double.infinity,
-                  fit: BoxFit.cover,
+            Stack(
+              children: [
+                ClipRRect(
+                  // borderRadius: BorderRadius.circular(10),
+                  child: Image.asset(
+                    'assets/images/homescreen/samsung.jpeg',
+                    width: double.infinity,
+                    fit: BoxFit.cover,
+                  ),
                 ),
-              ),
+                Positioned(
+                  bottom: Get.width*0.1,
+                    left: Get.width*0.045,
+                    child: Container(
+                      decoration: BoxDecoration(color: Colors.white,
+                      borderRadius: BorderRadius.circular(5)),
+                      child: Padding(
+                        padding: const EdgeInsets.all(2),
+                        child: Text(' FROM \$2___  ',
+                          style: GoogleFonts.poppins(
+                            fontWeight: FontWeight.w400
+                          ),),
+                      ),)),
+
+              ],
             ),
             SizedBox(height: 10),
             SizedBox(
