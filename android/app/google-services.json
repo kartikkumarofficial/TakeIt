@@ -12,7 +12,20 @@
           "package_name": "com.example.takeit"
         }
       },
-      "oauth_client": [],
+      "oauth_client": [
+        {
+          "client_id": "560768402536-f48fdc2of2p8q55reehf9uk7pg9utmrf.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.takeit",
+            "certificate_hash": "f74eb5a3d9b0836a115a07fc57f2c9f2bb837a6a"
+          }
+        },
+        {
+          "client_id": "560768402536-pn3stnljlojjckcelchaonlbmehonvhs.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
       "api_key": [
         {
           "current_key": "AIzaSyDykC7w_umrJhMawGZxEyGED7Yx5O8eI1g"
@@ -20,7 +33,19 @@
       ],
       "services": {
         "appinvite_service": {
-          "other_platform_oauth_client": []
+          "other_platform_oauth_client": [
+            {
+              "client_id": "560768402536-pn3stnljlojjckcelchaonlbmehonvhs.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "560768402536-1bpg14k5q883lo6urr2gshp389vmivot.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.example.takeit"
+              }
+            }
+          ]
         }
       }
     }
