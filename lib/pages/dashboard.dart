@@ -1,5 +1,6 @@
 import 'dart:ui';
 
+import 'package:TakeIt/widgets/RotatedContainer.dart';
 import 'package:TakeIt/widgets/SlidingImageCard.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -148,7 +149,7 @@ class _DashboardScreenState extends State<DashboardScreen> {
             Row(
               children: [
                 Padding(
-                  padding: EdgeInsets.only(left: Get.width*0.02),
+                  padding: EdgeInsets.only(left: Get.width*0.035),
                   child: Container(
                     height: Get.width*0.351,
                     width: Get.width*0.3,
@@ -181,7 +182,8 @@ class _DashboardScreenState extends State<DashboardScreen> {
                             color: Colors.white,
                           ),
                           width: double.infinity,
-                          child: Column(children: [
+                          child: Column(
+                            children: [
                             Text('Tv & Laptop',overflow: TextOverflow.ellipsis,style: GoogleFonts.inter(
                               fontSize: Get.width*0.04,
 
@@ -189,7 +191,8 @@ class _DashboardScreenState extends State<DashboardScreen> {
                             Text('From \$100/M',
                               overflow: TextOverflow.ellipsis,
                               style: GoogleFonts.inter(
-                              fontSize: Get.width*0.04,fontWeight: FontWeight.w500
+                              fontSize: Get.width*0.04,
+                                  fontWeight: FontWeight.w500
                             ),),
                           ]
                             ,)
@@ -197,6 +200,136 @@ class _DashboardScreenState extends State<DashboardScreen> {
 
                       ],
 
+                    ),
+                  ),
+                ),
+                Padding(
+                  padding: EdgeInsets.only(left: Get.width*0.03),
+                  child: Container(
+                    height: Get.width*0.351,
+                    width: Get.width*0.3,
+                    decoration: BoxDecoration(
+                        color: Color.fromRGBO(216, 235, 252, 1),
+                        borderRadius: BorderRadius.circular(10)
+                    ),
+                    child: Stack(
+                      children: [
+                        Positioned(
+                          // left: Get.width*0.01,
+                          // right: 1,
+                          bottom: -Get.width*0.09,
+                          child: Image.asset('assets/images/homescreen/phone.png',
+                            fit: BoxFit.fitWidth,
+                            width: Get.width*0.32,),),
+                        Column(
+                          mainAxisAlignment: MainAxisAlignment.end,
+                          children: [
+                            Container(
+                              // color: Colors.red,
+                              child: Padding(
+                                padding: EdgeInsets.only(left: 2,top: 15),
+                              ),
+                            ),
+                            Container(
+                              decoration: BoxDecoration(
+                                borderRadius: BorderRadius.only(
+                                    topLeft: Radius.circular(5),
+                                    topRight: Radius.circular(5),
+                                    bottomLeft: Radius.circular(10),
+                                    bottomRight: Radius.circular(10)
+                                ),
+                                color: Colors.white,
+                              ),
+                              width: double.infinity,
+                              child: Column(
+                                children: [
+                                  Text('Tv & Laptop',overflow: TextOverflow.ellipsis,style: GoogleFonts.inter(
+                                    fontSize: Get.width*0.04,
+
+                                  ),),
+                                  Text('From \$100/M',
+                                    overflow: TextOverflow.ellipsis,
+                                    style: GoogleFonts.inter(
+                                        fontSize: Get.width*0.04,
+                                        fontWeight: FontWeight.w500
+                                    ),),
+                                ]
+                                ,)
+                              ,)
+
+                          ],
+
+                        ),
+
+
+
+                      ],
+                    ),
+                  ),
+                ),
+                Padding(
+                  padding: EdgeInsets.only(left: Get.width*0.02),
+                  child: Container(
+                    height: Get.width*0.351,
+                    width: Get.width*0.3,
+                    decoration: BoxDecoration(
+                        color: Color.fromRGBO(216, 235, 252, 1),
+                        borderRadius: BorderRadius.circular(10)
+                    ),
+                    child: Stack(
+                      children: [
+                        Positioned(
+                          left: Get.width*0.01,
+                          // right: 1,
+                          top: 0,
+                          bottom: Get.width*0.012,
+                          child: Image.asset('assets/images/homescreen/vaseline.png',
+                            fit: BoxFit.fitWidth,
+                            // height: Get.width*0.1,
+                            width: Get.width*0.292,),),
+                        Column(
+                          mainAxisAlignment: MainAxisAlignment.end,
+                          children: [
+                            Container(
+                              // color: Colors.red,
+                              child: Padding(
+                                padding: EdgeInsets.only(left: 2,top: 15),
+                              ),
+                            ),
+                            Container(
+                              decoration: BoxDecoration(
+                                borderRadius: BorderRadius.only(
+                                    topLeft: Radius.circular(5),
+                                    topRight: Radius.circular(5),
+                                    bottomLeft: Radius.circular(10),
+                                    bottomRight: Radius.circular(10)
+                                ),
+                                color: Colors.white,
+                              ),
+                              width: double.infinity,
+                              child: Column(
+                                children: [
+                                  Text('Tv & Laptop',overflow: TextOverflow.ellipsis,style: GoogleFonts.inter(
+                                    fontSize: Get.width*0.04,
+
+                                  ),),
+                                  Text('From \$100/M',
+                                    overflow: TextOverflow.ellipsis,
+                                    style: GoogleFonts.inter(
+                                        fontSize: Get.width*0.04,
+                                        fontWeight: FontWeight.w500
+                                    ),),
+                                ]
+                                ,)
+                              ,)
+
+                          ],
+
+                        ),
+
+
+
+                      ],
                     ),
                   ),
                 ),
@@ -229,18 +362,21 @@ class _DashboardScreenState extends State<DashboardScreen> {
   }
 
   Widget categoryItem(String title, String imagePath) {
-    return Padding(
-      padding: const EdgeInsets.symmetric(horizontal: 8.0),
-      child: Column(
-        children: [
+    return InkWell(
+      onTap:(){ Get.to(Rotated3DContainer());},
+      child: Padding(
+        padding: const EdgeInsets.symmetric(horizontal: 8.0),
+        child: Column(
+          children: [
 
-          CircleAvatar(
-            radius: 30,
-            backgroundImage: AssetImage('assets/images/homescreen/$imagePath'),
-          ),
-          SizedBox(height: 5),
-          Text(title, style: TextStyle(fontSize: 14)),
-        ],
+            CircleAvatar(
+              radius: 30,
+              backgroundImage: AssetImage('assets/images/homescreen/$imagePath'),
+            ),
+            SizedBox(height: 5),
+            Text(title, style: TextStyle(fontSize: 14)),
+          ],
+        ),
       ),
     );
   }

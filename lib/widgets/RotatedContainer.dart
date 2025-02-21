@@ -87,9 +87,3 @@ class MyAppr extends StatelessWidget {
     );
   }
 }
-
-void main() {
-  runApp(MaterialApp(
-    home: MyAppr(),
-  ));
-}
