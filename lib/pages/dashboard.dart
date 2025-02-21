@@ -146,196 +146,461 @@ class _DashboardScreenState extends State<DashboardScreen> {
                 ],
               ),
             ),
-            Row(
-              children: [
-                Padding(
-                  padding: EdgeInsets.only(left: Get.width*0.035),
-                  child: Container(
-                    height: Get.width*0.351,
-                    width: Get.width*0.3,
-                    decoration: BoxDecoration(
-                        color: Color.fromRGBO(216, 235, 252, 1),
-                        borderRadius: BorderRadius.circular(10)
-                    ),
-                    child: Column(
-                      mainAxisAlignment: MainAxisAlignment.start,
-                      children: [
-                        Container(
-                          // color: Colors.red,
-                          child: Padding(
-                            padding: EdgeInsets.only(left: 2,top: 15),
-                            child: ClipRRect(
-                              child: Image.asset('assets/images/homescreen/tv.png',fit: BoxFit.fitWidth,
-                                width: Get.width*0.3,
-                                height: Get.width*0.2,),
+            SingleChildScrollView(
+              scrollDirection: Axis.horizontal,
+              child: Row(
+                children: [
+                  Padding(
+                    padding: EdgeInsets.only(left: Get.width*0.035),
+                    child: Container(
+                      height: Get.width*0.351,
+                      width: Get.width*0.3,
+                      decoration: BoxDecoration(
+                          color: Color.fromRGBO(216, 235, 252, 1),
+                          borderRadius: BorderRadius.circular(10)
+                      ),
+                      child: Column(
+                        mainAxisAlignment: MainAxisAlignment.start,
+                        children: [
+                          Container(
+                            // color: Colors.red,
+                            child: Padding(
+                              padding: EdgeInsets.only(left: 2,top: 15),
+                              child: ClipRRect(
+                                child: Image.asset('assets/images/homescreen/tv.png',fit: BoxFit.fitWidth,
+                                  width: Get.width*0.3,
+                                  height: Get.width*0.2,),
+                              ),
                             ),
                           ),
-                        ),
-                        Container(
-                          decoration: BoxDecoration(
-                            borderRadius: BorderRadius.only(
-                                topLeft: Radius.circular(5),
-                                topRight: Radius.circular(5),
-                                bottomLeft: Radius.circular(10),
-                                bottomRight: Radius.circular(10)
+                          Container(
+                            decoration: BoxDecoration(
+                              borderRadius: BorderRadius.only(
+                                  topLeft: Radius.circular(5),
+                                  topRight: Radius.circular(5),
+                                  bottomLeft: Radius.circular(10),
+                                  bottomRight: Radius.circular(10)
+                              ),
+                              color: Colors.white,
                             ),
-                            color: Colors.white,
-                          ),
-                          width: double.infinity,
-                          child: Column(
-                            children: [
-                            Text('Tv & Laptop',overflow: TextOverflow.ellipsis,style: GoogleFonts.inter(
-                              fontSize: Get.width*0.04,
+                            width: double.infinity,
+                            child: Column(
+                              children: [
+                              Text('Tv & Laptop',overflow: TextOverflow.ellipsis,style: GoogleFonts.inter(
+                                fontSize: Get.width*0.04,
 
-                            ),),
-                            Text('From \$100/M',
-                              overflow: TextOverflow.ellipsis,
-                              style: GoogleFonts.inter(
-                              fontSize: Get.width*0.04,
-                                  fontWeight: FontWeight.w500
-                            ),),
-                          ]
+                              ),),
+                              Text('From \$100/M',
+                                overflow: TextOverflow.ellipsis,
+                                style: GoogleFonts.inter(
+                                fontSize: Get.width*0.04,
+                                    fontWeight: FontWeight.w500
+                              ),),
+                            ]
+                              ,)
                             ,)
-                          ,)
 
-                      ],
+                        ],
 
+                      ),
                     ),
                   ),
-                ),
-                Padding(
-                  padding: EdgeInsets.only(left: Get.width*0.03),
-                  child: Container(
-                    height: Get.width*0.351,
-                    width: Get.width*0.3,
-                    decoration: BoxDecoration(
-                        color: Color.fromRGBO(216, 235, 252, 1),
-                        borderRadius: BorderRadius.circular(10)
-                    ),
-                    child: Stack(
-                      children: [
-                        Positioned(
-                          // left: Get.width*0.01,
-                          // right: 1,
-                          bottom: -Get.width*0.09,
-                          child: Image.asset('assets/images/homescreen/phone.png',
-                            fit: BoxFit.fitWidth,
-                            width: Get.width*0.32,),),
-                        Column(
-                          mainAxisAlignment: MainAxisAlignment.end,
-                          children: [
-                            Container(
-                              // color: Colors.red,
-                              child: Padding(
-                                padding: EdgeInsets.only(left: 2,top: 15),
-                              ),
-                            ),
-                            Container(
-                              decoration: BoxDecoration(
-                                borderRadius: BorderRadius.only(
-                                    topLeft: Radius.circular(5),
-                                    topRight: Radius.circular(5),
-                                    bottomLeft: Radius.circular(10),
-                                    bottomRight: Radius.circular(10)
+                  Padding(
+                    padding: EdgeInsets.only(left: Get.width*0.023),
+                    child: Container(
+                      height: Get.width*0.351,
+                      width: Get.width*0.3,
+                      decoration: BoxDecoration(
+                          color: Color.fromRGBO(216, 235, 252, 1),
+                          borderRadius: BorderRadius.circular(10)
+                      ),
+                      child: Stack(
+                        children: [
+                          Positioned(
+                            // left: Get.width*0.01,
+                            // right: 1,
+                            bottom: -Get.width*0.1,
+                            child: Image.asset('assets/images/homescreen/phone.png',
+                              fit: BoxFit.fitWidth,
+                              width: Get.width*0.32,),),
+                          Column(
+                            mainAxisAlignment: MainAxisAlignment.end,
+                            children: [
+                              Container(
+                                // color: Colors.red,
+                                child: Padding(
+                                  padding: EdgeInsets.only(left: 2,top: 15),
                                 ),
-                                color: Colors.white,
                               ),
-                              width: double.infinity,
-                              child: Column(
-                                children: [
-                                  Text('Tv & Laptop',overflow: TextOverflow.ellipsis,style: GoogleFonts.inter(
-                                    fontSize: Get.width*0.04,
-
-                                  ),),
-                                  Text('From \$100/M',
-                                    overflow: TextOverflow.ellipsis,
-                                    style: GoogleFonts.inter(
-                                        fontSize: Get.width*0.04,
-                                        fontWeight: FontWeight.w500
-                                    ),),
-                                ]
-                                ,)
-                              ,)
-
-                          ],
-
-                        ),
-
-
-
-                      ],
-                    ),
-                  ),
-                ),
-                Padding(
-                  padding: EdgeInsets.only(left: Get.width*0.02),
-                  child: Container(
-                    height: Get.width*0.351,
-                    width: Get.width*0.3,
-                    decoration: BoxDecoration(
-                        color: Color.fromRGBO(216, 235, 252, 1),
-                        borderRadius: BorderRadius.circular(10)
-                    ),
-                    child: Stack(
-                      children: [
-                        Positioned(
-                          left: Get.width*0.01,
-                          // right: 1,
-                          top: 0,
-                          bottom: Get.width*0.012,
-                          child: Image.asset('assets/images/homescreen/vaseline.png',
-                            fit: BoxFit.fitWidth,
-                            // height: Get.width*0.1,
-                            width: Get.width*0.292,),),
-                        Column(
-                          mainAxisAlignment: MainAxisAlignment.end,
-                          children: [
-                            Container(
-                              // color: Colors.red,
-                              child: Padding(
-                                padding: EdgeInsets.only(left: 2,top: 15),
-                              ),
-                            ),
-                            Container(
-                              decoration: BoxDecoration(
-                                borderRadius: BorderRadius.only(
-                                    topLeft: Radius.circular(5),
-                                    topRight: Radius.circular(5),
-                                    bottomLeft: Radius.circular(10),
-                                    bottomRight: Radius.circular(10)
+                              Container(
+                                decoration: BoxDecoration(
+                                  borderRadius: BorderRadius.only(
+                                      topLeft: Radius.circular(5),
+                                      topRight: Radius.circular(5),
+                                      bottomLeft: Radius.circular(10),
+                                      bottomRight: Radius.circular(10)
+                                  ),
+                                  color: Colors.white,
                                 ),
-                                color: Colors.white,
-                              ),
-                              width: double.infinity,
-                              child: Column(
-                                children: [
-                                  Text('Tv & Laptop',overflow: TextOverflow.ellipsis,style: GoogleFonts.inter(
-                                    fontSize: Get.width*0.04,
+                                width: double.infinity,
+                                child: Column(
+                                  children: [
+                                    Text('Latest Mobile',overflow: TextOverflow.ellipsis,style: GoogleFonts.inter(
+                                      fontSize: Get.width*0.04,
 
-                                  ),),
-                                  Text('From \$100/M',
-                                    overflow: TextOverflow.ellipsis,
-                                    style: GoogleFonts.inter(
-                                        fontSize: Get.width*0.04,
-                                        fontWeight: FontWeight.w500
                                     ),),
-                                ]
+                                    Text('From \$60/M',
+                                      overflow: TextOverflow.ellipsis,
+                                      style: GoogleFonts.inter(
+                                          fontSize: Get.width*0.04,
+                                          fontWeight: FontWeight.w500
+                                      ),),
+                                  ]
+                                  ,)
                                 ,)
-                              ,)
 
-                          ],
+                            ],
 
-                        ),
-
+                          ),
 
 
-                      ],
+
+                        ],
+                      ),
                     ),
                   ),
-                ),
+                  Padding(
+                    padding: EdgeInsets.only(left: Get.width*0.023),
+                    child: Container(
+                      height: Get.width*0.351,
+                      width: Get.width*0.28,
+                      decoration: BoxDecoration(
+                          color: Color.fromRGBO(216, 235, 252, 1),
+                          borderRadius: BorderRadius.circular(10)
+                      ),
+                      child: Stack(
+                        children: [
+                          Positioned(
+                            left: Get.width*0.01,
+                            // right: 1,
+                            top: 0,
+                            bottom: Get.width*0.012,
+                            child: Image.asset('assets/images/homescreen/vaseline.png',
+                              fit: BoxFit.fitWidth,
+                              // height: Get.width*0.005,
+                              width: Get.width*0.292,),),
+                          Column(
+                            mainAxisAlignment: MainAxisAlignment.end,
+                            children: [
+                              Container(
+                                // color: Colors.red,
+                                child: Padding(
+                                  padding: EdgeInsets.only(left: 2,top: 15),
+                                ),
+                              ),
+                              Container(
+                                decoration: BoxDecoration(
+                                  borderRadius: BorderRadius.only(
+                                      topLeft: Radius.circular(5),
+                                      topRight: Radius.circular(5),
+                                      bottomLeft: Radius.circular(10),
+                                      bottomRight: Radius.circular(10)
+                                  ),
+                                  color: Colors.white,
+                                ),
+                                width: double.infinity,
+                                child: Column(
+                                  children: [
+                                    Text('Beauty Products',overflow: TextOverflow.ellipsis,style: GoogleFonts.inter(
+                                      fontSize: Get.width*0.04,
+
+                                    ),),
+                                    Text('From \$9/M',
+                                      overflow: TextOverflow.ellipsis,
+                                      style: GoogleFonts.inter(
+                                          fontSize: Get.width*0.04,
+                                          fontWeight: FontWeight.w500
+                                      ),),
+                                  ]
+                                  ,)
+                                ,)
+
+                            ],
+
+                          ),
 
 
-              ],
+
+                        ],
+                      ),
+                    ),
+                  ),
+                  Padding(
+                    padding: EdgeInsets.only(left: Get.width*0.023),
+                    child: Container(
+                      height: Get.width*0.351,
+                      width: Get.width*0.3,
+                      decoration: BoxDecoration(
+                          color: Color.fromRGBO(216, 235, 252, 1),
+                          borderRadius: BorderRadius.circular(10)
+                      ),
+                      child: Stack(
+                        children: [
+                          Positioned(
+                            // left: Get.width*0.01,
+                            // right: 1,
+                            bottom: -Get.width*0.1,
+                            child: Image.asset('assets/images/homescreen/phone.png',
+                              fit: BoxFit.fitWidth,
+                              width: Get.width*0.32,),),
+                          Column(
+                            mainAxisAlignment: MainAxisAlignment.end,
+                            children: [
+                              Container(
+                                // color: Colors.red,
+                                child: Padding(
+                                  padding: EdgeInsets.only(left: 2,top: 15),
+                                ),
+                              ),
+                              Container(
+                                decoration: BoxDecoration(
+                                  borderRadius: BorderRadius.only(
+                                      topLeft: Radius.circular(5),
+                                      topRight: Radius.circular(5),
+                                      bottomLeft: Radius.circular(10),
+                                      bottomRight: Radius.circular(10)
+                                  ),
+                                  color: Colors.white,
+                                ),
+                                width: double.infinity,
+                                child: Column(
+                                  children: [
+                                    Text('Latest Mobile',overflow: TextOverflow.ellipsis,style: GoogleFonts.inter(
+                                      fontSize: Get.width*0.04,
+
+                                    ),),
+                                    Text('From \$60/M',
+                                      overflow: TextOverflow.ellipsis,
+                                      style: GoogleFonts.inter(
+                                          fontSize: Get.width*0.04,
+                                          fontWeight: FontWeight.w500
+                                      ),),
+                                  ]
+                                  ,)
+                                ,)
+
+                            ],
+
+                          ),
+
+
+
+                        ],
+                      ),
+                    ),
+                  ),
+                  Padding(
+                    padding: EdgeInsets.only(left: Get.width*0.023),
+                    child: Container(
+                      height: Get.width*0.351,
+                      width: Get.width*0.28,
+                      decoration: BoxDecoration(
+                          color: Color.fromRGBO(216, 235, 252, 1),
+                          borderRadius: BorderRadius.circular(10)
+                      ),
+                      child: Stack(
+                        children: [
+                          Positioned(
+                            left: Get.width*0.01,
+                            // right: 1,
+                            top: 0,
+                            bottom: Get.width*0.012,
+                            child: Image.asset('assets/images/homescreen/vaseline.png',
+                              fit: BoxFit.fitWidth,
+                              // height: Get.width*0.1,
+                              width: Get.width*0.292,),),
+                          Column(
+                            mainAxisAlignment: MainAxisAlignment.end,
+                            children: [
+                              Container(
+                                // color: Colors.red,
+                                child: Padding(
+                                  padding: EdgeInsets.only(left: 2,top: 15),
+                                ),
+                              ),
+                              Container(
+                                decoration: BoxDecoration(
+                                  borderRadius: BorderRadius.only(
+                                      topLeft: Radius.circular(5),
+                                      topRight: Radius.circular(5),
+                                      bottomLeft: Radius.circular(10),
+                                      bottomRight: Radius.circular(10)
+                                  ),
+                                  color: Colors.white,
+                                ),
+                                width: double.infinity,
+                                child: Column(
+                                  children: [
+                                    Text('Beauty Products',overflow: TextOverflow.ellipsis,style: GoogleFonts.inter(
+                                      fontSize: Get.width*0.04,
+
+                                    ),),
+                                    Text('From \$9/M',
+                                      overflow: TextOverflow.ellipsis,
+                                      style: GoogleFonts.inter(
+                                          fontSize: Get.width*0.04,
+                                          fontWeight: FontWeight.w500
+                                      ),),
+                                  ]
+                                  ,)
+                                ,)
+
+                            ],
+
+                          ),
+
+
+
+                        ],
+                      ),
+                    ),
+                  ),
+                  Padding(
+                    padding: EdgeInsets.only(left: Get.width*0.023),
+                    child: Container(
+                      height: Get.width*0.351,
+                      width: Get.width*0.3,
+                      decoration: BoxDecoration(
+                          color: Color.fromRGBO(216, 235, 252, 1),
+                          borderRadius: BorderRadius.circular(10)
+                      ),
+                      child: Stack(
+                        children: [
+                          Positioned(
+                            // left: Get.width*0.01,
+                            // right: 1,
+                            bottom: -Get.width*0.1,
+                            child: Image.asset('assets/images/homescreen/phone.png',
+                              fit: BoxFit.fitWidth,
+                              width: Get.width*0.32,),),
+                          Column(
+                            mainAxisAlignment: MainAxisAlignment.end,
+                            children: [
+                              Container(
+                                // color: Colors.red,
+                                child: Padding(
+                                  padding: EdgeInsets.only(left: 2,top: 15),
+                                ),
+                              ),
+                              Container(
+                                decoration: BoxDecoration(
+                                  borderRadius: BorderRadius.only(
+                                      topLeft: Radius.circular(5),
+                                      topRight: Radius.circular(5),
+                                      bottomLeft: Radius.circular(10),
+                                      bottomRight: Radius.circular(10)
+                                  ),
+                                  color: Colors.white,
+                                ),
+                                width: double.infinity,
+                                child: Column(
+                                  children: [
+                                    Text('Latest Mobile',overflow: TextOverflow.ellipsis,style: GoogleFonts.inter(
+                                      fontSize: Get.width*0.04,
+
+                                    ),),
+                                    Text('From \$60/M',
+                                      overflow: TextOverflow.ellipsis,
+                                      style: GoogleFonts.inter(
+                                          fontSize: Get.width*0.04,
+                                          fontWeight: FontWeight.w500
+                                      ),),
+                                  ]
+                                  ,)
+                                ,)
+
+                            ],
+
+                          ),
+
+
+
+                        ],
+                      ),
+                    ),
+                  ),
+                  Padding(
+                    padding: EdgeInsets.only(left: Get.width*0.023),
+                    child: Container(
+                      height: Get.width*0.351,
+                      width: Get.width*0.28,
+                      decoration: BoxDecoration(
+                          color: Color.fromRGBO(216, 235, 252, 1),
+                          borderRadius: BorderRadius.circular(10)
+                      ),
+                      child: Stack(
+                        children: [
+                          Positioned(
+                            left: Get.width*0.01,
+                            // right: 1,
+                            top: 0,
+                            bottom: Get.width*0.012,
+                            child: Image.asset('assets/images/homescreen/vaseline.png',
+                              fit: BoxFit.fitWidth,
+                              // height: Get.width*0.1,
+                              width: Get.width*0.292,),),
+                          Column(
+                            mainAxisAlignment: MainAxisAlignment.end,
+                            children: [
+                              Container(
+                                // color: Colors.red,
+                                child: Padding(
+                                  padding: EdgeInsets.only(left: 2,top: 15),
+                                ),
+                              ),
+                              Container(
+                                decoration: BoxDecoration(
+                                  borderRadius: BorderRadius.only(
+                                      topLeft: Radius.circular(5),
+                                      topRight: Radius.circular(5),
+                                      bottomLeft: Radius.circular(10),
+                                      bottomRight: Radius.circular(10)
+                                  ),
+                                  color: Colors.white,
+                                ),
+                                width: double.infinity,
+                                child: Column(
+                                  children: [
+                                    Text('Beauty Products',overflow: TextOverflow.ellipsis,style: GoogleFonts.inter(
+                                      fontSize: Get.width*0.04,
+
+                                    ),),
+                                    Text('From \$9/M',
+                                      overflow: TextOverflow.ellipsis,
+                                      style: GoogleFonts.inter(
+                                          fontSize: Get.width*0.04,
+                                          fontWeight: FontWeight.w500
+                                      ),),
+                                  ]
+                                  ,)
+                                ,)
+
+                            ],
+
+                          ),
+
+
+
+                        ],
+                      ),
+                    ),
+                  ),
+                  SizedBox(width: Get.width*0.03,)
+
+
+
+                ],
+              ),
             ),
 
             Padding(
@@ -348,7 +613,7 @@ class _DashboardScreenState extends State<DashboardScreen> {
               child: ListView(
                 scrollDirection: Axis.horizontal,
                 children: [
-                  productItem('Kids Clothing', 'kids_clothing.png'),
+                  productItem('Kids Clothing', 'kids.png'),
                   productItem('Gifts', 'gifts.png'),
                   productItem('Men’s Watches', 'mens_watch.png'),
                   productItem('Body Lotion', 'body_lotion.png'),
