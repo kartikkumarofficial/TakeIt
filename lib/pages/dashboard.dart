@@ -56,8 +56,9 @@ class _DashboardScreenState extends State<DashboardScreen> {
               subtitle: Text('+91 9876543211',style: GoogleFonts.poppins(color: Colors.grey,fontSize: Get.width*0.033),),
             ),
             Padding(
-              padding: EdgeInsets.only(right: Get.width*0.2,left: Get.width*0.05),
+              padding: EdgeInsets.only(right: Get.width*0.18,left: Get.width*0.05),
               child: Divider(
+              thickness: 1.2  ,
 
               ),
             ),
@@ -155,12 +156,6 @@ class _DashboardScreenState extends State<DashboardScreen> {
 
           ],
         ),
-        // child: ListView.builder(
-        //   itemCount: arrDrawerItems.length,
-        //   itemBuilder: (context, index) => ListTile(
-        //     title: Text(arrDrawerItems[index]),
-        //   ),
-        // ),
       ),
       appBar: AppBar(
         backgroundColor: Color.fromRGBO(0, 113, 220, 1.0),
