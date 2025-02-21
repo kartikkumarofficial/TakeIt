@@ -142,7 +142,7 @@ class _DashboardScreenState extends State<DashboardScreen> {
                   categoryItem('Female', 'female.png'),
                   categoryItem('Kids', 'kids.png'),
                   categoryItem('Electronics', 'electronics.png'),
-                  categoryItem('Home', 'home.png'),
+                  categoryItem('Home', 'electronics.png'),
                 ],
               ),
             ),
@@ -609,17 +609,107 @@ class _DashboardScreenState extends State<DashboardScreen> {
             ),
 
             SizedBox(
-              height: 120,
-              child: ListView(
+              // height: 120,
+              child: SingleChildScrollView(
                 scrollDirection: Axis.horizontal,
-                children: [
-                  productItem('Kids Clothing', 'kids.png'),
-                  productItem('Gifts', 'gifts.png'),
-                  productItem('Men’s Watches', 'mens_watch.png'),
-                  productItem('Body Lotion', 'body_lotion.png'),
-                ],
+                child:Row(
+                  children: [
+
+
+
+                    Padding(
+                      padding: EdgeInsets.only(left: Get.width*0.034),
+                      child: Container(
+
+                        height: Get.width*0.35,
+                        width: Get.width*0.27,
+                        decoration: BoxDecoration(
+                          boxShadow: [
+                            BoxShadow(
+                            color: Colors.black.withOpacity(0.2),
+                            spreadRadius: 0.1, // Spread radius
+                            blurRadius: 2, // Blur radius
+                            // offset: Offset(1, 1), // Offset in x and y direction
+                          ),],
+                            color: Color.fromRGBO(245, 245, 245, 1),
+
+                          borderRadius: BorderRadius.circular(10)
+                        ),
+                        child: Stack(
+                          children: [
+                            Positioned(
+                              // left: Get.width*0.01,
+                              // right: 1,
+                              top: 0,
+                              bottom: -Get.width*0.08,
+                              child: Image.asset('assets/images/homescreen/kids.png',
+                                // fit: BoxFit.fill,
+                                width: Get.width*0.32,),),
+                            Column(
+                              mainAxisAlignment: MainAxisAlignment.end,
+                              children: [
+                                Container(
+                                  // color: Colors.red,
+                                  child: Padding(
+                                    padding: EdgeInsets.only(left: 2,top: 15),
+                                  ),
+                                ),
+                                Container(
+                                  decoration: BoxDecoration(
+                                    borderRadius: BorderRadius.only(
+                                        topLeft: Radius.circular(2),
+                                        topRight: Radius.circular(2),
+                                        bottomLeft: Radius.circular(10),
+                                        bottomRight: Radius.circular(10)
+                                    ),
+                                    color: Colors.white,
+                                  ),
+                                  width: double.infinity,
+                                  child: Column(
+                                    children: [
+                                      Padding(
+                                        padding:  EdgeInsets.only(bottom: 8.0),
+                                        child: Text('Kids Clothing',overflow: TextOverflow.ellipsis,style: GoogleFonts.inter(
+                                          fontWeight: FontWeight.w600,
+                                          fontSize: Get.width*0.03,
+
+                                        ),),
+                                      ),
+
+                                    ]
+                                    ,)
+                                  ,)
+
+                              ],
+
+                            ),
+
+
+
+                          ],
+                        ),
+                      ),
+                    ),
+
+
+
+
+
+
+
+
+
+
+
+
+                  ],
+                ) ,
               ),
             ),
+            SizedBox(
+              height: 50,
+            )
+
           ],
         ),
       ),
