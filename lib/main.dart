@@ -22,11 +22,11 @@ class MyApp extends StatelessWidget {
     debugShowCheckedModeBanner: false,
     debugShowMaterialGrid: false,
     title: 'GetX Theme Demo',
-      locale: Locale('en','US'), //default is english
+      locale: Locale('en','US'),
       fallbackLocale: Locale('en','US'),
-      // theme: ThemeData.dark(), // Default theme
-      darkTheme: ThemeData.dark(), // Dark theme
-      themeMode: ThemeMode.light, // Initial theme mode
+      // theme: ThemeData.dark(),
+      darkTheme: ThemeData.dark(),
+      themeMode: ThemeMode.light,
     translations: Languages(),
       theme: ThemeData(
 
