@@ -145,10 +145,71 @@ class _DashboardScreenState extends State<DashboardScreen> {
                 ],
               ),
             ),
+            Row(
+              children: [
+                Padding(
+                  padding: EdgeInsets.only(left: Get.width*0.02),
+                  child: Container(
+                    height: Get.width*0.351,
+                    width: Get.width*0.3,
+                    decoration: BoxDecoration(
+                        color: Color.fromRGBO(216, 235, 252, 1),
+                        borderRadius: BorderRadius.circular(10)
+                    ),
+                    child: Column(
+                      mainAxisAlignment: MainAxisAlignment.start,
+                      children: [
+                        Container(
+                          // color: Colors.red,
+                          child: Padding(
+                            padding: EdgeInsets.only(left: 2,top: 15),
+                            child: ClipRRect(
+                              child: Image.asset('assets/images/homescreen/tv.png',fit: BoxFit.fitWidth,
+                                width: Get.width*0.3,
+                                height: Get.width*0.2,),
+                            ),
+                          ),
+                        ),
+                        Container(
+                          decoration: BoxDecoration(
+                            borderRadius: BorderRadius.only(
+                                topLeft: Radius.circular(5),
+                                topRight: Radius.circular(5),
+                                bottomLeft: Radius.circular(10),
+                                bottomRight: Radius.circular(10)
+                            ),
+                            color: Colors.white,
+                          ),
+                          width: double.infinity,
+                          child: Column(children: [
+                            Text('Tv & Laptop',overflow: TextOverflow.ellipsis,style: GoogleFonts.inter(
+                              fontSize: Get.width*0.04,
+
+                            ),),
+                            Text('From \$100/M',
+                              overflow: TextOverflow.ellipsis,
+                              style: GoogleFonts.inter(
+                              fontSize: Get.width*0.04,fontWeight: FontWeight.w500
+                            ),),
+                          ]
+                            ,)
+                          ,)
+
+                      ],
+
+                    ),
+                  ),
+                ),
+
+
+              ],
+            ),
+
             Padding(
               padding: EdgeInsets.all(8.0),
               child: Text("Recently Viewed Items", style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold)),
             ),
+
             SizedBox(
               height: 120,
               child: ListView(
