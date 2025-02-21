@@ -87,14 +87,14 @@ class _SignUpScreenState extends State<SignUpScreen> {
 
                 Padding(
                   padding:  EdgeInsets.only(top: Get.height*0.05),
-                  child: _buildTextField("Username".tr, Icons.person),
+                  child: _UsernameField("Username".tr, Icons.person),
                 ),
                 SizedBox(height: 12),
-                _buildTextField("Email".tr, Icons.email),
+                _EmailField("Email".tr, Icons.email),
                 SizedBox(height: 12),
-                _buildPasswordField("Password".tr, true),
+                _PasswordField("Password".tr, true),
                 SizedBox(height: 12),
-                _buildPasswordField("Confirm Password".tr, false),
+                _PasswordField("Confirm Password".tr, false),
 
 
                 Row(
@@ -129,7 +129,8 @@ class _SignUpScreenState extends State<SignUpScreen> {
                     height: Get.width*0.101,
                     child: ElevatedButton(
                       onPressed: () {
-                        Get.to(DashboardScreen(),transition: Transition.fadeIn,duration: Duration(milliseconds: 500));
+                        Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => DashboardScreen(),));
+                        Get.offAll(DashboardScreen(),transition: Transition.fadeIn,duration: Duration(milliseconds: 500));
                       },
                       style: ElevatedButton.styleFrom(
                         elevation: 8,
@@ -224,7 +225,24 @@ class _SignUpScreenState extends State<SignUpScreen> {
   }
 
 
-  Widget _buildTextField(String hintText, IconData icon) {
+  Widget _UsernameField(String hintText, IconData icon) {
+    return TextField(
+      decoration: InputDecoration(
+        prefixIcon: Icon(icon, color: Colors.black),
+        hintText: hintText,
+        hintStyle: GoogleFonts.poppins(),
+        border: OutlineInputBorder(
+          borderRadius: BorderRadius.circular(10),
+          borderSide: BorderSide(color: Colors.grey),
+        ),
+        focusedBorder: OutlineInputBorder(
+          borderRadius: BorderRadius.circular(10),
+          borderSide: BorderSide(color: Colors.blue),
+        ),
+      ),
+    );
+  }
+  Widget _EmailField(String hintText, IconData icon) {
     return TextField(
       decoration: InputDecoration(
         prefixIcon: Icon(icon, color: Colors.black),
@@ -242,7 +260,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
     );
   }
 
-  Widget _buildPasswordField(String hintText, bool isPassword) {
+  Widget _PasswordField(String hintText, bool isPassword) {
     return TextField(
       obscureText: isPassword ? !passwordVisible : !confirmPasswordVisible,
       decoration: InputDecoration(
