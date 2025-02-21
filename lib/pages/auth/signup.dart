@@ -55,6 +55,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
                       fontWeight: FontWeight.bold,
                       color: Color.fromRGBO(0,113,220,1.0,),
                       fontStyle: FontStyle.italic,
+                      decoration: TextDecoration.none,
                     ),),
                 )),
         
