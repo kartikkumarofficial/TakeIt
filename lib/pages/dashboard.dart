@@ -57,66 +57,69 @@ class _DashboardScreenState extends State<DashboardScreen> {
               children: [
 
                 Container(
-                  height: Get.height*0.1,
+                  height: Get.height*0.12,
                   decoration: BoxDecoration(
                       color: Color.fromRGBO(0, 113, 220, 1.0),
                   ),
-                  child: Row(children: [
-                    IconButton(onPressed: (){
-                      _scaffoldKey.currentState?.openDrawer(); // Ope
-                    },
-                        icon: Icon(Icons.menu)),
-                    // SizedBox(height: 50,),
-
-                    Hero(
-                      tag: 'takeit',
-                      flightShuttleBuilder: (flightContext, animation, flightDirection, fromHeroContext, toHeroContext) {
-                        return AnimatedBuilder(
-                          animation: animation,
-                          builder: (context, child) {
-                            return Text(
-                              "TakeIt",
-                              style: GoogleFonts.poppins(
-                                fontSize: lerpDouble(Get.width * 0.1, Get.width * 0.08, animation.value),
-                                fontWeight: FontWeight.bold,
-                                color: Colors.white,
-                                fontStyle: FontStyle.italic,
-                              ),
-                            );
-                          },
-                        );
+                  child: Padding(
+                    padding:  EdgeInsets.only(top: Get.width*0.08),
+                    child: Row(children: [
+                      IconButton(onPressed: (){
+                        _scaffoldKey.currentState?.openDrawer(); // Ope
                       },
-                      child: Text(
-                        "TakeIt",
-                        style: GoogleFonts.poppins(
-                          shadows: [
-                            BoxShadow(
-                                color: Colors.black.withOpacity(0.3),
-                                blurRadius: 5,
-                                spreadRadius: 5,
-                                offset: Offset(1,1)
-                            )
-                          ],
-                          fontSize: Get.width * 0.08, // Original size
-                          fontWeight: FontWeight.w600,
-                          color: Colors.white,
-                          fontStyle: FontStyle.italic,
+                          icon: Icon(Icons.menu,color: Colors.white,size: Get.width*0.06,)),
+                      // SizedBox(height: 50,),
+
+                      Hero(
+                        tag: 'takeit',
+                        flightShuttleBuilder: (flightContext, animation, flightDirection, fromHeroContext, toHeroContext) {
+                          return AnimatedBuilder(
+                            animation: animation,
+                            builder: (context, child) {
+                              return Text(
+                                "TakeIt",
+                                style: GoogleFonts.poppins(
+                                  fontSize: lerpDouble(Get.width * 0.1, Get.width * 0.08, animation.value),
+                                  fontWeight: FontWeight.bold,
+                                  color: Colors.white,
+                                  fontStyle: FontStyle.italic,
+                                ),
+                              );
+                            },
+                          );
+                        },
+                        child: Text(
+                          "TakeIt",
+                          style: GoogleFonts.poppins(
+                            shadows: [
+                              BoxShadow(
+                                  color: Colors.black.withOpacity(0.3),
+                                  blurRadius: 5,
+                                  spreadRadius: 5,
+                                  offset: Offset(1,1)
+                              )
+                            ],
+                            fontSize: Get.width * 0.08, // Original size
+                            fontWeight: FontWeight.w600,
+                            color: Colors.white,
+                            fontStyle: FontStyle.italic,
+                          ),
                         ),
                       ),
-                    ),
 
 
 
 
 
-                  ],),
+                    ],),
+                  ),
                 ),
                 Positioned(
                   right: -Get.width*0.04,
-                    top: -Get.width*0.01,
+                    top: -Get.width*0.05,
 
                     child: Container(
-                      height: Get.width*0.2,
+                      height: Get.width*0.3,
                       width: Get.width*0.4,
 
                       decoration: BoxDecoration(
@@ -128,15 +131,15 @@ class _DashboardScreenState extends State<DashboardScreen> {
                     )),
                 Positioned(
                   right: Get.width*0.3468,
-                  top: -Get.width*0.12,
+                  top: -Get.width*0.06,
                   child: CustomPaint(
-                    size: Size(100, 100), // Adjust the size
+                    size: Size(100, 100),
                     painter: RightAngleTopRightTriangle(),
                   ),
                 ),
                 Positioned(
                   right: Get.width*0.04,
-                  top: Get.width*0.065,
+                  top: Get.width*0.12,
                   child: Row(children: [
                     Text('Wallet'.tr,
                       style: GoogleFonts.poppins(
@@ -156,7 +159,7 @@ class _DashboardScreenState extends State<DashboardScreen> {
             Container(
                 color: Color.fromRGBO(0, 113, 220, 1.0),
               child: Padding(
-                padding: const EdgeInsets.all(8.0),
+                padding:  EdgeInsets.all(8.0),
                 child: Container(
                   decoration: BoxDecoration(
                     color: Colors.white,
@@ -174,10 +177,17 @@ class _DashboardScreenState extends State<DashboardScreen> {
                           ),
                         ),
                       ),
-                      IconButton(
-                        onPressed: () {},
-                        icon: Icon(Icons.mic),
-                        color: Colors.blue,
+                      Container(
+                        decoration: BoxDecoration(
+                          color: Color.fromRGBO(147, 203, 255, 1),
+                          borderRadius: BorderRadius.circular(10)
+                        ),
+                        child: IconButton(
+                          onPressed: () {},
+                          icon: Icon(Icons.mic),
+                          color: Colors.blue,
+
+                        ),
                       ),
                     ],
                   ),
