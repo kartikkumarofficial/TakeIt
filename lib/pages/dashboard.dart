@@ -66,6 +66,7 @@ class _DashboardScreenState extends State<DashboardScreen> {
                       _scaffoldKey.currentState?.openDrawer(); // Ope
                     },
                         icon: Icon(Icons.menu)),
+                    // SizedBox(height: 50,),
 
                     Hero(
                       tag: 'takeit',
@@ -152,31 +153,34 @@ class _DashboardScreenState extends State<DashboardScreen> {
                 )
               ],
             ),
-            Padding(
-              padding: const EdgeInsets.all(8.0),
-              child: Container(
-                decoration: BoxDecoration(
-                  color: Colors.white,
-                  borderRadius: BorderRadius.circular(8),
-                  boxShadow: [BoxShadow(color: Colors.black12, blurRadius: 5)],
-                ),
-                child: Row(
-                  children: [
-                    IconButton(onPressed: () {}, icon: Icon(Icons.search)),
-                    Expanded(
-                      child: TextFormField(
-                        decoration: InputDecoration(
-                          hintText: "Search",
-                          border: InputBorder.none,
+            Container(
+                color: Color.fromRGBO(0, 113, 220, 1.0),
+              child: Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: Container(
+                  decoration: BoxDecoration(
+                    color: Colors.white,
+                    borderRadius: BorderRadius.circular(8),
+                    boxShadow: [BoxShadow(color: Colors.black12, blurRadius: 5)],
+                  ),
+                  child: Row(
+                    children: [
+                      IconButton(onPressed: () {}, icon: Icon(Icons.search)),
+                      Expanded(
+                        child: TextFormField(
+                          decoration: InputDecoration(
+                            hintText: "Search",
+                            border: InputBorder.none,
+                          ),
                         ),
                       ),
-                    ),
-                    IconButton(
-                      onPressed: () {},
-                      icon: Icon(Icons.mic),
-                      color: Colors.blue,
-                    ),
-                  ],
+                      IconButton(
+                        onPressed: () {},
+                        icon: Icon(Icons.mic),
+                        color: Colors.blue,
+                      ),
+                    ],
+                  ),
                 ),
               ),
             ),
