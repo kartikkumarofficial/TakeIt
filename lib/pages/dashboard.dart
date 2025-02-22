@@ -1,7 +1,10 @@
 import 'dart:ui';
 import 'package:TakeIt/pages/onboarding.dart';
+import 'package:TakeIt/widgets/Drawer.dart';
 import 'package:TakeIt/widgets/RotatedContainer.dart';
 import 'package:TakeIt/widgets/SlidingImageCard.dart';
+// import 'package:TakeIt/widgets/leftdrawer.dart';
+import 'package:TakeIt/widgets/walletcard.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -17,6 +20,7 @@ class DashboardScreen extends StatefulWidget {
 }
 
 class _DashboardScreenState extends State<DashboardScreen> {
+  final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
   late AnimationController _controller;
   late Animation<double> _animation;
   String location = '12 Ram Bhavan,36 Street road ,Mullana,';
@@ -32,171 +36,104 @@ class _DashboardScreenState extends State<DashboardScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      drawer: Container(
-        decoration: BoxDecoration(
-          color: Colors.white,
-              borderRadius: BorderRadius.circular(8)
-        ),
-        height: Get.height * 1,
-        width: Get.width * 0.65,
-        // color: Colors.white,
-        alignment: Alignment.topLeft,
-        child: ListView(
-          children: [
-            ListTile(
-              leading: CircleAvatar(
-                child: ClipOval(
-                  // clipBehavior: Clip.,
-                  child: Image.asset('assets/images/profileman.jpeg' ),
-                ),
-              ),
-              title: Text('Carter Sam',style: GoogleFonts.poppins(
-                fontSize: Get.width*0.045
-              ),),
-              subtitle: Text('+91 9876543211',style: GoogleFonts.poppins(color: Colors.grey,fontSize: Get.width*0.033),),
-            ),
-            Padding(
-              padding: EdgeInsets.only(right: Get.width*0.18,left: Get.width*0.05),
-              child: Divider(
-              thickness: 1.2  ,
 
-              ),
-            ),
-            ListTile(
-              title: Padding(
-                padding: EdgeInsets.only(left: 8.0),
-                child: Text('Edit Profile',style: GoogleFonts.poppins(fontSize: Get.width*0.04),),
-              ),
-              onTap: (){},
-            ),
-            ListTile(
-              title: Padding(
-                padding: EdgeInsets.only(left: 8.0),
-                child: Text('Refer and Earn',style: GoogleFonts.poppins(fontSize: Get.width*0.04),),
-              ),
-              onTap: (){},
-            ),
-            ListTile(
-              title: Padding(
-                padding: EdgeInsets.only(left: 8.0),
-                child: Text('Coupons',style: GoogleFonts.poppins(fontSize: Get.width*0.04),),
-              ),
-              onTap: (){},
-            ),
-            ListTile(
-              title: Padding(
-                padding: EdgeInsets.only(left: 8.0),
-                child: Text('My Orders',style: GoogleFonts.poppins(fontSize: Get.width*0.04),),
-              ),
-              onTap: (){},
-            ),
-            ListTile(
-              title: Padding(
-                padding: EdgeInsets.only(left: 8.0),
-                child: Text('Wishlist',style: GoogleFonts.poppins(fontSize: Get.width*0.04),),
-              ),
-              onTap: (){},
-            ),
-            ListTile(
-              title: Padding(
-                padding: EdgeInsets.only(left: 8.0),
-                child: Text('Wallet',style: GoogleFonts.poppins(fontSize: Get.width*0.04),),
-              ),
-              onTap: (){},
-            ),
-            ListTile(
-              title: Padding(
-                padding: EdgeInsets.only(left: 8.0),
-                child: Text('Reviews',style: GoogleFonts.poppins(fontSize: Get.width*0.04),),
-              ),
-              onTap: (){},
-            ),
-            ListTile(
-              title: Padding(
-                padding: EdgeInsets.only(left: 8.0),
-                child: Text('Questions and Answers',style: GoogleFonts.poppins(fontSize: Get.width*0.04),),
-              ),
-              onTap: (){},
-            ),
-            Padding(
-              padding:  EdgeInsets.only(
-                top: Get.width*0.55,
-                  left: Get.width*0.033,
-                  right: Get.width*0.033,
-
-              ),
-              child: Container(
-                width: Get.width*0.8,
-                height: Get.width*0.091,
-                child: Hero(tag: 'google',
-                  child: ElevatedButton(
-
-                      onPressed: (){
-                        Get.to(SignUpScreen());
-                      },
-                      style: ElevatedButton.styleFrom(
-                          backgroundColor: Colors.black,
-                          shadowColor: Colors.black,
-                          elevation: 8,
-                          shape: RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(5)
-                          )
-
-                      ),
-
-                      child:Text('Log Out'.tr,style: GoogleFonts.poppins(
-                          fontWeight: FontWeight.w500,
-                          fontSize: Get.width*0.045,
-                          color: Colors.white
-                      ),) ),
-                ),
-              ),
-            )
+      key: _scaffoldKey,
 
 
-          ],
-        ),
-      ),
-      appBar: AppBar(
-        backgroundColor: Color.fromRGBO(0, 113, 220, 1.0),
-        // leading: IconButton(onPressed: (){}, icon: Icon(,color: Colors.white,)),
-        title: Hero(
-          tag: 'takeit',
-          flightShuttleBuilder: (flightContext, animation, flightDirection, fromHeroContext, toHeroContext) {
-            return AnimatedBuilder(
-              animation: animation,
-              builder: (context, child) {
-                return Text(
-                  "TakeIt",
-                  style: GoogleFonts.poppins(
-                    fontSize: lerpDouble(Get.width * 0.1, Get.width * 0.08, animation.value),
-                    fontWeight: FontWeight.bold,
-                    color: Colors.white,
-                    fontStyle: FontStyle.italic,
-                  ),
-                );
-              },
-            );
-          },
-          child: Text(
-            "TakeIt",
-            style: GoogleFonts.poppins(
-              fontSize: Get.width * 0.08, // Original size
-              fontWeight: FontWeight.bold,
-              color: Colors.white,
-              fontStyle: FontStyle.italic,
-            ),
-          ),
-        ),
-      ),
+      drawer: dashboarddrawer().DashboardDrawer(),
+
       bottomNavigationBar: BottomNavBar(
         selectedIndex: _selectedIndex,
         onItemTapped: _onItemTapped,
       ),
+
+
+
       body: SingleChildScrollView(
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
+            Stack(
+              children: [
+
+                Container(
+                  height: Get.height*0.1,
+                  decoration: BoxDecoration(
+                      color: Color.fromRGBO(0, 113, 220, 1.0),
+                  ),
+                  child: Row(children: [
+                    IconButton(onPressed: (){
+                      _scaffoldKey.currentState?.openDrawer(); // Ope
+                    },
+                        icon: Icon(Icons.menu)),
+
+                    Hero(
+                      tag: 'takeit',
+                      flightShuttleBuilder: (flightContext, animation, flightDirection, fromHeroContext, toHeroContext) {
+                        return AnimatedBuilder(
+                          animation: animation,
+                          builder: (context, child) {
+                            return Text(
+                              "TakeIt",
+                              style: GoogleFonts.poppins(
+                                fontSize: lerpDouble(Get.width * 0.1, Get.width * 0.08, animation.value),
+                                fontWeight: FontWeight.bold,
+                                color: Colors.white,
+                                fontStyle: FontStyle.italic,
+                              ),
+                            );
+                          },
+                        );
+                      },
+                      child: Text(
+                        "TakeIt",
+                        style: GoogleFonts.poppins(
+                          shadows: [
+                            BoxShadow(
+                                color: Colors.black.withOpacity(0.3),
+                                blurRadius: 5,
+                                spreadRadius: 5,
+                                offset: Offset(1,1)
+                            )
+                          ],
+                          fontSize: Get.width * 0.08, // Original size
+                          fontWeight: FontWeight.w600,
+                          color: Colors.white,
+                          fontStyle: FontStyle.italic,
+                        ),
+                      ),
+                    ),
+
+
+
+
+                  ],),
+                ),
+                Positioned(
+                  right: -Get.width*0.04,
+                    top: -Get.width*0.01,
+
+                    child: Container(
+                      height: Get.width*0.2,
+                      width: Get.width*0.4,
+
+                      decoration: BoxDecoration(
+                          color: Color.fromRGBO(255, 179, 0, 1),
+                          borderRadius: BorderRadius.only(bottomLeft: Radius.circular(42.9))
+                      ),
+
+
+                    )),
+                Positioned(
+                  right: Get.width*0.333,
+                  top: -Get.width*0.1,
+                  child: CustomPaint(
+                    size: Size(100, 100), // Adjust the size
+                    painter: RightAngleTopRightTriangle(),
+                  ),
+                ),
+              ],
+            ),
             Padding(
               padding: const EdgeInsets.all(8.0),
               child: Container(
@@ -225,16 +162,22 @@ class _DashboardScreenState extends State<DashboardScreen> {
                 ),
               ),
             ),
+
             Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
-              Icon(Icons.location_on),
+              InkWell(
+                // onTap: (){ Get.to(TrianglePainter());}
+                child: Icon(Icons.location_on)),
                 Text('12 Ram Bhavan,36 Street road ,Mullana,',style: GoogleFonts.inter(color: Colors.grey),overflow: TextOverflow.ellipsis,),
-                IconButton(onPressed: (){}, icon: Icon(Icons.arrow_drop_down_sharp))
+                IconButton(onPressed: (){
+                  // Get.to(HomeScreen());
+                }, icon: Icon (Icons.arrow_drop_down_sharp))
             ],),
             // SlidingImageCard(),
             Stack(
               children: [
+
                 ClipRRect(
                   // borderRadius: BorderRadius.circular(10),
                   child: Image.asset(
@@ -742,6 +685,7 @@ class _DashboardScreenState extends State<DashboardScreen> {
               padding: EdgeInsets.all(8.0),
               child: Text("Recently Viewed Items", style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold)),
             ),
+
 
             SizedBox(
               // height: 120,
