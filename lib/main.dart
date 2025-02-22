@@ -3,6 +3,7 @@ import 'package:TakeIt/pages/onboarding.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:firebase_core/firebase_core.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'firebase_options.dart';
 
 void main() async{
@@ -29,6 +30,7 @@ class MyApp extends StatelessWidget {
       themeMode: ThemeMode.light,
     translations: Languages(),
       theme: ThemeData(
+        textTheme: GoogleFonts.poppinsTextTheme(),
 
         colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
         useMaterial3: true,

@@ -4,7 +4,7 @@ import 'package:TakeIt/widgets/Drawer.dart';
 import 'package:TakeIt/widgets/RotatedContainer.dart';
 import 'package:TakeIt/widgets/SlidingImageCard.dart';
 // import 'package:TakeIt/widgets/leftdrawer.dart';
-import 'package:TakeIt/widgets/walletcard.dart';
+import 'package:TakeIt/widgets/RightAngleTriangle.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -107,6 +107,7 @@ class _DashboardScreenState extends State<DashboardScreen> {
 
 
 
+
                   ],),
                 ),
                 Positioned(
@@ -125,13 +126,30 @@ class _DashboardScreenState extends State<DashboardScreen> {
 
                     )),
                 Positioned(
-                  right: Get.width*0.333,
-                  top: -Get.width*0.1,
+                  right: Get.width*0.3468,
+                  top: -Get.width*0.12,
                   child: CustomPaint(
                     size: Size(100, 100), // Adjust the size
                     painter: RightAngleTopRightTriangle(),
                   ),
                 ),
+                Positioned(
+                  right: Get.width*0.04,
+                  top: Get.width*0.065,
+                  child: Row(children: [
+                    Text('Wallet'.tr,
+                      style: GoogleFonts.poppins(
+                          color: Colors.black,
+                          fontSize: Get.width*0.049,
+                          fontWeight: FontWeight.bold
+
+                      ),),
+                    Padding(
+                      padding: EdgeInsets.all(3.0),
+                      child: Icon(Icons.account_balance_wallet),
+                    )
+                  ],),
+                )
               ],
             ),
             Padding(
