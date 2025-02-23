@@ -47,17 +47,6 @@ TakeIT is a comprehensive eCommerce application that provides a seamless shoppin
    flutter run
    ```
 
-## Folder Structure
-```
-lib/
-│── main.dart  # Entry point
-│── models/    # Data models
-│── providers/ # State management
-│── screens/   # UI screens
-│── services/  # Firebase and API integrations
-│── widgets/   # Reusable UI components
-```
-
 ## API Endpoints
 - **Authentication**:
   - `/signup` - Register new users
