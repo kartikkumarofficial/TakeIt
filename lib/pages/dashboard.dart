@@ -8,6 +8,7 @@ import 'package:TakeIt/widgets/RightAngleTriangle.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:lucide_icons/lucide_icons.dart';
 
 import '../widgets/bottomnavigationbar.dart';
 import 'auth/signup.dart';
@@ -65,7 +66,7 @@ class _DashboardScreenState extends State<DashboardScreen> {
                     padding:  EdgeInsets.only(top: Get.width*0.08),
                     child: Row(children: [
                       IconButton(onPressed: (){
-                        _scaffoldKey.currentState?.openDrawer(); // Ope
+                        _scaffoldKey.currentState?.openDrawer();
                       },
                           icon: Icon(Icons.menu,color: Colors.white,size: Get.width*0.06,)),
                       // SizedBox(height: 50,),
@@ -160,37 +161,48 @@ class _DashboardScreenState extends State<DashboardScreen> {
                 color: Color.fromRGBO(0, 113, 220, 1.0),
               child: Padding(
                 padding:  EdgeInsets.all(8.0),
-                child: Container(
-                  decoration: BoxDecoration(
-                    color: Colors.white,
-                    borderRadius: BorderRadius.circular(8),
-                    boxShadow: [BoxShadow(color: Colors.black12, blurRadius: 5)],
-                  ),
-                  child: Row(
-                    children: [
-                      IconButton(onPressed: () {}, icon: Icon(Icons.search)),
-                      Expanded(
-                        child: TextFormField(
-                          decoration: InputDecoration(
-                            hintText: "Search",
-                            border: InputBorder.none,
+                child: Row(
+                  children: [
+                    Container(
+                      height: Get.width*0.12,
+                      width: Get.width*0.83,
+                      decoration: BoxDecoration(
+                        color: Colors.white,
+                        borderRadius: BorderRadius.circular(8),
+                        boxShadow: [BoxShadow(color: Colors.black12, blurRadius: 5)],
+                      ),
+                      child: Row(
+                        children: [
+                          IconButton(onPressed: () {}, icon: Icon(Icons.search)),
+                          Expanded(
+                            child: TextFormField(
+                              decoration: InputDecoration(
+                                hintText: "Search",
+                                border: InputBorder.none,
+                              ), 
+                              textAlignVertical: TextAlignVertical(y: -1),
+                            ),
                           ),
-                        ),
-                      ),
-                      Container(
-                        decoration: BoxDecoration(
-                          color: Color.fromRGBO(147, 203, 255, 1),
-                          borderRadius: BorderRadius.circular(10)
-                        ),
-                        child: IconButton(
-                          onPressed: () {},
-                          icon: Icon(Icons.mic),
-                          color: Colors.blue,
+                          Container(
+                            decoration: BoxDecoration(
+                              color: Color.fromRGBO(147, 203, 255, 1),
+                              borderRadius: BorderRadius.circular(8)
+                            ),
+                            child: IconButton(
+                              onPressed: () {},
+                              icon: Icon(Icons.mic),
+                              color: Colors.blue,
 
-                        ),
+                            ),
+                          ),
+                        ],
                       ),
-                    ],
-                  ),
+                    ),
+                    IconButton(onPressed: (){},
+                        icon:Icon(LucideIcons.heart,color: Colors.white,size: Get.width*0.08,
+                        )
+                    )
+                  ],
                 ),
               ),
             ),
