@@ -1,6 +1,13 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+import 'package:google_fonts/google_fonts.dart';
 
-class ProfileScreen extends StatelessWidget {
+class ProfileScreen extends StatefulWidget {
+  @override
+  State<ProfileScreen> createState() => _ProfileScreenState();
+}
+
+class _ProfileScreenState extends State<ProfileScreen> {
   final List<Map<String, dynamic>> menuItems = [
     {"icon": Icons.edit, "title": "Edit Profile"},
     {"icon": Icons.send, "title": "Refer And Earn"},
@@ -19,102 +26,137 @@ class ProfileScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text("Profile"),
+        backgroundColor: Color.fromRGBO(0, 113, 220, 1.0),
+        title: Padding(
+          padding: EdgeInsets.only(right: 8.0),
+          child: Text("Profile",style:GoogleFonts.inter(color: Colors.white) ,),
+        ),
         leading: IconButton(
-          icon: Icon(Icons.menu),
+          icon: Icon(Icons.menu,color: Colors.white,size: Get.width*0.07,),
           onPressed: () {},
         ),
         actions: [
           IconButton(
-            icon: Icon(Icons.search),
+            icon: Icon(Icons.search,color: Colors.white,),
             onPressed: () {},
           ),
           IconButton(
-            icon: Icon(Icons.notifications),
+            icon: Icon(Icons.keyboard_voice_rounded,color: Colors.white,size: Get.width*0.075,),
             onPressed: () {},
           ),
           IconButton(
-            icon: Icon(Icons.shopping_cart),
+            icon: Icon(Icons.shopping_cart,color: Colors.white,),
             onPressed: () {},
           ),
         ],
       ),
-      body: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          Container(
-            padding: EdgeInsets.all(16.0),
-            color: Colors.white,
-            child: Column(
+      body: Container(
+        color: Colors.white,
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Stack(
               children: [
-                CircleAvatar(
-                  radius: 40,
-                  backgroundImage: NetworkImage(
-                      'https://via.placeholder.com/150'), // Placeholder image
+
+                Container(
+                  width: double.infinity,
+                  padding: EdgeInsets.all(16.0),
+                  color: Colors.white,
+                  child: Column(
+                    children: [
+                      CircleAvatar(
+                        radius: 40,
+                        backgroundImage: NetworkImage(
+                            'https://via.placeholder.com/150'), // Placeholder image
+                      ),
+                      SizedBox(height: 8),
+                      Text(
+                        "Carter Sam",
+                        style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+                      ),
+                      Text(
+                        "+001 897387****",
+                        style: TextStyle(color: Colors.grey),
+                      ),
+                      Text(
+                        "carter888***@gmail.com",
+                        style: TextStyle(color: Colors.grey),
+                      ),
+                      // SizedBox(height: 8),
+                      Padding(
+                        padding:  EdgeInsets.all(8.0),
+                        child: Divider(
+                          color: Colors.grey.withOpacity(0.4),
+                        ),
+                      )
+
+                    ],
+                  ),
                 ),
-                SizedBox(height: 8),
-                Text(
-                  "Carter Sam",
-                  style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
-                ),
-                Text(
-                  "+001 897387****",
-                  style: TextStyle(color: Colors.grey),
-                ),
-                Text(
-                  "carter888***@gmail.com",
-                  style: TextStyle(color: Colors.grey),
-                ),
-                SizedBox(height: 8),
-                Text(
-                  "PREMIUM",
-                  style: TextStyle(
-                      color: Colors.amber, fontWeight: FontWeight.bold),
-                ),
+                Positioned(
+                    left: Get.width*0.1,
+
+                    child:Container(
+                      decoration: BoxDecoration(
+
+
+                      ),
+                      child: Text('PREMIUM'.tr,
+                        style: GoogleFonts.poppins(
+                          shadows: [BoxShadow(
+                            color: Colors.grey,
+                            // spreadRadius: 5,
+                            blurRadius: 1,
+                            offset: Offset(0,1)
+                          )],
+                            color: Color.fromRGBO(255, 179, 0, 1),
+                          fontSize: Get.width*0.04
+                      ),),
+                    ) ),
               ],
             ),
-          ),
-          Divider(),
-          Expanded(
-            child: ListView.builder(
-              itemCount: menuItems.length + 1, // +1 for "My Activity" section
-              itemBuilder: (context, index) {
-                if (index == menuItems.length) {
-                  return Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Padding(
-                        padding: EdgeInsets.all(16.0),
-                        child: Text(
-                          "My Activity",
-                          style: TextStyle(
-                              fontSize: 16, fontWeight: FontWeight.bold),
+            Divider(),
+            Expanded(
+              child: ListView.builder(
+                itemCount: menuItems.length + 1,
+                itemBuilder: (context, index) {
+                  if (index == menuItems.length) {
+                    return Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Padding(
+                          padding: EdgeInsets.all(16.0),
+                          child: Text(
+                            "My Activity",
+                            style: TextStyle(
+                                fontSize: 16, fontWeight: FontWeight.bold),
+                          ),
                         ),
-                      ),
-                      ListView.builder(
-                        shrinkWrap: true,
-                        physics: NeverScrollableScrollPhysics(),
-                        itemCount: activityItems.length,
-                        itemBuilder: (context, subIndex) {
-                          return ListTile(
-                            leading: Icon(activityItems[subIndex]["icon"]),
-                            title: Text(activityItems[subIndex]["title"]),
-                            onTap: () {},
-                          );
-                        },
-                      ),
-                    ],
+                        ListView.builder(
+                          shrinkWrap: true,
+                          physics: NeverScrollableScrollPhysics(),
+                          itemCount: activityItems.length,
+                          itemBuilder: (context, subIndex) {
+                            return ListTile(
+                              leading: Icon(activityItems[subIndex]["icon"]),
+                              title: Text(activityItems[subIndex]["title"]),
+                              onTap: () {},
+                            );
+                          },
+                        ),
+                      ],
+                    );
+                  }
+                  return ListTile(
+                    leading: Icon(menuItems[index]["icon"]),
+                    title: Text(menuItems[index]["title"]),
+                    onTap: () {},
                   );
-                }
-                return ListTile(
-                  leading: Icon(menuItems[index]["icon"]),
-                  title: Text(menuItems[index]["title"]),
-                  onTap: () {},
-                );
-              },
+                },
+              ),
             ),
-          ),
-        ],
+          ],
+        ),
       ),
     );
   }
