@@ -100,7 +100,7 @@ class _DashboardScreenState extends State<DashboardScreen> {
                                   offset: Offset(1,1)
                               )
                             ],
-                            fontSize: Get.width * 0.08, // Original size
+                            fontSize: Get.width * 0.08,
                             fontWeight: FontWeight.w600,
                             color: Colors.white,
                             fontStyle: FontStyle.italic,
