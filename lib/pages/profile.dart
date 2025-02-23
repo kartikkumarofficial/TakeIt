@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:cached_network_image/cached_network_image.dart';
 
 class ProfileScreen extends StatefulWidget {
   @override
@@ -66,8 +67,15 @@ class _ProfileScreenState extends State<ProfileScreen> {
                     children: [
                       CircleAvatar(
                         radius: 40,
-                        backgroundImage: NetworkImage(
-                            'https://via.placeholder.com/150'), // Placeholder image
+                    child: ClipOval(
+                        child: CachedNetworkImage(
+                          imageUrl: 'assets/images/profileman.jpeg',
+                          fit: BoxFit.cover,
+                          placeholder: (context, url) => CircularProgressIndicator(),
+                          errorWidget: (context, url, error) => Icon(Icons.error, size: 40),
+                        ),
+
+                        )
                       ),
                       SizedBox(height: 8),
                       Text(
@@ -94,7 +102,8 @@ class _ProfileScreenState extends State<ProfileScreen> {
                   ),
                 ),
                 Positioned(
-                    left: Get.width*0.1,
+                    left: Get.width*0.055,
+                    top: Get.width*0.077,
 
                     child:Container(
                       decoration: BoxDecoration(
@@ -107,11 +116,28 @@ class _ProfileScreenState extends State<ProfileScreen> {
                             color: Colors.grey,
                             // spreadRadius: 5,
                             blurRadius: 1,
-                            offset: Offset(0,1)
+                            offset: Offset(0,0.5)
                           )],
                             color: Color.fromRGBO(255, 179, 0, 1),
                           fontSize: Get.width*0.04
                       ),),
+                    ) ),
+                Positioned(
+                    right: Get.width*0.06,
+                    top: Get.width*0.05,
+
+                    child:Container(
+                      decoration: BoxDecoration(
+
+
+                      ),
+                      child:IconButton(
+                          onPressed: (){},
+                          icon: Icon(Icons.account_balance_wallet,
+                            color:Color.fromRGBO(255, 179, 0, 1) ,
+                            size: Get.width*0.07,
+
+                          ))
                     ) ),
               ],
             ),
