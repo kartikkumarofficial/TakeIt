@@ -151,7 +151,7 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
                             'TakeIt'.tr,
                             style: GoogleFonts.inter(
                               color: Colors.orange,
-                              fontSize: Get.width * 0.15, // Larger in Screen 1
+                              fontSize: Get.width * 0.15,
                               fontStyle: FontStyle.italic,
                               fontWeight: FontWeight.bold,
                               decoration: TextDecoration.none,

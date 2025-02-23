@@ -319,7 +319,8 @@ class _DashboardScreenState extends State<DashboardScreen> {
                         ],
                       ),
                     ),
-                    IconButton(onPressed: (){},
+                    IconButton(
+                        onPressed: (){},
                         icon:Icon(LucideIcons.heart,color: Colors.white,size: Get.width*0.08,
                         )
                     )
