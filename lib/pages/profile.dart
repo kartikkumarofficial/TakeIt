@@ -166,6 +166,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                             return ListTile(
                               leading: Icon(activityItems[subIndex]["icon"]),
                               title: Text(activityItems[subIndex]["title"]),
+                              trailing: Icon(Icons.arrow_forward_ios_rounded,color: Colors.grey,size: Get.width*0.05,),
                               onTap: () {},
                             );
                           },
@@ -176,6 +177,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                   return ListTile(
                     leading: Icon(menuItems[index]["icon"]),
                     title: Text(menuItems[index]["title"]),
+                    trailing: Icon(Icons.arrow_forward_ios_rounded,color: Colors.grey,size: Get.width*0.05,),
                     onTap: () {},
                   );
                 },
