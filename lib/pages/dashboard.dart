@@ -1194,13 +1194,8 @@ class _DashboardScreenState extends State<DashboardScreen> {
 
             Container(
               decoration: BoxDecoration(
-                boxShadow: [
-                  BoxShadow(
-                    color: Colors.black.withOpacity(0.2),
-                    spreadRadius: 1,
-                    blurRadius: 2,
-                  )
-                ]
+
+
               ),
               child: CircleAvatar(
                 radius: 30,
