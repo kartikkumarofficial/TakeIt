@@ -1,7 +1,10 @@
+import 'package:TakeIt/widgets/Drawer.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:cached_network_image/cached_network_image.dart';
+
+import 'auth/signup.dart';
 
 class ProfileScreen extends StatefulWidget {
   @override
@@ -9,8 +12,9 @@ class ProfileScreen extends StatefulWidget {
 }
 
 class _ProfileScreenState extends State<ProfileScreen> {
+
+  final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
   final List<Map<String, dynamic>> menuItems = [
-    {"icon": Icons.edit, "title": "Edit Profile"},
     {"icon": Icons.send, "title": "Refer And Earn"},
     {"icon": Icons.card_giftcard, "title": "Coupons"},
     {"icon": Icons.shopping_cart, "title": "My Orders"},
@@ -34,7 +38,9 @@ class _ProfileScreenState extends State<ProfileScreen> {
         ),
         leading: IconButton(
           icon: Icon(Icons.menu,color: Colors.white,size: Get.width*0.07,),
-          onPressed: () {},
+          onPressed: () {
+            _scaffoldKey.currentState?.openDrawer();
+          },
         ),
         actions: [
           IconButton(
@@ -51,6 +57,134 @@ class _ProfileScreenState extends State<ProfileScreen> {
           ),
         ],
       ),
+
+
+      drawer: Container(
+          decoration: BoxDecoration(
+            color: Colors.white,
+            borderRadius: BorderRadius.only(
+                topLeft: Radius.circular(8),
+                topRight: Radius.circular(8),
+                bottomLeft: Radius.zero,
+                bottomRight: Radius.circular(8)),
+          ),
+          height: Get.height * 1,
+          width: Get.width * 0.65,
+          // color: Colors.white,
+          alignment: Alignment.topLeft,
+          child: ListView(
+            children: [
+              ListTile(
+                leading: CircleAvatar(
+                  child: ClipOval(
+                    // clipBehavior: Clip.,
+                    child: Image.asset('assets/images/profileman.jpeg' ),
+                  ),
+                ),
+                title: Text('Carter Sam',style: GoogleFonts.poppins(
+                    fontSize: Get.width*0.045
+                ),),
+                subtitle: Text('+91 9876543211',style: GoogleFonts.poppins(color: Colors.grey,fontSize: Get.width*0.033),),
+              ),
+              Padding(
+                padding: EdgeInsets.only(right: Get.width*0.18,left: Get.width*0.05),
+                child: Divider(
+                  thickness: 1.2 ,
+
+                ),
+              ),
+
+
+              ListTile(
+                title: Padding(
+                  padding: EdgeInsets.only(left: 8.0),
+                  child: Text('Refer and Earn',style: GoogleFonts.poppins(fontSize: Get.width*0.04),),
+                ),
+                onTap: (){},
+              ),
+              ListTile(
+                title: Padding(
+                  padding: EdgeInsets.only(left: 8.0),
+                  child: Text('Coupons',style: GoogleFonts.poppins(fontSize: Get.width*0.04),),
+                ),
+                onTap: (){},
+              ),
+              ListTile(
+                title: Padding(
+                  padding: EdgeInsets.only(left: 8.0),
+                  child: Text('My Orders',style: GoogleFonts.poppins(fontSize: Get.width*0.04),),
+                ),
+                onTap: (){},
+              ),
+              ListTile(
+                title: Padding(
+                  padding: EdgeInsets.only(left: 8.0),
+                  child: Text('Wishlist',style: GoogleFonts.poppins(fontSize: Get.width*0.04),),
+                ),
+                onTap: (){},
+              ),
+              ListTile(
+                title: Padding(
+                  padding: EdgeInsets.only(left: 8.0),
+                  child: Text('Wallet',style: GoogleFonts.poppins(fontSize: Get.width*0.04),),
+                ),
+                onTap: (){},
+              ),
+              ListTile(
+                title: Padding(
+                  padding: EdgeInsets.only(left: 8.0),
+                  child: Text('Reviews',style: GoogleFonts.poppins(fontSize: Get.width*0.04),),
+                ),
+                onTap: (){},
+              ),
+              ListTile(
+                title: Padding(
+                  padding: EdgeInsets.only(left: 8.0),
+                  child: Text('Questions and Answers',style: GoogleFonts.poppins(fontSize: Get.width*0.04),),
+                ),
+                onTap: (){},
+              ),
+              Padding(
+                padding:  EdgeInsets.only(
+                  top: Get.width*0.4,
+                  left: Get.width*0.033,
+                  right: Get.width*0.033,
+
+                ),
+                child: Container(
+                  width: Get.width*0.8,
+                  height: Get.width*0.091,
+                  child: Hero(tag: 'google',
+                    child: ElevatedButton(
+
+                        onPressed: (){
+                          Get.to(SignUpScreen());
+                        },
+                        style: ElevatedButton.styleFrom(
+                            backgroundColor: Colors.black,
+                            shadowColor: Colors.black,
+                            elevation: 8,
+                            shape: RoundedRectangleBorder(
+                                borderRadius: BorderRadius.circular(5)
+                            )
+
+                        ),
+
+                        child:Text('Log Out'.tr,style: GoogleFonts.poppins(
+                            fontWeight: FontWeight.w500,
+                            fontSize: Get.width*0.045,
+                            color: Colors.white
+                        ),) ),
+                  ),
+                ),
+              )
+
+
+            ],
+          )
+      ),
+
+
       body: Container(
         color: Colors.white,
         child: Column(
@@ -141,7 +275,27 @@ class _ProfileScreenState extends State<ProfileScreen> {
                     ) ),
               ],
             ),
-            Divider(),
+            Row(children: [
+              Padding(
+                padding:  EdgeInsets.only(left: Get.width*0.035,),
+                child: Icon(Icons.person_outline,),
+              ),
+              Padding(
+                padding: EdgeInsets.only(left: 17.0),
+                child: Text('Edit Profile',style: GoogleFonts.poppins(fontSize: Get.width*0.045
+                ),),
+              ),
+              Padding(
+                padding:  EdgeInsets.only(left: Get.width*0.5),
+                child: Icon(Icons.edit,color: Colors.black,),
+              )
+
+
+            ],),
+            Divider(
+              thickness: 6,
+              color: Color.fromRGBO(233, 232, 232, 0.75),
+            ),
             Expanded(
               child: ListView.builder(
                 itemCount: menuItems.length + 1,
@@ -150,6 +304,10 @@ class _ProfileScreenState extends State<ProfileScreen> {
                     return Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
+                        Divider(
+                          thickness: 6,
+                          color: Color.fromRGBO(233, 232, 232, 0.75),
+                        ),
                         Padding(
                           padding: EdgeInsets.all(16.0),
                           child: Text(
@@ -166,7 +324,8 @@ class _ProfileScreenState extends State<ProfileScreen> {
                             return ListTile(
                               leading: Icon(activityItems[subIndex]["icon"]),
                               title: Text(activityItems[subIndex]["title"]),
-                              trailing: Icon(Icons.arrow_forward_ios_rounded,color: Colors.grey,size: Get.width*0.05,),
+                              trailing: Icon(Icons.arrow_forward_ios_rounded,
+                                color: Colors.grey, size: Get.width * 0.05,),
                               onTap: () {},
                             );
                           },
@@ -177,10 +336,12 @@ class _ProfileScreenState extends State<ProfileScreen> {
                   return ListTile(
                     leading: Icon(menuItems[index]["icon"]),
                     title: Text(menuItems[index]["title"]),
-                    trailing: Icon(Icons.arrow_forward_ios_rounded,color: Colors.grey,size: Get.width*0.05,),
+                    trailing: Icon(
+                      Icons.arrow_forward_ios_rounded, color: Colors.grey,
+                      size: Get.width * 0.05,),
                     onTap: () {},
                   );
-                },
+                }
               ),
             ),
           ],
