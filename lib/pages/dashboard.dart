@@ -43,10 +43,7 @@ class _DashboardScreenState extends State<DashboardScreen> {
 
       drawer: dashboarddrawer().DashboardDrawer(),
 
-      bottomNavigationBar: BottomNavBar(
-        selectedIndex: _selectedIndex,
-        onItemTapped: _onItemTapped,
-      ),
+      // bottomNavigationBar: BottomNavBar(),
 
 
 
@@ -139,8 +136,8 @@ class _DashboardScreenState extends State<DashboardScreen> {
                   ),
                 ),
                 Positioned(
-                  right: Get.width*0.04,
-                  top: Get.width*0.12,
+                  right: Get.width*0.03,
+                  top: Get.width*0.125,
                   child: Row(children: [
                     Text('Wallet'.tr,
                       style: GoogleFonts.poppins(
@@ -179,7 +176,7 @@ class _DashboardScreenState extends State<DashboardScreen> {
                               decoration: InputDecoration(
                                 hintText: "Search",
                                 border: InputBorder.none,
-                              ), 
+                              ),
                               textAlignVertical: TextAlignVertical(y: -1),
                             ),
                           ),
@@ -723,6 +720,10 @@ class _DashboardScreenState extends State<DashboardScreen> {
 
                 ],
               ),
+            ),
+            Divider(
+              thickness: 1.5,
+              color: Colors.black.withOpacity(0.2),
             ),
 
             Padding(

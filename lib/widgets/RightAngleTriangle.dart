@@ -12,7 +12,7 @@ class RightAngleTopRightTriangle extends CustomPainter {
 
     var path = Path();
     path.moveTo(size.width, 0); // Top-right corner (Right angle)
-    path.lineTo(44, 0); // Top-left corner
+    path.lineTo(50, 0); // Top-left corner
     path.lineTo(size.width, 99.7); // Bottom-right corner
     path.close(); // Complete the triangle
 

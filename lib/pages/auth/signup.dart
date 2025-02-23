@@ -1,5 +1,7 @@
+import 'package:TakeIt/auth/auth_login.dart';
 import 'package:TakeIt/pages/auth/login.dart';
 import 'package:TakeIt/pages/dashboard.dart';
+import 'package:TakeIt/widgets/bottomnavbar2.dart';
 import 'package:animate_do/animate_do.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -148,8 +150,9 @@ class _SignUpScreenState extends State<SignUpScreen> {
                       height: Get.width*0.101,
                       child: ElevatedButton(
                         onPressed: () {
-                          Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => DashboardScreen(),));
-                          Get.offAll(DashboardScreen(),transition: Transition.fadeIn,duration: Duration(milliseconds: 500));
+
+                          // Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => DashboardScreen(),));
+                          Get.offAll(Homepage(),transition: Transition.fadeIn,duration: Duration(milliseconds: 500));
                         },
                         style: ElevatedButton.styleFrom(
                           elevation: 8,
@@ -189,7 +192,9 @@ class _SignUpScreenState extends State<SignUpScreen> {
                       width: double.infinity,
                       height: 50,
                       child: OutlinedButton.icon(
-                        onPressed: () {},
+                        onPressed: () {
+                          Get.to(LoginnScreen());
+                        },
                         icon: Image.asset('assets/images/auth/google.png',height: 32,),
                         label: Text(
                           "Continue with Google",
