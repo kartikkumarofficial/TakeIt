@@ -1,8 +1,11 @@
+import 'package:TakeIt/pages/cart.dart';
 import 'package:TakeIt/pages/dashboard.dart';
 import 'package:TakeIt/pages/profile.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
+
+import '../pages/categories.dart';
 
 
 class Homepage extends StatefulWidget {
@@ -32,8 +35,8 @@ class _HomepageState extends State<Homepage> {
   Widget build(BuildContext context) {
     List<Widget> widgetList = [
       DashboardScreen(),
-      DashboardScreen(),
-      DashboardScreen(),
+      CategoriesScreen(),
+      CartScreen(),
       DashboardScreen(),
       ProfileScreen(),
     ];

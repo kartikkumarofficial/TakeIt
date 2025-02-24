@@ -370,15 +370,15 @@ class _DashboardScreenState extends State<DashboardScreen> {
             ),
             SizedBox(height: 10),
             SizedBox(
-              height: 100,
+              height: Get.height*0.1,
               child: ListView(
                 scrollDirection: Axis.horizontal,
                 children: [
-                  categoryItem('Male', 'male.png'),
-                  categoryItem('Female', 'female.png'),
-                  categoryItem('Kids', 'kids.png'),
-                  categoryItem('Electronics', 'electronics.png'),
-                  categoryItem('Home', 'electronics.png'),
+                  categoryItem('Male', 'male.png', '#2196F3'), // Blue
+                  categoryItem('Female', 'female.png', '#E91E63'), // Pink
+                  categoryItem('Kids', 'kids.png', '#4CAF50'), // Green
+                  categoryItem('Electronics', 'electronics.png', '#2196F3'), // Blue
+                  categoryItem('Home', 'electronics.png', '#E91E63'), // Pink
                 ],
               ),
             ),
@@ -1185,26 +1185,51 @@ class _DashboardScreenState extends State<DashboardScreen> {
     );
   }
 
-  Widget categoryItem(String title, String imagePath) {
+
+  Widget categoryItem(String title, String imagePath, String colorr) {
     return InkWell(
-      onTap:(){ Get.to(Rotated3DContainer());},
+      onTap: () {
+        Get.to(Rotated3DContainer());
+      },
       child: Padding(
-        padding: const EdgeInsets.symmetric(horizontal: 8.0),
-        child: Column(
+        padding: EdgeInsets.symmetric(horizontal: 10.0),
+        child: Stack(
           children: [
-
-            Container(
-              decoration: BoxDecoration(
-
-
-              ),
-              child: CircleAvatar(
-                radius: 30,
-                backgroundImage: AssetImage('assets/images/homescreen/$imagePath'),
+            Positioned(
+              child: Transform(
+                alignment: Alignment.center,
+                transform: Matrix4.identity()
+                  ..setEntry(3, 2, 0.001)
+                  ..rotateX(-170.7),
+                child: PhysicalModel(
+                  elevation: 20,
+                  // shadowColor: Colors.black,
+                  borderRadius: BorderRadius.circular(15),
+                  color: Colors.transparent,
+                  child: Container(
+                    width: Get.width * 0.22,
+                    height: Get.width * 0.2,
+                    decoration: BoxDecoration(
+                      color: Color(int.parse(colorr.replaceFirst('#', '0xFF'))),
+                      borderRadius: BorderRadius.circular(15),
+                      boxShadow: [
+                        BoxShadow(
+                          color: Color(int.parse(colorr.replaceFirst('#', '0xFF'))).withOpacity(0.6),
+                          offset: Offset(0, 5),
+                          blurRadius: 2,
+                        ),
+                      ],
+                    ),
+                    alignment: Alignment.center,
+                  ),
+                ),
               ),
             ),
-            SizedBox(height: 5),
-            Text(title, style: TextStyle(fontSize: 14)),
+            Positioned(
+              // top: 10,
+              // right: 30,
+              child: Image.asset('assets/images/homescreen/$imagePath'),
+            ),
           ],
         ),
       ),
