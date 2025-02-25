@@ -3,23 +3,24 @@ import 'package:google_sign_in/google_sign_in.dart';
 
 class GoogleSignInProvider {
   final FirebaseAuth _auth = FirebaseAuth.instance;
-  final GoogleSignIn _googleSignIn = GoogleSignIn(
-    scopes: ['email'],
-  );
+  final GoogleSignIn _googleSignIn = GoogleSignIn(); // Removed scopes
 
   /// Sign in with Google
-  Future<User?> signInWithGoogle() async {
+  Future<UserCredential?> signInWithGoogle() async {
     try {
       print("Attempting Google sign-in...");
 
-      // Start the sign-in flow
+      // Ensure user can select an account (prevents auto-login issues)
+      await _googleSignIn.signOut();
+
+      // Start the sign-in process
       final GoogleSignInAccount? googleUser = await _googleSignIn.signIn();
       if (googleUser == null) {
-        print("Google sign-in canceled.");
+        print("Google sign-in canceled by user.");
         return null;
       }
 
-      // Get authentication details
+      // Get Google authentication details
       final GoogleSignInAuthentication googleAuth = await googleUser.authentication;
       final AuthCredential credential = GoogleAuthProvider.credential(
         accessToken: googleAuth.accessToken,
@@ -30,7 +31,10 @@ class GoogleSignInProvider {
       final UserCredential userCredential = await _auth.signInWithCredential(credential);
       print("Google sign-in successful: ${userCredential.user?.email}");
 
-      return userCredential.user;
+      return userCredential;
+    } on FirebaseAuthException catch (e) {
+      print("FirebaseAuthException: ${e.message}");
+      return null;
     } catch (e, stackTrace) {
       print("Error during Google sign-in: $e");
       print("StackTrace: $stackTrace");

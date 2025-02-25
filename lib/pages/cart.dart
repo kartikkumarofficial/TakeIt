@@ -217,11 +217,15 @@ class _CartScreenState extends State<CartScreen> {
                         Expanded(
                           child: Text("12 Ram Bhavan, 36 Street Road, Mullana...",
                               overflow: TextOverflow.ellipsis,
-                              style: GoogleFonts.inter(fontSize: 16)),
+                              style: GoogleFonts.inter(fontSize: 16,color: Colors.black.withOpacity(0.7))),
                         )
                       ],
                     ),
-                    SizedBox(height: 20),
+                    Padding(
+                      padding:  EdgeInsets.only(left: 8.0,top: 8),
+                      child: Text("Wishlist", style: GoogleFonts.poppins(fontSize: 18, fontWeight: FontWeight.w600)),
+                    ),
+                    SizedBox(height: 10),
                     if (wishlist.isNotEmpty) WishlistContainer(wishlist: wishlist),
                     SizedBox(height: 20),
                     Text("In Cart", style: GoogleFonts.poppins(fontSize: 18, fontWeight: FontWeight.bold)),
@@ -241,7 +245,7 @@ class _CartScreenState extends State<CartScreen> {
               ),
             ),
             Positioned(
-              bottom: Get.width*0.03,
+              bottom: Get.width*0.01,
               left: 0,
               right: 0,
               child: Container(
@@ -255,8 +259,10 @@ class _CartScreenState extends State<CartScreen> {
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
-                    Text("Proceed to Buy (1 item)", style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold)),
-                    Text("\$1000", style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold)),
+                    Text("Proceed to Buy (1 item)", style: GoogleFonts.inter(fontSize: 16,
+                        fontWeight: FontWeight.w500)),
+                    Text("\$1000", style: GoogleFonts.inter(fontSize: 18,
+                        fontWeight: FontWeight.bold)),
                   ],
                 ),
               ),
@@ -284,7 +290,7 @@ class WishlistContainer extends StatelessWidget {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Text("Wishlist", style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold)),
+
           GridView.builder(
             shrinkWrap: true,
             physics: NeverScrollableScrollPhysics(),
@@ -336,7 +342,7 @@ class WishlistContainer extends StatelessWidget {
                               style: ElevatedButton.styleFrom(
                                 backgroundColor:  Color.fromRGBO(255, 179, 0, 1),
                                 shape: RoundedRectangleBorder(
-                                  borderRadius: BorderRadius.circular(10),
+                                  borderRadius: BorderRadius.circular(6),
                                 ),
                                 padding: EdgeInsets.symmetric(vertical: 1, horizontal: 2),
                               ),

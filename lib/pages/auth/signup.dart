@@ -61,13 +61,18 @@ bool loading = false;
         email: emailController.text.trim(),
         password: passwordController.text.trim(),
       );
-      Utils().toastMessage("User registered successfully");
-      Get.offAll(LoginScreen(), transition: Transition.fadeIn);
+
+      Utils().toastMessage("Successfully signed up! You may now log in.");
+
+      Future.delayed(Duration(seconds: 2), () {
+        Get.to(LoginScreen(), transition: Transition.fadeIn);
+      });
     } catch (e) {
       Utils().toastMessage(e.toString());
     }
     setState(() => loading = false);
   }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
