@@ -196,14 +196,14 @@ class _CartScreenState extends State<CartScreen> {
                         Expanded(
                           child: Text("12 Ram Bhavan, 36 Street Road, Mullana...",
                               overflow: TextOverflow.ellipsis,
-                              style: TextStyle(fontSize: 16)),
+                              style: GoogleFonts.inter(fontSize: 16)),
                         )
                       ],
                     ),
                     SizedBox(height: 20),
                     if (wishlist.isNotEmpty) WishlistContainer(wishlist: wishlist),
                     SizedBox(height: 20),
-                    Text("In Cart", style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold)),
+                    Text("In Cart", style: GoogleFonts.poppins(fontSize: 18, fontWeight: FontWeight.bold)),
                     SizedBox(height: 10),
                     CartItem(),
                     SizedBox(height: 100),
@@ -290,8 +290,15 @@ class WishlistContainer extends StatelessWidget {
                         mainAxisAlignment: MainAxisAlignment.center,
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
-                          Text(wishlist[index]['title'], style: GoogleFonts.poppins(fontSize: Get.width*0.03, fontWeight: FontWeight.w500 ),),
-                          Text("\$${wishlist[index]['price']}", style: GoogleFonts.poppins(fontSize: Get.width*0.03, color: Colors.green)),
+                          Padding(
+                            padding: EdgeInsets.only(left:3),
+                            child: ConstrainedBox(
+                                constraints: BoxConstraints(
+                                  maxWidth: Get.width*0.18
+                                ),
+                                child: Text(wishlist[index]['title'], style: GoogleFonts.poppins(fontSize: Get.width*0.04, fontWeight: FontWeight.w500 ),overflow: TextOverflow.ellipsis,)),
+                          ),
+                          Text("\$${wishlist[index]['price']}", style: GoogleFonts.poppins(fontSize: Get.width*0.04,fontWeight: FontWeight.w500, color: Colors.black)),
                           SizedBox(height: 5),
                           SizedBox(
                             height: Get.width*0.07,
