@@ -53,6 +53,8 @@ class _CartScreenState extends State<CartScreen> {
 
 
       drawer: Container(
+        height:double.infinity,
+          width: Get.width * 0.65,
           decoration: BoxDecoration(
             color: Colors.white,
             borderRadius: BorderRadius.only(
@@ -62,8 +64,8 @@ class _CartScreenState extends State<CartScreen> {
                 bottomRight: Radius.circular(8)
             ),
           ),
-          height: Get.height * 1,
-          width: Get.width * 0.65,
+          // height: Get.height * 1,
+
           // color: Colors.white,
           alignment: Alignment.topLeft,
           child: ListView(
@@ -282,20 +284,46 @@ class WishlistContainer extends StatelessWidget {
                     ),
                   
 
-                    Column(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        Text(wishlist[index]['title'], style: GoogleFonts.poppins(fontSize: Get.width*0.03, fontWeight: FontWeight.w500 ),),
-                        Text("\$${wishlist[index]['price']}", style: TextStyle(fontSize: 14, color: Colors.green)),
-                        SizedBox(height: 5),
-                        SizedBox(
-                          height: Get.width*0.08,
-                          width: Get.width*0.01,
-                          child: ElevatedButton(
+                    Padding(
+                      padding:  EdgeInsets.only(left: Get.width*0.01),
+                      child: Column(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Text(wishlist[index]['title'], style: GoogleFonts.poppins(fontSize: Get.width*0.03, fontWeight: FontWeight.w500 ),),
+                          Text("\$${wishlist[index]['price']}", style: GoogleFonts.poppins(fontSize: Get.width*0.03, color: Colors.green)),
+                          SizedBox(height: 5),
+                          SizedBox(
+                            height: Get.width*0.07,
+                            width: Get.width*0.2,
+                            child: ElevatedButton(
+                              style: ElevatedButton.styleFrom(
+                                backgroundColor:  Color.fromRGBO(255, 179, 0, 1),
+                                shape: RoundedRectangleBorder(
+                                  borderRadius: BorderRadius.circular(10),
+                                ),
+                                padding: EdgeInsets.symmetric(vertical: 1, horizontal: 2),
+                              ),
+                              onPressed: () {},
+                              child: Center(
+                                child: Row(
+                                  children: [
+                                    Text(
+                                      "Shop Now",
+                                      style: GoogleFonts.poppins(
+                                        fontSize: Get.width * 0.037,
+                                        fontWeight: FontWeight.w500,
+                                        color: Colors.white,
+                                      ),
+                                    ),
+                                  ],
+                                ),
+                              ),
+                            )
 
-                              onPressed: () {}, child: Text("Shop Now")),
-                        )
-                      ],
+                          )
+                        ],
+                      ),
                     ),
                   ],
                 ),
