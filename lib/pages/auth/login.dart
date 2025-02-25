@@ -1,13 +1,11 @@
 import 'package:TakeIt/pages/auth/signup.dart';
 import 'package:TakeIt/widgets/bottomnavbar2.dart';
-import 'package:animate_do/animate_do.dart';
+
 import 'package:flutter/material.dart';
-import 'package:fluttertoast/fluttertoast.dart';
+
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-import 'package:firebase_auth/firebase_auth.dart';
-import 'package:firebase_core/firebase_core.dart';
+
 import 'package:firebase_auth/firebase_auth.dart';
 
 import '../../auth/auth_google.dart';
@@ -20,14 +18,12 @@ class LoginScreen extends StatefulWidget {
 class _LoginScreenState extends State<LoginScreen> {
   bool isChecked = false;
   bool passwordVisible = false;
-  bool confirmPasswordVisible = false;
+  bool PasswordVisible = false;
   final FirebaseAuth _auth = FirebaseAuth.instance;
   final TextEditingController emailController = TextEditingController();
   final TextEditingController passwordController = TextEditingController();
   bool loading = false;
-  // final FirebaseAuth _auth = FirebaseAuth.instance;
 
-  // final FirebaseAuth _auth = FirebaseAuth.instance ;
   final GoogleSignInProvider _googleSignInProvider = GoogleSignInProvider();
 
   @override
@@ -36,33 +32,34 @@ class _LoginScreenState extends State<LoginScreen> {
     passwordController.dispose();
     super.dispose();
   }
-  void login() async{
+  void login() async {
+    if (emailController.text.isEmpty || passwordController.text.isEmpty) {
+      Utils().toastMessage("Please fill in all fields");
+      return;
+    }
+
+
+
     setState(() {
-      loading=true;
-
+      loading = true;
     });
-    try{
-      await _auth.signInWithEmailAndPassword(
-          email: emailController.text.toString(),
-          password: passwordController.text.toString()).then((value) {
-        Utils().gtoastMessage("Welcome ${value.user!.email.toString()}");
-        Navigator.push(
-            context, MaterialPageRoute(builder: (context) => Homepage(),));
-        setState(() {
-          loading = false;
-        });
 
+    try {
+      UserCredential userCredential = await _auth.signInWithEmailAndPassword(
+        email: emailController.text.trim(),
+        password: passwordController.text.trim(),
+      );
 
-      },).onError((error,stackTrace){
-        Utils().toastMessage(error.toString());
-        setState(() {
-          loading=false;
+      Utils().gtoastMessage("Welcome ${userCredential.user!.email}");
+      Get.offAll(() => Homepage(), transition: Transition.fadeIn);
+    } catch (e) {
+      Utils().toastMessage(e.toString());
+    }
 
-        });
-      });
-    }catch(e){
-      Fluttertoast.showToast(msg: e.toString());
-    }}
+    setState(() {
+      loading = false;
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -81,7 +78,7 @@ class _LoginScreenState extends State<LoginScreen> {
                 top: Get.width*0.4,
                 right: Get.width*0.48,
                 child: Hero(transitionOnUserGestures: false,
-        
+
                   tag: 'takeit',
                   child: Text("TakeIt",
                     style: GoogleFonts.poppins(
@@ -91,9 +88,9 @@ class _LoginScreenState extends State<LoginScreen> {
                       fontStyle: FontStyle.italic,
                     ),),
                 )),
-        
-        
-        
+
+
+
             Padding(
               padding: EdgeInsets.symmetric(horizontal: 24, vertical: 40),
               child: Column(
@@ -109,7 +106,7 @@ class _LoginScreenState extends State<LoginScreen> {
                           height: 1
                         ),),
                   ),
-        
+
                   Padding(
                     padding: EdgeInsets.only(top: 8.0),
                     child: Text("  And",
@@ -120,29 +117,30 @@ class _LoginScreenState extends State<LoginScreen> {
                         // height: 1
                       ),),
                   ),
-        
-        
+
+
                   SizedBox(height: 20),
-        
+
                   Padding(
                     padding:  EdgeInsets.only(top: Get.height*0.18),
-                    child: _buildTextField("Email".tr, Icons.email),
+                    child: _EmailField("Email".tr),
                   ),
                   SizedBox(height: 12),
-        
-                  _buildPasswordField("Password".tr, true),
-        
-        
-        
-        
-        
+                  _PasswordField("Password".tr, true),
+
+
+
+
+
                   SizedBox(height: 30),
                   Center(
                     child: SizedBox(
                       width: Get.width*0.6,
                       height: Get.width*0.095,
                       child: ElevatedButton(
-                        onPressed: () {},
+                        onPressed: () {
+                          login();
+                        },
                         style: ElevatedButton.styleFrom(
                           elevation: 8,
                           backgroundColor: Color.fromRGBO(0,113,220,1.0,),
@@ -161,20 +159,20 @@ class _LoginScreenState extends State<LoginScreen> {
                       ),
                     ),
                   ),
-        
-        
+
+
                   SizedBox(height: 16),
                   Row(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
-        
+
                       // SizedBox(width: 8),
                       Text("or", style: GoogleFonts.poppins(fontSize: 18,fontWeight: FontWeight.bold,color: Colors.grey)),
-        
+
                     ],
                   ),
-        
-        
+
+
                   SizedBox(height: 16),
                   Center(
                     child: Hero(
@@ -183,7 +181,9 @@ class _LoginScreenState extends State<LoginScreen> {
                         width: Get.width*0.82,
                         height: 44,
                         child: OutlinedButton.icon(
-                          onPressed: () {},
+                          onPressed: () async{
+                            await _googleSignInProvider.signInWithGoogle();
+                          },
                           icon: Image.asset('assets/images/auth/google.png',height: 30,),
                           label: Text(
                             "Continue with Google",
@@ -199,7 +199,7 @@ class _LoginScreenState extends State<LoginScreen> {
                       ),
                     ),
                   ),
-        
+
                   // SizedBox(height: 30),
                   Padding(
                     padding:  EdgeInsets.only(top: Get.width*0.30),
@@ -240,10 +240,11 @@ class _LoginScreenState extends State<LoginScreen> {
   }
 
 
-  Widget _buildTextField(String hintText, IconData icon) {
+  Widget _EmailField(String hintText) {
     return TextField(
+      controller: emailController,
       decoration: InputDecoration(
-        prefixIcon: Icon(icon, color: Colors.black),
+        prefixIcon: Icon(Icons.email, color: Colors.black),
         hintText: hintText,
         hintStyle: GoogleFonts.poppins(),
         border: OutlineInputBorder(
@@ -258,16 +259,17 @@ class _LoginScreenState extends State<LoginScreen> {
     );
   }
 
-  Widget _buildPasswordField(String hintText, bool isPassword) {
+  Widget _PasswordField(String hintText, bool isPassword) {
     return TextField(
-      obscureText: isPassword ? !passwordVisible : !confirmPasswordVisible,
+      controller: passwordController,
+      obscureText: isPassword ? !passwordVisible : !PasswordVisible,
       decoration: InputDecoration(
         prefixIcon: Icon(Icons.lock, color: Colors.black),
         suffixIcon: IconButton(
           icon: Icon(
             isPassword
                 ? (passwordVisible ? Icons.visibility : Icons.visibility_off)
-                : (confirmPasswordVisible ? Icons.visibility : Icons.visibility_off),
+                : (PasswordVisible ? Icons.visibility : Icons.visibility_off),
             color: Colors.black,
           ),
           onPressed: () {
@@ -275,7 +277,7 @@ class _LoginScreenState extends State<LoginScreen> {
               if (isPassword) {
                 passwordVisible = !passwordVisible;
               } else {
-                confirmPasswordVisible = !confirmPasswordVisible;
+                PasswordVisible = !PasswordVisible;
               }
             });
           },

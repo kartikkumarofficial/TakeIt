@@ -12,6 +12,7 @@ import 'package:firebase_core/firebase_core.dart';
 import '../../auth/auth_google.dart';
 import '../../widgets/utils.dart';
 //for ios gotta download and place the file similar to googleservices.json for android
+//checkbox validator set
 class SignUpScreen extends StatefulWidget {
   @override
   _SignUpScreenState createState() => _SignUpScreenState();
@@ -23,9 +24,10 @@ class _SignUpScreenState extends State<SignUpScreen> {
   final confirmpasswordController = TextEditingController();
   final passwordController = TextEditingController();
 
+
   final _formKey = GlobalKey<FormState>();
   bool isChecked = false;
-
+  bool checkboxerror=false;
   bool passwordVisible = false;
   bool confirmPasswordVisible = false;
 
@@ -39,44 +41,32 @@ bool loading = false;
   void dispose() {
     emailController.dispose();
     passwordController.dispose();
+    usernameController.dispose();
+    confirmpasswordController.dispose();
+
 
     super.dispose();
   }
 
 
-  void login() async{
-    setState(() {
-      loading=true;
-    });
+  void signUp() async {
+    if (!_formKey.currentState!.validate() || !isChecked) {
+      Utils().toastMessage("Please fill all fields and agree to the terms");
+      return;
+    }
+
+    setState(() => loading = true);
     try {
-      await _auth
-          .createUserWithEmailAndPassword(
-          email: emailController.text.toString(),
-          password: passwordController.text.toString()).then((value)
-      {
-        setState(() {
-          loading=false;
-        });
-      }).onError((error, stackTrace) {
-        Utils().toastMessage(error.toString());
-        setState(() {
-          loading=false;
-        });
-      },);
-      ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(content: Text('User registered successfully')),
+      await _auth.createUserWithEmailAndPassword(
+        email: emailController.text.trim(),
+        password: passwordController.text.trim(),
       );
-      // Navigator.pushReplacement(
-      //   context,
-      //   MaterialPageRoute(builder: (context) => LoginScreen()),
-      // );
-      //Todo make this navigator such that if success then navigates back to login screen else remains on signup just add flag if else
+      Utils().toastMessage("User registered successfully");
+      Get.offAll(LoginScreen(), transition: Transition.fadeIn);
+    } catch (e) {
+      Utils().toastMessage(e.toString());
     }
-    catch(e){
-      ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(content: Text(e.toString())),
-      );
-    }
+    setState(() => loading = false);
   }
   @override
   Widget build(BuildContext context) {
@@ -199,6 +189,7 @@ bool loading = false;
                     ],
                   ),
 
+
                   SizedBox(height: 10),
                   Center(
                     child: SizedBox(
@@ -207,12 +198,12 @@ bool loading = false;
                       child: ElevatedButton(
                         onPressed: () {
                           if (_formKey.currentState!.validate()) {
-                            login();
+                            signUp();
 
                           }
 
                           // Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => DashboardScreen(),));
-                          Get.offAll(Homepage(),transition: Transition.fadeIn,duration: Duration(milliseconds: 600));
+                          // Get.offAll(Homepage(),transition: Transition.fadeIn,duration: Duration(milliseconds: 600));
                         },
                         style: ElevatedButton.styleFrom(
                           elevation: 8,
@@ -255,8 +246,8 @@ bool loading = false;
                       width: double.infinity,
                       height: 50,
                       child: OutlinedButton.icon(
-                        onPressed: () {
-                          Get.to(LoginScreen());
+                        onPressed: ()async  {
+                          await _googleSignInProvider.signInWithGoogle();
                         },
                         icon: Image.asset('assets/images/auth/google.png',height: 32,),
                         label: Text(
@@ -316,6 +307,17 @@ bool loading = false;
   Widget _UsernameField(String hintText, IconData icon) {
     return TextFormField(
       controller: usernameController,
+      validator: (value) {
+        if (value == null || value.isEmpty) {return 'Username is required';
+        }
+
+        if (value.length < 3) {
+
+
+          return 'Username must be at least 3 characters long';
+        }
+        return null;
+      },
       decoration: InputDecoration(
         prefixIcon: Icon(icon, color: Colors.black),
         hintText: hintText,
@@ -331,9 +333,19 @@ bool loading = false;
       ),
     );
   }
+
   Widget _EmailField(String hintText, IconData icon) {
     return TextFormField(
       controller: emailController,
+      validator: (value) {
+        if (value == null || value.isEmpty) {
+
+          return 'Email is required'; }
+        if (!RegExp(r'^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$').hasMatch(value)) {
+          return 'Enter a valid email address';
+        }
+        return null;
+      },
       decoration: InputDecoration(
         prefixIcon: Icon(icon, color: Colors.black),
         hintText: hintText,
@@ -354,6 +366,15 @@ bool loading = false;
     return TextFormField(
       controller: passwordController,
       obscureText: isPassword ? !passwordVisible : !confirmPasswordVisible,
+      validator: (value) {
+        if (value == null || value.isEmpty) {
+          return 'Password is required'; }
+        if (value.length < 6) {
+          return 'Password must be at least 6 characters long'; }
+        if (!RegExp(r'(?=.*[A-Z])(?=.*[0-9])').hasMatch(value)) {
+          return 'Password must contain at least one uppercase letter and one number'; }
+        return null;
+      },
       decoration: InputDecoration(
         prefixIcon: Icon(Icons.lock, color: Colors.black),
         suffixIcon: IconButton(
@@ -386,10 +407,20 @@ bool loading = false;
       ),
     );
   }
+
   Widget _ConfirmPasswordField(String hintText, bool isPassword) {
     return TextFormField(
       controller: confirmpasswordController,
       obscureText: isPassword ? !passwordVisible : !confirmPasswordVisible,
+      validator: (value) {
+        if (value == null || value.isEmpty) {
+          return 'Confirm Password is required';
+        }
+        if (value != passwordController.text) {
+          return 'Passwords do not match';
+        }
+        return null;
+      },
       decoration: InputDecoration(
         prefixIcon: Icon(Icons.lock, color: Colors.black),
         suffixIcon: IconButton(
