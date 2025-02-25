@@ -236,8 +236,7 @@ class _CategoriesScreenState extends State<CategoriesScreen> {
                         height: Get.width*0.22,
                         padding: EdgeInsets.all(10),
                         color: selectedCategory == categories[index]
-                            ? Colors.white
-                            : Colors.grey.withOpacity(0.2),
+                            ? Colors.white : Colors.grey.withOpacity(0.2),
                         child: Column(
                           children: [
                             Icon(Icons.category),

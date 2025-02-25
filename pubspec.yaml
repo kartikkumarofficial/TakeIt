@@ -60,6 +60,8 @@ dependencies:
   lucide_icons: ^0.257.0
   cloudinary: ^1.2.0
   cloudinary_api: ^1.1.0
+  flutter_svg: ^2.0.17
+  cloudinary_url_gen: ^1.7.0
 
 
 dev_dependencies:
