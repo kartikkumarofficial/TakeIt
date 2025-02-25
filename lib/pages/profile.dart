@@ -190,112 +190,119 @@ class _ProfileScreenState extends State<ProfileScreen> {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Stack(
+            Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
               children: [
+                Stack(
+                  children: [
 
-                Container(
-                  width: double.infinity,
-                  padding: EdgeInsets.all(16.0),
-                  color: Colors.white,
-                  child: Column(
-                    children: [
-                      CircleAvatar(
-                        radius: 40,
-                    child: ClipOval(
-                        child: CachedNetworkImage(
-                          imageUrl: 'assets/images/profileman.jpeg',
-                          fit: BoxFit.cover,
-                          placeholder: (context, url) => CircularProgressIndicator(),
-                          errorWidget: (context, url, error) => Icon(Icons.error, size: 40),
-                        ),
+                    Container(
+                      width: double.infinity,
+                      padding: EdgeInsets.all(16.0),
+                      color: Colors.white,
+                      child: Column(
+                        children: [
+                          CircleAvatar(
+                              radius: 40,
+                              child: ClipOval(
+                                child: CachedNetworkImage(
+                                  imageUrl: 'assets/images/profileman.jpeg',
+                                  fit: BoxFit.cover,
+                                  placeholder: (context, url) => CircularProgressIndicator(),
+                                  errorWidget: (context, url, error) => Icon(Icons.error, size: 40),
+                                ),
 
-                        )
-                      ),
-                      SizedBox(height: 8),
-                      Text(
-                        "Carter Sam",
-                        style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
-                      ),
-                      Text(
-                        "+001 897387****",
-                        style: TextStyle(color: Colors.grey),
-                      ),
-                      Text(
-                        "carter888***@gmail.com",
-                        style: TextStyle(color: Colors.grey),
-                      ),
-                      // SizedBox(height: 8),
-                      Padding(
-                        padding:  EdgeInsets.all(8.0),
-                        child: Divider(
-                          color: Colors.grey.withOpacity(0.4),
-                        ),
-                      )
+                              )
+                          ),
+                          SizedBox(height: 8),
+                          Text(
+                            "Carter Sam",
+                            style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+                          ),
+                          Text(
+                            "+001 897387****",
+                            style: TextStyle(color: Colors.grey),
+                          ),
+                          Text(
+                            "carter888***@gmail.com",
+                            style: TextStyle(color: Colors.grey),
+                          ),
+                          // SizedBox(height: 8),
+                          Padding(
+                            padding:  EdgeInsets.all(8.0),
+                            child: Divider(
+                              color: Colors.grey.withOpacity(0.4),
+                            ),
+                          )
 
-                    ],
-                  ),
+                        ],
+                      ),
+                    ),
+                    Positioned(
+                        left: Get.width*0.055,
+                        top: Get.width*0.077,
+
+                        child:Container(
+                          decoration: BoxDecoration(
+
+
+                          ),
+                          child: Text('PREMIUM'.tr,
+                            style: GoogleFonts.poppins(
+                                shadows: [BoxShadow(
+                                    color: Colors.grey,
+                                    // spreadRadius: 5,
+                                    blurRadius: 1,
+                                    offset: Offset(0,0.5)
+                                )],
+                                color: Color.fromRGBO(255, 179, 0, 1),
+                                fontSize: Get.width*0.04
+                            ),),
+                        ) ),
+                    Positioned(
+                        right: Get.width*0.06,
+                        top: Get.width*0.05,
+
+                        child:Container(
+                            decoration: BoxDecoration(
+
+
+                            ),
+                            child:IconButton(
+                                onPressed: (){},
+                                icon: Icon(Icons.account_balance_wallet,
+                                  color:Color.fromRGBO(255, 179, 0, 1) ,
+                                  size: Get.width*0.07,
+
+                                ))
+                        ) ),
+                  ],
                 ),
-                Positioned(
-                    left: Get.width*0.055,
-                    top: Get.width*0.077,
-
-                    child:Container(
-                      decoration: BoxDecoration(
-
-
-                      ),
-                      child: Text('PREMIUM'.tr,
-                        style: GoogleFonts.poppins(
-                          shadows: [BoxShadow(
-                            color: Colors.grey,
-                            // spreadRadius: 5,
-                            blurRadius: 1,
-                            offset: Offset(0,0.5)
-                          )],
-                            color: Color.fromRGBO(255, 179, 0, 1),
-                          fontSize: Get.width*0.04
-                      ),),
-                    ) ),
-                Positioned(
-                    right: Get.width*0.06,
-                    top: Get.width*0.05,
-
-                    child:Container(
-                      decoration: BoxDecoration(
+                Row(children: [
+                  Padding(
+                    padding:  EdgeInsets.only(left: Get.width*0.035,),
+                    child: Icon(Icons.person_outline,),
+                  ),
+                  Padding(
+                    padding: EdgeInsets.only(left: 17.0),
+                    child: Text('Edit Profile',style: GoogleFonts.poppins(fontSize: Get.width*0.045
+                    ),),
+                  ),
+                  Padding(
+                    padding:  EdgeInsets.only(left: Get.width*0.5),
+                    child: Icon(Icons.edit,color: Colors.black,),
+                  )
 
 
-                      ),
-                      child:IconButton(
-                          onPressed: (){},
-                          icon: Icon(Icons.account_balance_wallet,
-                            color:Color.fromRGBO(255, 179, 0, 1) ,
-                            size: Get.width*0.07,
+                ],),
+                Divider(
+                  thickness: 6,
+                  color: Color.fromRGBO(233, 232, 232, 0.75),
+                ),
 
-                          ))
-                    ) ),
               ],
             ),
-            Row(children: [
-              Padding(
-                padding:  EdgeInsets.only(left: Get.width*0.035,),
-                child: Icon(Icons.person_outline,),
-              ),
-              Padding(
-                padding: EdgeInsets.only(left: 17.0),
-                child: Text('Edit Profile',style: GoogleFonts.poppins(fontSize: Get.width*0.045
-                ),),
-              ),
-              Padding(
-                padding:  EdgeInsets.only(left: Get.width*0.5),
-                child: Icon(Icons.edit,color: Colors.black,),
-              )
 
-
-            ],),
-            Divider(
-              thickness: 6,
-              color: Color.fromRGBO(233, 232, 232, 0.75),
-            ),
             Expanded(
               child: ListView.builder(
                 itemCount: menuItems.length + 1,
@@ -333,13 +340,19 @@ class _ProfileScreenState extends State<ProfileScreen> {
                       ],
                     );
                   }
-                  return ListTile(
-                    leading: Icon(menuItems[index]["icon"]),
-                    title: Text(menuItems[index]["title"]),
-                    trailing: Icon(
-                      Icons.arrow_forward_ios_rounded, color: Colors.grey,
-                      size: Get.width * 0.05,),
-                    onTap: () {},
+                  return Column(
+                    children: [
+
+
+                      ListTile(
+                        leading: Icon(menuItems[index]["icon"]),
+                        title: Text(menuItems[index]["title"]),
+                        trailing: Icon(
+                          Icons.arrow_forward_ios_rounded, color: Colors.grey,
+                          size: Get.width * 0.05,),
+                        onTap: () {},
+                      ),
+                    ],
                   );
                 }
               ),
