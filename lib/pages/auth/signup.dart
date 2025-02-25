@@ -10,6 +10,7 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
 import '../../auth/auth_google.dart';
+import '../../auth/auth_google2.dart';
 import '../../widgets/utils.dart';
 //for ios gotta download and place the file similar to googleservices.json for android
 //checkbox validator set
@@ -33,7 +34,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
 
   final FirebaseAuth _auth = FirebaseAuth.instance ;
 
-  final GoogleSignInProvider _googleSignInProvider = GoogleSignInProvider();
+  // final GoogleSignInProvider _googleSignInProvider = GoogleSignInProvider();
 bool loading = false;
 
 
@@ -252,7 +253,7 @@ bool loading = false;
                       height: 50,
                       child: OutlinedButton.icon(
                         onPressed: ()async  {
-                          await _googleSignInProvider.signInWithGoogle();
+                          await signInWithGoogle(context);
                         },
                         icon: Image.asset('assets/images/auth/google.png',height: 32,),
                         label: Text(

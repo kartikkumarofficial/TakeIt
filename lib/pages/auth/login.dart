@@ -9,6 +9,7 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 
 import '../../auth/auth_google.dart';
+import '../../auth/auth_google2.dart';
 import '../../widgets/utils.dart';
 class LoginScreen extends StatefulWidget {
   @override
@@ -24,7 +25,7 @@ class _LoginScreenState extends State<LoginScreen> {
   final TextEditingController passwordController = TextEditingController();
   bool loading = false;
 
-  final GoogleSignInProvider _googleSignInProvider = GoogleSignInProvider();
+  // final _googleSignInProvider = GoogleSignInProvider();
 
   @override
   void dispose() {
@@ -182,7 +183,7 @@ class _LoginScreenState extends State<LoginScreen> {
                         height: 44,
                         child: OutlinedButton.icon(
                           onPressed: () async{
-                            await _googleSignInProvider.signInWithGoogle();
+                            await signInWithGoogle(context);
                           },
                           icon: Image.asset('assets/images/auth/google.png',height: 30,),
                           label: Text(
