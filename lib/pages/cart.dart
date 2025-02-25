@@ -3,6 +3,8 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 
+import '../widgets/CartItem.dart';
+
 void main() {
   runApp(MaterialApp(home: CartScreen()));
 }
@@ -21,6 +23,25 @@ class _CartScreenState extends State<CartScreen> {
     {"title": "Watch", "price": 650, "image": "assets/watch.png"},
     {"title": "Jacket", "price": 1000, "image": "assets/jacket.png"},
   ];
+
+  List<Map<String, dynamic>> products = [
+    {
+      'name': 'Nicke Alpha Bloober Men Shoe ',
+      'price': 1999,
+      'image': Icons.image,
+      'quantity': 1,
+      'inStock': true,
+    },
+    {
+      'name': 'Adidas Running Shoes',
+      'price': 1499,
+      'image': Icons.image,
+      'quantity': 2,
+      'inStock': false,
+    },
+  ];
+
+
 
   @override
   Widget build(BuildContext context) {
@@ -205,14 +226,22 @@ class _CartScreenState extends State<CartScreen> {
                     SizedBox(height: 20),
                     Text("In Cart", style: GoogleFonts.poppins(fontSize: 18, fontWeight: FontWeight.bold)),
                     SizedBox(height: 10),
-                    CartItem(),
+                    ListView.builder(
+                      shrinkWrap: true,
+                      itemCount: products.length,
+                      itemBuilder: (context, index) {
+                        return CartItem(product: products[index]);
+                      },
+                    ),
+
+
                     SizedBox(height: 100),
                   ],
                 ),
               ),
             ),
             Positioned(
-              bottom: -Get.width*0.1,
+              bottom: Get.width*0.03,
               left: 0,
               right: 0,
               child: Container(
@@ -343,45 +372,3 @@ class WishlistContainer extends StatelessWidget {
   }
 }
 
-class CartItem extends StatelessWidget {
-  @override
-  Widget build(BuildContext context) {
-    return Container(
-      padding: EdgeInsets.all(10),
-      decoration: BoxDecoration(
-        color: Colors.white,
-        borderRadius: BorderRadius.circular(10),
-        boxShadow: [BoxShadow(color: Colors.grey.shade300, blurRadius: 5)],
-      ),
-      child: Row(
-        children: [
-          Container(
-            height: 80,
-            width: 80,
-            color: Colors.blue.shade100,
-            child: Icon(Icons.image, size: 50, color: Colors.blue),
-          ),
-          SizedBox(width: 10),
-          Expanded(
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Text("Nike Alpha Bloober Men Shoe", style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold)),
-                Text("\$1999", style: TextStyle(fontSize: 14, color: Colors.red)),
-                Text("FREE Shipping", style: TextStyle(fontSize: 12, color: Colors.green)),
-                Row(
-                  children: [
-                    Text("Qty: "),
-                    IconButton(onPressed: () {}, icon: Icon(Icons.remove)),
-                    Text("1"),
-                    IconButton(onPressed: () {}, icon: Icon(Icons.add)),
-                  ],
-                )
-              ],
-            ),
-          )
-        ],
-      ),
-    );
-  }
-}
