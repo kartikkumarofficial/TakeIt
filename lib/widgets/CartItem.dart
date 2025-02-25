@@ -40,7 +40,7 @@ class _CartItemState extends State<CartItem> {
           ),
           child: Row(
             children: [
-              Stack(
+              Column(
                 children: [
                   Container(
                     height: Get.width * 0.2,
@@ -51,7 +51,6 @@ class _CartItemState extends State<CartItem> {
                     ),
                     child: Icon(widget.product['image'], size: Get.width * 0.1, color: Colors.blue),
                   ),
-
                 ],
               ),
               SizedBox(width: Get.width * 0.04),
@@ -59,33 +58,47 @@ class _CartItemState extends State<CartItem> {
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
+                    // SizedBox(height: 10,),
                     Text(
                       widget.product['name'],
                       style: GoogleFonts.poppins(
                         fontSize: Get.width * 0.04,
-                        fontWeight: FontWeight.bold,
+                        fontWeight: FontWeight.w600,
                         color: Colors.black,
                       ),
                       maxLines: 1,
                       overflow: TextOverflow.ellipsis,
                     ),
+                    SizedBox(height: 10,),
                     Text(
                       "\$${widget.product['price']}",
                       style: GoogleFonts.poppins(
-                        fontSize: Get.width * 0.035,
+                        fontSize: Get.width * 0.05,
                         color: Colors.black,
+                        fontWeight: FontWeight.w600
+                      ),
+                    ),
+                    Text(
+                      "FREE SHIPPING",
+                      style: GoogleFonts.poppins(
+                        fontSize: Get.width * 0.035,
+                        color: Colors.grey.withOpacity(0.9),
+                        fontWeight: FontWeight.w500
                       ),
                     ),
                     Text(
                       widget.product['inStock'] ? "In Stock" : "Out of Stock",
                       style: TextStyle(
-                        fontSize: Get.width * 0.04,
-                        fontWeight: FontWeight.bold,
+                        fontSize: Get.width * 0.03,
+                        fontWeight: FontWeight.w500,
                         color: widget.product['inStock'] ? Colors.green : Colors.red,
                       ),
                     ),
 
                     Row(
+
+
+
                       children: [
                         Text(
                           "Qty: ",

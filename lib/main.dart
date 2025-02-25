@@ -45,6 +45,9 @@ class MyApp extends StatelessWidget {
     translations: Languages(),
       theme: ThemeData(
         textTheme: GoogleFonts.poppinsTextTheme(),
+        popupMenuTheme: PopupMenuThemeData(
+          color:Color.fromRGBO(255, 179, 0, 1),
+        ),
 
         colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
         useMaterial3: true,

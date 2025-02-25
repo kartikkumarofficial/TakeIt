@@ -1,3 +1,4 @@
+import 'package:TakeIt/auth/auth_login.dart';
 import 'package:TakeIt/pages/auth/signup.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -18,7 +19,7 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Color.fromRGBO(59,145,242,1.0),
+        backgroundColor: Color.fromRGBO(59,145,242,1.0),
       body:Stack(
         children: [
           Positioned(
@@ -66,6 +67,40 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
             ),
           ),
           Positioned(
+            top: Get.width*0.18,
+            right: -Get.width*0.01,
+            // width: 70,
+            // height: 65,
+            child: PopupMenuButton<String>(
+              onSelected: (String value) {
+               
+              },
+              itemBuilder: (context) => arrlanguages.map((item) {
+                return PopupMenuItem<String>(
+                  onTap: (){
+                    if(item=='English'){
+                      Get.to(LoginnScreen());
+                    }
+                  },
+
+                  value: item,
+                  child: Text(item,
+                      style: GoogleFonts.poppins(color: Colors.black,fontWeight: FontWeight.w600,fontSize: Get.width*0.05)),
+                );
+              }).toList(),
+              child: Padding(
+                padding: EdgeInsets.all(10),
+                child: Text(
+                  'Language'.tr,
+                  style: GoogleFonts.poppins(
+                    color: Colors.black,
+                    fontWeight: FontWeight.bold,
+                  ),
+                ),
+              ),
+            ),
+          ),
+          Positioned(
             top: Get.height*0.6,
             left: -50,
             width: 80,
@@ -85,6 +120,34 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
                 height: Get.width*0.22,),
             ),
           ),
+          Positioned(
+            top: Get.width*0.18,
+            right: -Get.width*0.01,
+            // width: 70,
+            // height: 65,
+            child: PopupMenuButton<String>(
+              onSelected: (String value) {
+                print("Selected Language: $value"); // Handle selection
+              },
+              itemBuilder: (context) => arrlanguages.map((item) {
+                return PopupMenuItem<String>(
+                  value: item,
+                  child: Text(item, style: GoogleFonts.poppins(color: Colors.black)), // Show actual language
+                );
+              }).toList(),
+              child: Padding(
+                padding: EdgeInsets.all(10),
+                child: Text(
+                  'Languages', // Visible label
+                  style: GoogleFonts.poppins(
+                    color: Colors.black,
+                    fontWeight: FontWeight.bold,
+                  ),
+                ),
+              ),
+            ),
+          ),
+
 
 
           Container(
@@ -97,39 +160,62 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.end,
                     children: [
-                      Container(
-                        decoration: BoxDecoration(
-                            color: Color.fromRGBO(254,179,1,1.0),
-                            borderRadius: BorderRadius.only(bottomLeft: Radius.circular(30))
-                        ),
-                        
-                        height: Get.height*0.03,
-                        width: Get.width*0.3,
-                      // child: DropdownMenu(label: Text('Language'), dropdownMenuEntries: [],),
-                      child: PopupMenuButton<String>(
+                      Stack(
+                        children: [
 
-                      onSelected: (String value){},
-            itemBuilder: (context) => arrlanguages.map((item) {
-              return PopupMenuItem<String>(
-                value: item,
-                child: Text('Languages',style: GoogleFonts.poppins(color: Colors.black),)
-              );
-            }).toList(),
-            child: Padding(
-              padding: EdgeInsets.all(10),
-              // child: Text(
-              //   'Languages'.tr,
-              //   style: GoogleFonts.poppins(
-              //     color: Colors.black,
-              //     fontWeight: FontWeight.bold,
-              //   ),
-              // ),
-            ),
-          ),
+                          Container(
+                            decoration: BoxDecoration(
+                                color: Color.fromRGBO(254,179,1,1.0),
+                                borderRadius: BorderRadius.only(bottomLeft: Radius.circular(30))
+                            ),
 
-                    )],
+                            height: Get.height*0.03,
+                            width: Get.width*0.3,
+                          // child: DropdownMenu(label: Text('Language'), dropdownMenuEntries: [],),
+
+                                              ),
+                          Positioned(
+                            left: -Get.width*0.01,
+                            bottom: -Get.width*0.017,
+                            // top: Get.width*0.18
+                            // right: -Get.width*0.01,
+                            // width: 70,
+                            // height: 65,
+                            child: PopupMenuButton<String>(
+                              onSelected: (String value) {
+                                print("Selected Language: $value");
+                              },
+                              itemBuilder: (context) => arrlanguages.map((item) {
+                                return PopupMenuItem<String>(
+                                  value: item,
+                                  child: Text(item, style: GoogleFonts.poppins(color: Colors.black)),
+                                );
+                              }).toList(),
+                              child: Padding(
+                                padding: EdgeInsets.all(10),
+                                child: Row(
+                                  children: [
+                                    Icon(Icons.arrow_drop_down_sharp),
+                                    Text(
+                                      'Languages', // Visible label
+                                      style: GoogleFonts.poppins(
+                                        color: Colors.black,
+                                        fontWeight: FontWeight.bold,
+                                      ),
+                                    ),
+                                  ],
+                                ),
+                              ),
+                            ),
+                          ),
+                        ],
+                      ),
+
+
+                    ],
                   ),
                 ),
+
                 Padding(
                   padding: EdgeInsets.only(top:Get.height*0.3 ),
                   child: Row(
@@ -150,7 +236,7 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
 
                             'TakeIt'.tr,
                             style: GoogleFonts.inter(
-                              color: Colors.orange,
+                              color: Color.fromRGBO(255, 179, 0, 1),
                               fontSize: Get.width * 0.15,
                               fontStyle: FontStyle.italic,
                               fontWeight: FontWeight.bold,
