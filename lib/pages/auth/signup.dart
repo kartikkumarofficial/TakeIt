@@ -7,8 +7,10 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-
+import 'package:firebase_auth/firebase_auth.dart';
+import 'package:firebase_core/firebase_core.dart';
 import '../../auth/auth_google.dart';
+import '../../widgets/utils.dart';
 //for ios gotta download and place the file similar to googleservices.json for android
 class SignUpScreen extends StatefulWidget {
   @override
@@ -20,11 +22,17 @@ class _SignUpScreenState extends State<SignUpScreen> {
   final usernameController = TextEditingController();
   final confirmpasswordController = TextEditingController();
   final passwordController = TextEditingController();
+
   final _formKey = GlobalKey<FormState>();
   bool isChecked = false;
+
   bool passwordVisible = false;
   bool confirmPasswordVisible = false;
+
+  final FirebaseAuth _auth = FirebaseAuth.instance ;
+
   final GoogleSignInProvider _googleSignInProvider = GoogleSignInProvider();
+bool loading = false;
 
 
   @override
@@ -33,6 +41,42 @@ class _SignUpScreenState extends State<SignUpScreen> {
     passwordController.dispose();
 
     super.dispose();
+  }
+
+
+  void login() async{
+    setState(() {
+      loading=true;
+    });
+    try {
+      await _auth
+          .createUserWithEmailAndPassword(
+          email: emailController.text.toString(),
+          password: passwordController.text.toString()).then((value)
+      {
+        setState(() {
+          loading=false;
+        });
+      }).onError((error, stackTrace) {
+        Utils().toastMessage(error.toString());
+        setState(() {
+          loading=false;
+        });
+      },);
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(content: Text('User registered successfully')),
+      );
+      // Navigator.pushReplacement(
+      //   context,
+      //   MaterialPageRoute(builder: (context) => LoginScreen()),
+      // );
+      //Todo make this navigator such that if success then navigates back to login screen else remains on signup just add flag if else
+    }
+    catch(e){
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(content: Text(e.toString())),
+      );
+    }
   }
   @override
   Widget build(BuildContext context) {
@@ -48,8 +92,8 @@ class _SignUpScreenState extends State<SignUpScreen> {
             Positioned(
                 top: Get.width*0.5,
                 right: Get.width*0.48,
-                child: Hero(transitionOnUserGestures: false,
-        
+                child: Hero(transitionOnUserGestures: true,
+
                   tag: 'takeit',
                   child: Text("TakeIt",
                     style: GoogleFonts.poppins(
@@ -60,9 +104,9 @@ class _SignUpScreenState extends State<SignUpScreen> {
                       decoration: TextDecoration.none,
                     ),),
                 )),
-        
-        
-        
+
+
+
             Padding(
               padding: EdgeInsets.symmetric(horizontal: 24, vertical: 40),
               child: Column(
@@ -102,22 +146,34 @@ class _SignUpScreenState extends State<SignUpScreen> {
                         // height: 1
                       ),),
                   ),
-        
-        
+
+
                   SizedBox(height: 20),
-        
-                  Padding(
-                    padding:  EdgeInsets.only(top: Get.height*0.05),
-                    child: _UsernameField("Username".tr, Icons.person),
-                  ),
+
+
+                    Form(
+                      key: _formKey,
+                      child: Column(
+                        children: [
+                          Padding(
+                            padding:  EdgeInsets.only(top: Get.height*0.05),
+                            child: _UsernameField("Username".tr, Icons.person),
+                          ),
+
+
+
+
                   SizedBox(height: 12),
                   _EmailField("Email".tr, Icons.email),
                   SizedBox(height: 12),
                   _PasswordField("Password".tr, true),
                   SizedBox(height: 12),
                   _ConfirmPasswordField("Confirm Password".tr, false),
-        
-        
+                        ],
+                      ),
+                    ),
+
+
                   Row(
                     children: [
                       Checkbox(
@@ -129,7 +185,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
                         value: isChecked,
                         activeColor:Color.fromRGBO(255, 179, 0, 1),
                         checkColor: Colors.black,
-        
+
                         onChanged: (value) {
                           setState(() {
                             isChecked = value!;
@@ -142,7 +198,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
                       ),
                     ],
                   ),
-        
+
                   SizedBox(height: 10),
                   Center(
                     child: SizedBox(
@@ -150,9 +206,13 @@ class _SignUpScreenState extends State<SignUpScreen> {
                       height: Get.width*0.101,
                       child: ElevatedButton(
                         onPressed: () {
+                          if (_formKey.currentState!.validate()) {
+                            login();
+
+                          }
 
                           // Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => DashboardScreen(),));
-                          Get.offAll(Homepage(),transition: Transition.fadeIn,duration: Duration(milliseconds: 500));
+                          Get.offAll(Homepage(),transition: Transition.fadeIn,duration: Duration(milliseconds: 600));
                         },
                         style: ElevatedButton.styleFrom(
                           elevation: 8,
@@ -161,7 +221,9 @@ class _SignUpScreenState extends State<SignUpScreen> {
                             borderRadius: BorderRadius.circular(30),
                           ),
                         ),
-                        child: Text(
+                        child: loading? CircularProgressIndicator(
+                          strokeWidth: 2,
+                          valueColor:AlwaysStoppedAnimation<Color>(Colors.white) ,): Text(
                           "Sign Up",
                           style: GoogleFonts.poppins(
                             fontSize: Get.width*0.045,
@@ -172,28 +234,29 @@ class _SignUpScreenState extends State<SignUpScreen> {
                       ),
                     ),
                   ),
-        
-        
+
+
                   SizedBox(height: 16),
                   Row(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
-        
+
                       // SizedBox(width: 8),
                       Text("or", style: GoogleFonts.poppins(fontSize: 16,fontWeight: FontWeight.bold,color: Colors.grey)),
-        
+
                     ],
                   ),
-        
-        
+
+
                   SizedBox(height: 16),
-                  Hero(tag: 'google',
+                  Hero(
+                    tag: 'google',
                     child: SizedBox(
                       width: double.infinity,
                       height: 50,
                       child: OutlinedButton.icon(
                         onPressed: () {
-                          Get.to(LoginnScreen());
+                          Get.to(LoginScreen());
                         },
                         icon: Image.asset('assets/images/auth/google.png',height: 32,),
                         label: Text(
@@ -209,7 +272,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
                       ),
                     ),
                   ),
-        
+
                   // SizedBox(height: 30),
                   Padding(
                     padding:  EdgeInsets.only(top: Get.width*0.07),
@@ -251,27 +314,25 @@ class _SignUpScreenState extends State<SignUpScreen> {
 
 
   Widget _UsernameField(String hintText, IconData icon) {
-    return Expanded(
-      child: TextField(
-        controller: usernameController,
-        decoration: InputDecoration(
-          prefixIcon: Icon(icon, color: Colors.black),
-          hintText: hintText,
-          hintStyle: GoogleFonts.poppins(),
-          border: OutlineInputBorder(
-            borderRadius: BorderRadius.circular(10),
-            borderSide: BorderSide(color: Colors.grey),
-          ),
-          focusedBorder: OutlineInputBorder(
-            borderRadius: BorderRadius.circular(10),
-            borderSide: BorderSide(color: Colors.blue),
-          ),
+    return TextFormField(
+      controller: usernameController,
+      decoration: InputDecoration(
+        prefixIcon: Icon(icon, color: Colors.black),
+        hintText: hintText,
+        hintStyle: GoogleFonts.poppins(),
+        border: OutlineInputBorder(
+          borderRadius: BorderRadius.circular(10),
+          borderSide: BorderSide(color: Colors.grey),
+        ),
+        focusedBorder: OutlineInputBorder(
+          borderRadius: BorderRadius.circular(10),
+          borderSide: BorderSide(color: Colors.blue),
         ),
       ),
     );
   }
   Widget _EmailField(String hintText, IconData icon) {
-    return TextField(
+    return TextFormField(
       controller: emailController,
       decoration: InputDecoration(
         prefixIcon: Icon(icon, color: Colors.black),
@@ -290,7 +351,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
   }
 
   Widget _PasswordField(String hintText, bool isPassword) {
-    return TextField(
+    return TextFormField(
       controller: passwordController,
       obscureText: isPassword ? !passwordVisible : !confirmPasswordVisible,
       decoration: InputDecoration(
@@ -326,7 +387,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
     );
   }
   Widget _ConfirmPasswordField(String hintText, bool isPassword) {
-    return TextField(
+    return TextFormField(
       controller: confirmpasswordController,
       obscureText: isPassword ? !passwordVisible : !confirmPasswordVisible,
       decoration: InputDecoration(

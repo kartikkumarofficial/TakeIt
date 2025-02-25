@@ -4,6 +4,8 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 
+import 'auth/login.dart';
+
 
 
 class OnboardingScreen extends StatefulWidget {
@@ -79,7 +81,7 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
                 return PopupMenuItem<String>(
                   onTap: (){
                     if(item=='English'){
-                      Get.to(LoginnScreen());
+                      Get.to(LoginScreen());
                     }
                   },
 
@@ -294,7 +296,8 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
                             child: ElevatedButton(
 
                                 onPressed: (){
-                                  Get.to(SignUpScreen());
+                                  Get.to(SignUpScreen()
+                                  ,duration: Duration(milliseconds: 400));
                                 },
                                 style: ElevatedButton.styleFrom(
                                   backgroundColor: Color.fromRGBO(255, 179, 0, 1),
