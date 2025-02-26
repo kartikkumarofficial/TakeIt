@@ -69,22 +69,27 @@ class _ProfileScreenState extends State<ProfileScreen> {
 
 
   Future<void> fetchUserData() async {
-    User? user = _auth.currentUser;
-    if (user != null) {
-      DocumentSnapshot userDoc =
-      await _firestore.collection('users').doc(user.uid).get();
+    try {
+      User? user = _auth.currentUser;
+      if (user != null) {
+        DocumentSnapshot userDoc = await _firestore.collection('users').doc(user.uid).get();
 
-      setState(() {
-        username = userDoc['username'] ?? 'User';
-        phoneNumber = userDoc['phoneNumber'];
-        email = userDoc['email'] ?? 'Email';
-        image = userDoc['profileImage'];
-      });
+        if (userDoc.exists) {
+          Map<String, dynamic> userData = userDoc.data() as Map<String, dynamic>;
 
-      print("Fetched Username: $username");
-      print("Fetched email: $email");
+          setState(() {
+            username = userData['username'] ?? 'User';
+            phoneNumber = userData['phoneNumber'] ?? 'Not Available';
+            email = userData['email'] ?? 'Email not found';
+            image = userData['profileImage'] ?? '';
+          });
+        }
+      }
+    } catch (e) {
+      print("Error fetching user data: $e");
     }
   }
+
 
   @override
   void initState() {
@@ -98,16 +103,17 @@ class _ProfileScreenState extends State<ProfileScreen> {
 
   Future<void> _pickAndUploadImage() async {
     try {
-      // ppicking image
       final XFile? image = await _picker.pickImage(source: ImageSource.gallery);
-      if (image == null) return;
+      if (image == null) {
+        print("No image selected.");
+        return;
+      }
 
       setState(() {
         _selectedImage = File(image.path);
         _isUploading = true;
       });
 
-      // uploading to cloudinary
       String imageUrl = await _uploadToCloudinary(_selectedImage!);
 
       if (imageUrl.isNotEmpty) {
@@ -121,13 +127,12 @@ class _ProfileScreenState extends State<ProfileScreen> {
         );
       }
     } catch (e) {
-      print("Error: $e");
+      print("Error selecting or uploading image: $e");
     } finally {
-      setState(() {
-        _isUploading = false;
-      });
+      setState(() => _isUploading = false);
     }
   }
+
 
   // uploading image to cloudinary
   Future<String> _uploadToCloudinary(File imageFile) async {
@@ -163,12 +168,13 @@ class _ProfileScreenState extends State<ProfileScreen> {
         await _firestore.collection('users').doc(user.uid).update({
           'profileImage': imageUrl,
         });
-        print("Profile image updated in Firestore: $imageUrl");
+        print("Profile image updated in Firestore.");
       }
     } catch (e) {
-      print("Firestore Error: $e");
+      print("Error updating Firestore: $e");
     }
   }
+
 
 
 
@@ -366,21 +372,16 @@ class _ProfileScreenState extends State<ProfileScreen> {
                                     GestureDetector(
                                       onTap: _pickAndUploadImage,
                                       child: CircleAvatar(
-                                          radius: 40,
-                                          child: ClipOval(
-                                            child: CachedNetworkImage(
-                                              // imageUrl: image,
-                                              imageUrl:  "$image?t=${DateTime.now().millisecondsSinceEpoch}",
-
-                                              // imageUrl: "$image?t=${DateTime.now().millisecondsSinceEpoch}",//to prevent caching for new updated image
-                                              fit: BoxFit.contain,
-                                              placeholder: (context, url) => CircularProgressIndicator(),
-                                              errorWidget: (context, url, error) => Icon(Icons.error, size: 40),
-                                            ),
-
-                                          )
+                                        radius: 40,
+                                        backgroundImage: image.isNotEmpty
+                                            ? CachedNetworkImageProvider("$image?t=${DateTime.now().millisecondsSinceEpoch}")
+                                            : AssetImage('assets/images/defprofile.png') as ImageProvider,
+                                        child: image.isEmpty
+                                            ? Icon(Icons.person, size: 40, color: Colors.white)
+                                            : null,
                                       ),
                                     ),
+
                                     SizedBox(height: 8),
                                     FutureBuilder<DocumentSnapshot>(
                                       future: _firestore.collection('users').doc(_auth.currentUser!.uid).get(),
