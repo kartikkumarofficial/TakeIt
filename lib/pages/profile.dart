@@ -1,4 +1,6 @@
+import 'dart:convert';
 import 'dart:ffi';
+import 'dart:io';
 
 import 'package:TakeIt/pages/editprofile.dart';
 import 'package:TakeIt/widgets/Drawer.dart';
@@ -8,7 +10,8 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:cached_network_image/cached_network_image.dart';
-
+import 'package:image_picker/image_picker.dart';
+import 'package:http/http.dart' as http;
 import '../services/backend.dart';
 import 'auth/signup.dart';
 
@@ -71,6 +74,83 @@ class _ProfileScreenState extends State<ProfileScreen> {
     fetchUserData();
     super.initState();
   }
+  final ImagePicker _picker = ImagePicker();
+  File? _selectedImage;
+  bool _isUploading = false;
+
+  Future<void> _pickAndUploadImage() async {
+    try {
+      // ppicking image
+      final XFile? image = await _picker.pickImage(source: ImageSource.gallery);
+      if (image == null) return;
+
+      setState(() {
+        _selectedImage = File(image.path);
+        _isUploading = true;
+      });
+
+      // uploading to cloudinary
+      String imageUrl = await _uploadToCloudinary(_selectedImage!);
+
+      if (imageUrl.isNotEmpty) {
+        await _saveToFirestore(imageUrl);
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(content: Text("Profile image updated successfully!")),
+        );
+      } else {
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(content: Text("Failed to upload image")),
+        );
+      }
+    } catch (e) {
+      print("Error: $e");
+    } finally {
+      setState(() {
+        _isUploading = false;
+      });
+    }
+  }
+
+  // uploading image to cloudinary
+  Future<String> _uploadToCloudinary(File imageFile) async {
+    try {
+      String cloudinaryUrl = "https://api.cloudinary.com/v1_1/dwfowhzwn/image/upload";
+      String uploadPreset = "my_preset";
+
+      var request = http.MultipartRequest("POST", Uri.parse(cloudinaryUrl))
+        ..fields['upload_preset'] = uploadPreset
+        ..files.add(await http.MultipartFile.fromPath('file', imageFile.path));
+
+      var response = await request.send();
+      var responseData = await response.stream.bytesToString();
+      var jsonResponse = json.decode(responseData);
+
+      if (response.statusCode == 200) {
+        return jsonResponse["secure_url"];
+      } else {
+        print("Upload failed: ${jsonResponse['error']['message']}");
+        return "";
+      }
+    } catch (e) {
+      print("Cloudinary Error: $e");
+      return "";
+    }
+  }
+
+  //storing imageurl to users collection in firestore
+  Future<void> _saveToFirestore(String imageUrl) async {
+    try {
+      User? user = _auth.currentUser;
+      if (user != null) {
+        await _firestore.collection('users').doc(user.uid).update({
+          'profileImage': imageUrl,
+        });
+        print("Profile image updated in Firestore: $imageUrl");
+      }
+    } catch (e) {
+      print("Firestore Error: $e");
+    }
+  }
 
 
 
@@ -108,14 +188,13 @@ class _ProfileScreenState extends State<ProfileScreen> {
       ),
 
 
+      key: _scaffoldKey,
+
+
       drawer: Container(
           decoration: BoxDecoration(
             color: Colors.white,
-            borderRadius: BorderRadius.only(
-                topLeft: Radius.circular(8),
-                topRight: Radius.circular(8),
-                bottomLeft: Radius.zero,
-                bottomRight: Radius.circular(8)),
+            borderRadius: BorderRadius.only(topLeft: Radius.circular(8),topRight: Radius.circular(8),bottomLeft: Radius.zero,bottomRight: Radius.circular(8)),
           ),
           height: Get.height * 1,
           width: Get.width * 0.65,
@@ -130,7 +209,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                     child: Image.asset('assets/images/profileman.jpeg' ),
                   ),
                 ),
-                title: Text(username,style: GoogleFonts.poppins(
+                title: Text('Carter Sam',style: GoogleFonts.poppins(
                     fontSize: Get.width*0.045
                 ),),
                 subtitle: Text('+91 9876543211',style: GoogleFonts.poppins(color: Colors.grey,fontSize: Get.width*0.033),),
@@ -138,30 +217,30 @@ class _ProfileScreenState extends State<ProfileScreen> {
               Padding(
                 padding: EdgeInsets.only(right: Get.width*0.18,left: Get.width*0.05),
                 child: Divider(
-                  thickness: 1.2 ,
+                  thickness: 1.2  ,
 
                 ),
               ),
-
-
+              ListTile(
+                title: Padding(
+                  padding: EdgeInsets.only(left: 8.0),
+                  child: Text('Edit Profile',style: GoogleFonts.poppins(fontSize: Get.width*0.04),),
+                ),
+                onTap: (){},
+              ),
               ListTile(
                 title: Padding(
                   padding: EdgeInsets.only(left: 8.0),
                   child: Text('Refer and Earn',style: GoogleFonts.poppins(fontSize: Get.width*0.04),),
                 ),
-                onTap: () {
-
-                },
-
+                onTap: (){},
               ),
               ListTile(
                 title: Padding(
                   padding: EdgeInsets.only(left: 8.0),
                   child: Text('Coupons',style: GoogleFonts.poppins(fontSize: Get.width*0.04),),
                 ),
-                onTap: (){
-
-                },
+                onTap: (){},
               ),
               ListTile(
                 title: Padding(
@@ -266,17 +345,21 @@ class _ProfileScreenState extends State<ProfileScreen> {
                                 color: Colors.white,
                                 child: Column(
                                   children: [
-                                    CircleAvatar(
-                                        radius: 40,
-                                        child: ClipOval(
-                                          child: CachedNetworkImage(
-                                            imageUrl: image,
-                                            fit: BoxFit.cover,
-                                            placeholder: (context, url) => CircularProgressIndicator(),
-                                            errorWidget: (context, url, error) => Icon(Icons.error, size: 40),
-                                          ),
+                                    GestureDetector(
+                                      onTap: _pickAndUploadImage,
+                                      child: CircleAvatar(
+                                          radius: 40,
+                                          child: ClipOval(
+                                            child: CachedNetworkImage(
+                                              // imageUrl: image,
+                                              imageUrl: "$image?t=${DateTime.now().millisecondsSinceEpoch}",//to prevent caching for new updated image
+                                              fit: BoxFit.contain,
+                                              placeholder: (context, url) => CircularProgressIndicator(),
+                                              errorWidget: (context, url, error) => Icon(Icons.error, size: 40),
+                                            ),
 
-                                        )
+                                          )
+                                      ),
                                     ),
                                     SizedBox(height: 8),
                                     Text(
