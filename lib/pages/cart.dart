@@ -5,9 +5,7 @@ import 'package:google_fonts/google_fonts.dart';
 
 import '../widgets/CartItem.dart';
 
-void main() {
-  runApp(MaterialApp(home: CartScreen()));
-}
+
 
 class CartScreen extends StatefulWidget {
 
