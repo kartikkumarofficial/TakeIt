@@ -25,6 +25,9 @@ class ProfileScreen extends StatefulWidget {
 class _ProfileScreenState extends State<ProfileScreen> {
 
   final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
+
+
+
   final List<Map<String, dynamic>> menuItems = [
     {"icon": Icons.send, "title": "Refer And Earn"},
     {"icon": Icons.card_giftcard, "title": "Coupons"},
@@ -47,6 +50,15 @@ class _ProfileScreenState extends State<ProfileScreen> {
   //     });
   //   }
   // }
+
+  // Future<String> fetchPhoneNumber() async {
+  //   User? user = _auth.currentUser;
+  //   if (user != null) {
+  //     DocumentSnapshot userDoc = await _firestore.collection('users').doc(user.uid).get();
+  //     return userDoc['phoneNumber'] ?? 'Add Number';
+  //   }
+  //   return 'Add Number';
+  // }
   final FirebaseAuth _auth = FirebaseAuth.instance;
   final FirebaseFirestore _firestore = FirebaseFirestore.instance;
   String username = '';
@@ -61,18 +73,24 @@ class _ProfileScreenState extends State<ProfileScreen> {
     if (user != null) {
       DocumentSnapshot userDoc =
       await _firestore.collection('users').doc(user.uid).get();
+
       setState(() {
-        username = userDoc['username']?? 'User';
-        phoneNumber = userDoc['phoneNumber']?? 'Add Number';
-        email = userDoc['email']?? 'Email';
-        image = userDoc['profileImage']?? null;
+        username = userDoc['username'] ?? 'User';
+        phoneNumber = userDoc['phoneNumber'];
+        email = userDoc['email'] ?? 'Email';
+        image = userDoc['profileImage'];
       });
+
+      print("Fetched Username: $username");
+      print("Fetched email: $email");
     }
   }
+
   @override
   void initState() {
-    fetchUserData();
+
     super.initState();
+    fetchUserData();
   }
   final ImagePicker _picker = ImagePicker();
   File? _selectedImage;
@@ -352,7 +370,9 @@ class _ProfileScreenState extends State<ProfileScreen> {
                                           child: ClipOval(
                                             child: CachedNetworkImage(
                                               // imageUrl: image,
-                                              imageUrl: "$image?t=${DateTime.now().millisecondsSinceEpoch}",//to prevent caching for new updated image
+                                              imageUrl:  "$image?t=${DateTime.now().millisecondsSinceEpoch}",
+
+                                              // imageUrl: "$image?t=${DateTime.now().millisecondsSinceEpoch}",//to prevent caching for new updated image
                                               fit: BoxFit.contain,
                                               placeholder: (context, url) => CircularProgressIndicator(),
                                               errorWidget: (context, url, error) => Icon(Icons.error, size: 40),
@@ -362,10 +382,25 @@ class _ProfileScreenState extends State<ProfileScreen> {
                                       ),
                                     ),
                                     SizedBox(height: 8),
-                                    Text(
-                                      username,
-                                      style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+                                    FutureBuilder<DocumentSnapshot>(
+                                      future: _firestore.collection('users').doc(_auth.currentUser!.uid).get(),
+                                      builder: (context, snapshot) {
+                                        if (snapshot.connectionState == ConnectionState.waiting) {
+                                          return CircularProgressIndicator();
+                                        }
+                                        if (!snapshot.hasData || snapshot.data == null) {
+                                          return Text("No User Data");
+                                        }
+
+                                        var userData = snapshot.data!;
+                                        return Text(
+                                          userData['username'] ?? 'User',
+                                          style: GoogleFonts.poppins(fontSize: 18, fontWeight: FontWeight.w500),
+                                        );
+                                      },
                                     ),
+
+
                                     Text(
                                       phoneNumber,
                                       style: TextStyle(color: Colors.grey),

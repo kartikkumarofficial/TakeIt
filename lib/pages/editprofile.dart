@@ -6,13 +6,13 @@ import 'package:google_fonts/google_fonts.dart';
 
 class EditProfileScreen extends StatefulWidget {
   final String currentUsername;
-  final String currentEmail;
-  final String currentPhone;
+  final String? currentEmail;
+  final String? currentPhone;
 
   EditProfileScreen({
     required this.currentUsername,
-    required this.currentEmail,
-    required this.currentPhone,
+    this.currentEmail,
+    this.currentPhone,
   });
 
   @override
@@ -32,8 +32,8 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
   void initState() {
     super.initState();
     _usernameController = TextEditingController(text: widget.currentUsername);
-    _emailController = TextEditingController(text: widget.currentEmail);
-    _phoneController = TextEditingController(text: widget.currentPhone);
+    _emailController = TextEditingController(text: widget.currentEmail ?? "");
+    _phoneController = TextEditingController(text: widget.currentPhone ?? "");
   }
 
   Future<void> updateUserProfile() async {
@@ -42,8 +42,8 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
       if (user != null) {
         await _firestore.collection('users').doc(user.uid).update({
           'username': _usernameController.text.trim(),
-          'email': _emailController.text.trim(),
-          'phoneNumber': _phoneController.text.trim(),
+          'email': _emailController.text.trim().isEmpty ? null : _emailController.text.trim(),
+          'phoneNumber': _phoneController.text.trim().isEmpty ? null : _phoneController.text.trim(),
         });
 
         Get.snackbar("Success", "Profile updated successfully!",
@@ -84,16 +84,16 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
               }),
               SizedBox(height: 16),
               buildTextField("Email", _emailController, Icons.email, (value) {
-                if (value!.isEmpty) return "Enter email";
-                if (!RegExp(r"^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}").hasMatch(value)) {
+                if (value != null && value.isNotEmpty && !RegExp(r"^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}").hasMatch(value)) {
                   return "Enter a valid email";
                 }
                 return null;
               }, keyboardType: TextInputType.emailAddress),
               SizedBox(height: 16),
               buildTextField("Phone Number", _phoneController, Icons.phone, (value) {
-                if (value!.isEmpty) return "Enter phone number";
-                if (!RegExp(r"^\d{10}$").hasMatch(value)) return "Enter a valid 10-digit number";
+                if (value != null && value.isNotEmpty && !RegExp(r"^\d{10}$").hasMatch(value)) {
+                  return "Enter a valid 10-digit number";
+                }
                 return null;
               }, keyboardType: TextInputType.phone),
               SizedBox(height: 30),
