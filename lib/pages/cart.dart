@@ -72,21 +72,15 @@ class _CartScreenState extends State<CartScreen> {
         ],
       ),
 
+      key: _scaffoldKey,
 
       drawer: Container(
-        height:double.infinity,
-          width: Get.width * 0.65,
           decoration: BoxDecoration(
             color: Colors.white,
-            borderRadius: BorderRadius.only(
-                topLeft: Radius.circular(8),
-                topRight: Radius.circular(8),
-                bottomLeft: Radius.zero,
-                bottomRight: Radius.circular(8)
-            ),
+            borderRadius: BorderRadius.only(topLeft: Radius.circular(8),topRight: Radius.circular(8),bottomLeft: Radius.zero,bottomRight: Radius.circular(8)),
           ),
-          // height: Get.height * 1,
-
+          height: Get.height * 1,
+          width: Get.width * 0.65,
           // color: Colors.white,
           alignment: Alignment.topLeft,
           child: ListView(
@@ -106,12 +100,17 @@ class _CartScreenState extends State<CartScreen> {
               Padding(
                 padding: EdgeInsets.only(right: Get.width*0.18,left: Get.width*0.05),
                 child: Divider(
-                  thickness: 1.2 ,
+                  thickness: 1.2  ,
 
                 ),
               ),
-
-
+              ListTile(
+                title: Padding(
+                  padding: EdgeInsets.only(left: 8.0),
+                  child: Text('Edit Profile',style: GoogleFonts.poppins(fontSize: Get.width*0.04),),
+                ),
+                onTap: (){},
+              ),
               ListTile(
                 title: Padding(
                   padding: EdgeInsets.only(left: 8.0),
