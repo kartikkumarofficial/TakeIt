@@ -1,5 +1,6 @@
 import 'dart:ffi';
 
+import 'package:TakeIt/pages/editprofile.dart';
 import 'package:TakeIt/widgets/Drawer.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
@@ -10,6 +11,7 @@ import 'package:cached_network_image/cached_network_image.dart';
 
 import '../services/backend.dart';
 import 'auth/signup.dart';
+
 
 class ProfileScreen extends StatefulWidget {
   @override
@@ -47,6 +49,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
   String username = '';
   String email = '';
   String phoneNumber = '';
+  String image = '';
 
 
 
@@ -59,6 +62,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
         username = userDoc['username']?? 'User';
         phoneNumber = userDoc['phoneNumber']?? 'Add Number';
         email = userDoc['email']?? 'Email';
+        image = userDoc['profileImage']?? null;
       });
     }
   }
@@ -88,7 +92,9 @@ class _ProfileScreenState extends State<ProfileScreen> {
         actions: [
           IconButton(
             icon: Icon(Icons.search,color: Colors.white,),
-            onPressed: () {},
+            onPressed: () {
+
+            },
           ),
           IconButton(
             icon: Icon(Icons.keyboard_voice_rounded,color: Colors.white,size: Get.width*0.075,),
@@ -143,14 +149,19 @@ class _ProfileScreenState extends State<ProfileScreen> {
                   padding: EdgeInsets.only(left: 8.0),
                   child: Text('Refer and Earn',style: GoogleFonts.poppins(fontSize: Get.width*0.04),),
                 ),
-                onTap: (){},
+                onTap: () {
+
+                },
+
               ),
               ListTile(
                 title: Padding(
                   padding: EdgeInsets.only(left: 8.0),
                   child: Text('Coupons',style: GoogleFonts.poppins(fontSize: Get.width*0.04),),
                 ),
-                onTap: (){},
+                onTap: (){
+
+                },
               ),
               ListTile(
                 title: Padding(
@@ -259,7 +270,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                                         radius: 40,
                                         child: ClipOval(
                                           child: CachedNetworkImage(
-                                            imageUrl: 'assets/images/profileman.jpeg',
+                                            imageUrl: image,
                                             fit: BoxFit.cover,
                                             placeholder: (context, url) => CircularProgressIndicator(),
                                             errorWidget: (context, url, error) => Icon(Icons.error, size: 40),
@@ -335,43 +346,11 @@ class _ProfileScreenState extends State<ProfileScreen> {
                             color:Colors.transparent,
                             child: InkWell(
                               onTap:(){
-                                InkRipple;
-                                TextEditingController phoneController = TextEditingController(text: phoneNumber);
-
-                                showDialog(
-                                  context: context,
-                                  builder: (context) {
-                                    return AlertDialog(
-                                      title: Text("Edit Phone Number"),
-                                      content: TextField(
-                                        controller: phoneController,
-                                        keyboardType: TextInputType.phone,
-                                        decoration: InputDecoration(hintText: "Enter your phone number"),
-                                      ),
-                                      actions: [
-                                        TextButton(
-                                          onPressed: () => Navigator.pop(context),
-                                          child: Text("Cancel"),
-                                        ),
-                                        TextButton(
-                                          onPressed: () async {
-                                            String newPhone = phoneController.text.trim();
-                                            if (newPhone.isNotEmpty) {
-                                              await _firestore.collection('users').doc(_auth.currentUser?.uid).update({
-                                                'phoneNumber': newPhone,
-                                              });
-                                              setState(() {
-                                                phoneNumber = newPhone;
-                                              });
-                                            }
-                                            Navigator.pop(context);
-                                          },
-                                          child: Text("Save"),
-                                        ),
-                                      ],
-                                    );
-                                  },
-                                );
+                                Get.to(() => EditProfileScreen(
+                                  currentUsername: username,
+                                  currentEmail: email,
+                                  currentPhone: phoneNumber,
+                                ));
                               },
                               child: Row(children: [
                                 Padding(
