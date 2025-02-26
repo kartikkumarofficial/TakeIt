@@ -3,6 +3,7 @@ import 'package:TakeIt/pages/auth/login.dart';
 import 'package:TakeIt/pages/dashboard.dart';
 import 'package:TakeIt/widgets/bottomnavbar2.dart';
 import 'package:animate_do/animate_do.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -57,22 +58,37 @@ bool loading = false;
     }
 
     setState(() => loading = true);
+
     try {
-      await _auth.createUserWithEmailAndPassword(
+      //creating new user if not exists
+      UserCredential userCredential = await _auth.createUserWithEmailAndPassword(
         email: emailController.text.trim(),
         password: passwordController.text.trim(),
       );
+
+      User? user = userCredential.user;
+
+      // user details stored for profile screen
+      await FirebaseFirestore.instance.collection('users').doc(user!.uid).set({
+        'uid': user.uid,
+        'username': usernameController.text.trim(),
+        'email': emailController.text.trim(),
+        'createdAt': Timestamp.now(),
+      });
 
       Utils().toastMessage("Successfully signed up! You may now log in.");
 
       Future.delayed(Duration(seconds: 2), () {
         Get.to(LoginScreen(), transition: Transition.fadeIn);
       });
+
     } catch (e) {
       Utils().toastMessage(e.toString());
     }
+
     setState(() => loading = false);
   }
+
 
   @override
   Widget build(BuildContext context) {
