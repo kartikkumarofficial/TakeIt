@@ -2,6 +2,7 @@ import 'dart:convert';
 import 'dart:ffi';
 import 'dart:io';
 
+import 'package:TakeIt/pages/cart.dart';
 import 'package:TakeIt/pages/editprofile.dart';
 import 'package:TakeIt/widgets/Drawer.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
@@ -25,6 +26,7 @@ class ProfileScreen extends StatefulWidget {
 class _ProfileScreenState extends State<ProfileScreen> {
 
   final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
+
 
 
 
@@ -206,7 +208,9 @@ class _ProfileScreenState extends State<ProfileScreen> {
           ),
           IconButton(
             icon: Icon(Icons.shopping_cart,color: Colors.white,),
-            onPressed: () {},
+            onPressed: () {
+              Get.to(CartScreen());
+            },
           ),
         ],
       ),
