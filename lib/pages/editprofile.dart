@@ -1,3 +1,4 @@
+import 'package:TakeIt/widgets/CustomTextfield.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
@@ -49,7 +50,7 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
         Get.snackbar("Success", "Profile updated successfully!",
             backgroundColor: Colors.green, colorText: Colors.white);
 
-        Navigator.pop(context); // Go back to ProfileScreen
+        Navigator.pop(context); 
       }
     }
   }
@@ -78,19 +79,19 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               SizedBox(height: 10),
-              buildTextField("Username", _usernameController, Icons.person, (value) {
+              CustomTextField("Username", _usernameController, Icons.person, (value) {
                 if (value!.isEmpty) return "Enter username";
                 return null;
               }),
               SizedBox(height: 16),
-              buildTextField("Email", _emailController, Icons.email, (value) {
+              CustomTextField("Email", _emailController, Icons.email, (value) {
                 if (value != null && value.isNotEmpty && !RegExp(r"^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}").hasMatch(value)) {
                   return "Enter a valid email";
                 }
                 return null;
               }, keyboardType: TextInputType.emailAddress),
               SizedBox(height: 16),
-              buildTextField("Phone Number", _phoneController, Icons.phone, (value) {
+              CustomTextField("Phone Number", _phoneController, Icons.phone, (value) {
                 if (value != null && value.isNotEmpty && !RegExp(r"^\d{10}$").hasMatch(value)) {
                   return "Enter a valid 10-digit number";
                 }
@@ -118,26 +119,5 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
     );
   }
 
-  Widget buildTextField(String label, TextEditingController controller, IconData icon, String? Function(String?) validator, {TextInputType keyboardType = TextInputType.text}) {
-    return TextFormField(
-      controller: controller,
-      keyboardType: keyboardType,
-      validator: validator,
-      decoration: InputDecoration(
-        labelText: label,
-        labelStyle: GoogleFonts.poppins(fontSize: 14, fontWeight: FontWeight.w400),
-        prefixIcon: Icon(icon, color: Colors.blue),
-        filled: true,
-        fillColor: Colors.grey[200],
-        border: OutlineInputBorder(
-          borderRadius: BorderRadius.circular(12),
-          borderSide: BorderSide.none,
-        ),
-        focusedBorder: OutlineInputBorder(
-          borderRadius: BorderRadius.circular(12),
-          borderSide: BorderSide(color: Colors.blue, width: 2),
-        ),
-      ),
-    );
-  }
+
 }

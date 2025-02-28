@@ -233,7 +233,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
               ListTile(
                 leading: CircleAvatar(
                   backgroundImage: image.isNotEmpty
-                      ? CachedNetworkImageProvider("$image?t=${DateTime.now().millisecondsSinceEpoch}") as ImageProvider
+                      ? NetworkImage("$image?t=${DateTime.now().millisecondsSinceEpoch}") as ImageProvider
                       : AssetImage('assets/images/defprofile.png') as ImageProvider,
                   child: image.isEmpty
                       ? Icon(Icons.person, size: 40, color: Colors.white)
