@@ -98,7 +98,7 @@ flutter:
 flutter_icons:
   android: true
   ios: true
-  image_path: "assets/images/takeitlogo.png"  # Path to your icon (1024x1024 recommended)
+  image_path: "assets/images/logo/takeitlogo3.png"
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/to/resolution-aware-images

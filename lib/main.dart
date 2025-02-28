@@ -1,5 +1,6 @@
 import 'package:TakeIt/languages.dart';
 import 'package:TakeIt/pages/onboarding.dart';
+import 'package:TakeIt/pages/splashscreen.dart';
 import 'package:cloudinary_url_gen/util/environment.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -52,7 +53,7 @@ class MyApp extends StatelessWidget {
         colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
         useMaterial3: true,
       ),
-      home:OnboardingScreen() ,
+      home:Splashscreen() ,
     );
   }
 }
