@@ -32,7 +32,7 @@ class _DashboardScreenState extends State<DashboardScreen> {
   final FirebaseAuth _auth = FirebaseAuth.instance;
 
   final FirebaseFirestore _firestore = FirebaseFirestore.instance;
-  String username = 'k';
+  String username = '';
   String email = '';
   String phoneNumber = '';
   String image = '';
