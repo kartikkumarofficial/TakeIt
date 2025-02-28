@@ -261,7 +261,9 @@ class _ProfileScreenState extends State<ProfileScreen> {
                   padding: EdgeInsets.only(left: 8.0),
                   child: Text('Edit Profile',style: GoogleFonts.poppins(fontSize: Get.width*0.04),),
                 ),
-                onTap: (){},
+                onTap: (){
+                  Get.to(EditProfileScreen(currentUsername: username,currentEmail: email,));
+                },
               ),
               ListTile(
                 title: Padding(

@@ -60,13 +60,17 @@ class _CategoriesScreenState extends State<CategoriesScreen> {
 
   Future<void> fetchCategories() async {
     try {
-      var snapshot = await FirebaseFirestore.instance.collection('categories').get();
+      var snapshot = await FirebaseFirestore.instance
+          .collection('categories')
+          .orderBy('order', descending: false) // Ensure order field exists
+          .get();
 
       List<Map<String, String>> fetchedCategories = snapshot.docs.map((doc) {
         var data = doc.data();
+
         return {
-          'name': data.containsKey('name') ? data['name'] as String : 'Unknown',
-          'imageUrl': data.containsKey('imageUrl') ? data['imageUrl'] as String? ?? '' : '',
+          'name': data['name']?.toString() ?? 'Unknown', // Ensure it's a String
+          'imageUrl': data['imageUrl']?.toString() ?? '', // Ensure it's a String
         };
       }).toList();
 
@@ -84,6 +88,8 @@ class _CategoriesScreenState extends State<CategoriesScreen> {
       print("Error fetching categories: $e");
     }
   }
+
+
 
   Stream<List<Map<String, dynamic>>> fetchProducts() {
     if (selectedCategory.isEmpty) return Stream.value([]);

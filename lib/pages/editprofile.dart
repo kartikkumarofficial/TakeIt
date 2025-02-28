@@ -11,7 +11,7 @@ class EditProfileScreen extends StatefulWidget {
 
   EditProfileScreen({
     required this.currentUsername,
-    this.currentEmail,
+    required this.currentEmail,
     this.currentPhone,
   });
 
