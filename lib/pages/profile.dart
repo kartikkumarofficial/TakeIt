@@ -63,11 +63,10 @@ class _ProfileScreenState extends State<ProfileScreen> {
   // }
   final FirebaseAuth _auth = FirebaseAuth.instance;
   final FirebaseFirestore _firestore = FirebaseFirestore.instance;
-  String username = '';
+  String username = 'k';
   String email = '';
   String phoneNumber = '';
   String image = '';
-
 
 
   Future<void> fetchUserData() async {
@@ -80,7 +79,8 @@ class _ProfileScreenState extends State<ProfileScreen> {
           Map<String, dynamic> userData = userDoc.data() as Map<String, dynamic>;
 
           setState(() {
-            username = userData['username'] ?? 'User';
+
+            username = userData['username'];
             phoneNumber = userData['phoneNumber'] ?? 'Not Available';
             email = userData['email'] ?? 'Email not found';
             image = userData['profileImage'] ?? '';
@@ -232,15 +232,22 @@ class _ProfileScreenState extends State<ProfileScreen> {
             children: [
               ListTile(
                 leading: CircleAvatar(
-                  child: ClipOval(
-                    // clipBehavior: Clip.,
-                    child: Image.asset('assets/images/profileman.jpeg' ),
-                  ),
+                  backgroundImage: image.isNotEmpty
+                      ? CachedNetworkImageProvider("$image?t=${DateTime.now().millisecondsSinceEpoch}") as ImageProvider
+                      : AssetImage('assets/images/defprofile.png') as ImageProvider,
+                  child: image.isEmpty
+                      ? Icon(Icons.person, size: 40, color: Colors.white)
+                      : null,
+
+
                 ),
-                title: Text('Carter Sam',style: GoogleFonts.poppins(
+                title: Text(username,style: GoogleFonts.poppins(
                     fontSize: Get.width*0.045
                 ),),
-                subtitle: Text('+91 9876543211',style: GoogleFonts.poppins(color: Colors.grey,fontSize: Get.width*0.033),),
+                subtitle: phoneNumber != null && phoneNumber != "Not Available" ? Text(phoneNumber,
+                  style: GoogleFonts.poppins( color: Colors.grey, fontSize: Get.width * 0.033),
+                ) : null,
+
               ),
               Padding(
                 padding: EdgeInsets.only(right: Get.width*0.18,left: Get.width*0.05),
@@ -399,8 +406,14 @@ class _ProfileScreenState extends State<ProfileScreen> {
                                         }
 
                                         var userData = snapshot.data!;
+                                        String? tempUsername;
+                                        try {
+                                          tempUsername = userData['username'];
+                                        } catch (e) {
+                                          tempUsername = null;
+                                        }
                                         return Text(
-                                          userData['username'] ?? 'User',
+                                          tempUsername ?? 'User',
                                           style: GoogleFonts.poppins(fontSize: 18, fontWeight: FontWeight.w500),
                                         );
                                       },
