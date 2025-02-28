@@ -5,6 +5,7 @@ import 'package:TakeIt/widgets/RotatedContainer.dart';
 import 'package:TakeIt/widgets/SlidingImageCard.dart';
 // import 'package:TakeIt/widgets/leftdrawer.dart';
 import 'package:TakeIt/widgets/RightAngleTriangle.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -26,6 +27,7 @@ class _DashboardScreenState extends State<DashboardScreen> {
   late Animation<double> _animation;
   String location = '12 Ram Bhavan,36 Street road ,Mullana,';
   int _selectedIndex = 0;
+  final FirebaseAuth _auth = FirebaseAuth.instance;
 
 
   void _onItemTapped(int index) {
@@ -141,6 +143,7 @@ class _DashboardScreenState extends State<DashboardScreen> {
                     child: ElevatedButton(
 
                         onPressed: (){
+                          FirebaseAuth.instance.signOut();
                           Get.to(SignUpScreen());
                         },
                         style: ElevatedButton.styleFrom(

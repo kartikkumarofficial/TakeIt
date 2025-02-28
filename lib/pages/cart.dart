@@ -1,4 +1,5 @@
 import 'package:TakeIt/pages/auth/signup.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -172,6 +173,7 @@ class _CartScreenState extends State<CartScreen> {
                     child: ElevatedButton(
 
                         onPressed: (){
+                          FirebaseAuth.instance.signOut();
                           Get.to(SignUpScreen());
                         },
                         style: ElevatedButton.styleFrom(

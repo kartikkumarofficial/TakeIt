@@ -1,3 +1,4 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:get/get.dart';
@@ -15,6 +16,7 @@ class _CategoriesScreenState extends State<CategoriesScreen> {
   final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
   List<Map<String, String>> categories = [];
   String selectedCategory = '';
+  final FirebaseAuth _auth = FirebaseAuth.instance;
 
   @override
   void initState() {
@@ -231,6 +233,7 @@ class _CategoriesScreenState extends State<CategoriesScreen> {
                     child: ElevatedButton(
 
                         onPressed: (){
+                          FirebaseAuth.instance.signOut();
                           Get.to(SignUpScreen());
                         },
                         style: ElevatedButton.styleFrom(

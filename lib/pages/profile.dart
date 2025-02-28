@@ -319,6 +319,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                     child: ElevatedButton(
 
                         onPressed: (){
+                          FirebaseAuth.instance.signOut();
                           Get.to(SignUpScreen());
                         },
                         style: ElevatedButton.styleFrom(
