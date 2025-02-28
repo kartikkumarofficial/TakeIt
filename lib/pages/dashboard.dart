@@ -338,8 +338,11 @@ class _DashboardScreenState extends State<DashboardScreen> {
               children: [
               InkWell(
                 // onTap: (){ Get.to(TrianglePainter());}
-                child: Icon(Icons.location_on)),
-                Text('12 Ram Bhavan,36 Street road ,Mullana,',style: GoogleFonts.inter(color: Colors.grey),overflow: TextOverflow.ellipsis,),
+                child: Padding(
+                  padding:  EdgeInsets.only(right: 8.0),
+                  child: Icon(Icons.location_on),
+                )),
+                Text('12 Ram Bhavan,36 Street road ,Mullana,',style: GoogleFonts.inter(color: Colors.black.withOpacity(0.7)),overflow: TextOverflow.ellipsis,),
                 IconButton(onPressed: (){
                   // Get.to(HomeScreen());
                 }, icon: Icon (Icons.arrow_drop_down_sharp))
@@ -894,7 +897,7 @@ class _DashboardScreenState extends State<DashboardScreen> {
                               left: -Get.width*0.015,
                               // right: 0.02,
                               top: 0,
-                              bottom: -Get.width*0.08,
+                              bottom: Get.width*0.03,
                               child: Image.asset('assets/images/homescreen/kids.png',
                                 // fit: BoxFit.fill,
                                 width: Get.width*0.32,),),
