@@ -377,11 +377,11 @@ class _DashboardScreenState extends State<DashboardScreen> {
               child: ListView(
                 scrollDirection: Axis.horizontal,
                 children: [
-                  categoryItem('Male', 'male.png', '#2196F3'), // Blue
-                  categoryItem('Female', 'female.png', '#E91E63'), // Pink
-                  categoryItem('Kids', 'kids.png', '#4CAF50'), // Green
-                  categoryItem('Electronics', 'electronics.png', '#2196F3'), // Blue
-                  categoryItem('Home', 'electronics.png', '#E91E63'), // Pink
+                  categoryItem('Male', 'male.png', '#2196F3'),
+                  categoryItem('Female', 'female.png', '#FFD6E9'),
+                  categoryItem('Kids', 'kids.png', '#7edb5e'),
+                  categoryItem('Electronics', 'electronics.png', '#5be3f0'),
+                  categoryItem('Home', 'food.png', '#E1FFD7'),
                 ],
               ),
             ),
@@ -465,8 +465,8 @@ class _DashboardScreenState extends State<DashboardScreen> {
                             // right: 1,
                             bottom: -Get.width*0.1,
                             child: Image.asset('assets/images/homescreen/phone.png',
-                              fit: BoxFit.fitWidth,
-                              width: Get.width*0.32,),),
+                              fit: BoxFit.fitHeight,
+                              width: Get.width*0.3,),),
                           Column(
                             mainAxisAlignment: MainAxisAlignment.end,
                             children: [
@@ -598,8 +598,8 @@ class _DashboardScreenState extends State<DashboardScreen> {
                             // right: 1,
                             bottom: -Get.width*0.1,
                             child: Image.asset('assets/images/homescreen/phone.png',
-                              fit: BoxFit.fitWidth,
-                              width: Get.width*0.32,),),
+                              fit: BoxFit.fitHeight,
+                              width: Get.width*0.3,),),
                           Column(
                             mainAxisAlignment: MainAxisAlignment.end,
                             children: [
@@ -728,8 +728,8 @@ class _DashboardScreenState extends State<DashboardScreen> {
                             // right: 1,
                             bottom: -Get.width*0.1,
                             child: Image.asset('assets/images/homescreen/phone.png',
-                              fit: BoxFit.fitWidth,
-                              width: Get.width*0.32,),),
+                              fit: BoxFit.fitHeight,
+                              width: Get.width*0.3,),),
                           Column(
                             mainAxisAlignment: MainAxisAlignment.end,
                             children: [
@@ -1197,47 +1197,54 @@ class _DashboardScreenState extends State<DashboardScreen> {
       child: Padding(
         padding: EdgeInsets.symmetric(horizontal: 10.0),
         child: Stack(
+          alignment: Alignment.center,
           children: [
-            Positioned(
-              child: Transform(
-                alignment: Alignment.center,
-                transform: Matrix4.identity()
-                  ..setEntry(3, 2, 0.001)
-                  ..rotateX(-170.7),
-                child: PhysicalModel(
-                  elevation: 20,
-                  // shadowColor: Colors.black,
-                  borderRadius: BorderRadius.circular(15),
-                  color: Colors.transparent,
-                  child: Container(
-                    width: Get.width * 0.22,
-                    height: Get.width * 0.2,
-                    decoration: BoxDecoration(
-                      color: Color(int.parse(colorr.replaceFirst('#', '0xFF'))),
-                      borderRadius: BorderRadius.circular(15),
-                      boxShadow: [
-                        BoxShadow(
-                          color: Color(int.parse(colorr.replaceFirst('#', '0xFF'))).withOpacity(0.6),
-                          offset: Offset(0, 5),
-                          blurRadius: 2,
-                        ),
-                      ],
-                    ),
-                    alignment: Alignment.center,
+            Transform(
+              alignment: Alignment.center,
+              transform: Matrix4.identity()
+                ..setEntry(3, 2, 0.001)
+                ..rotateX(-170.7),
+              child: PhysicalModel(
+                elevation: 20,
+                borderRadius: BorderRadius.circular(15),
+                color: Colors.transparent,
+                child: Container(
+                  width: Get.width * 0.22,
+                  height: Get.width * 0.2,
+                  decoration: BoxDecoration(
+                    color: Color(int.parse(colorr.replaceFirst('#', '0xFF'))),
+                    borderRadius: BorderRadius.circular(15),
+                    boxShadow: [
+                      BoxShadow(
+                        color: Color(int.parse(colorr.replaceFirst('#', '0xFF')))
+                            .withOpacity(0.6),
+                        offset: Offset(0, 5),
+                        blurRadius: 2,
+                      ),
+                    ],
                   ),
+                  alignment: Alignment.center,
                 ),
               ),
             ),
-            Positioned(
-              // top: 10,
-              // right: 30,
-              child: Image.asset('assets/images/homescreen/$imagePath'),
+            Padding(
+              padding:  EdgeInsets.only(bottom: 20.0),
+              child: Align(
+                alignment: Alignment.center,
+
+                child: Image.asset(
+                  'assets/images/homescreen/$imagePath',
+                  fit: BoxFit.fill,
+                  width: Get.width * 0.18,
+                ),
+              ),
             ),
           ],
         ),
       ),
     );
   }
+
 
   Widget productItem(String title, String imagePath) {
     return Padding(
