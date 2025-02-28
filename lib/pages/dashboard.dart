@@ -10,7 +10,6 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:lucide_icons/lucide_icons.dart';
-
 import '../widgets/bottomnavigationbar.dart';
 import '../widgets/dashboard_widgets.dart';
 import 'auth/signup.dart';
