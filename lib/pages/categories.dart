@@ -6,6 +6,7 @@ import 'package:google_fonts/google_fonts.dart';
 
 import 'auth/signup.dart';
 import 'cart.dart';
+import 'editprofile.dart';
 
 class CategoriesScreen extends StatefulWidget {
   @override
@@ -22,6 +23,8 @@ class _CategoriesScreenState extends State<CategoriesScreen> {
   void initState() {
     super.initState();
     fetchCategories();
+    fetchUserData();
+    fetchProducts();
   }
   //static
   // final List<String> categories = [
@@ -57,6 +60,36 @@ class _CategoriesScreenState extends State<CategoriesScreen> {
 //   final List<Map<String, dynamic>> activityItems = [
 //   {"icon": Icons.reviews, "title": "Reviews"},
 // {"icon": Icons.question_answer, "title": "Questions & Answers"},
+  final FirebaseFirestore _firestore = FirebaseFirestore.instance;
+  String username = 'k';
+  String email = '';
+  String phoneNumber = '';
+  String image = '';
+
+
+  Future<void> fetchUserData() async {
+    try {
+      User? user = _auth.currentUser;
+      if (user != null) {
+        DocumentSnapshot userDoc = await _firestore.collection('users').doc(user.uid).get();
+
+        if (userDoc.exists) {
+          Map<String, dynamic> userData = userDoc.data() as Map<String, dynamic>;
+
+          setState(() {
+
+            username = userData['username'];
+            phoneNumber = userData['phoneNumber'] ?? 'Not Available';
+            email = userData['email'] ?? 'Email not found';
+            image = userData['profileImage'] ?? '';
+          });
+        }
+      }
+    } catch (e) {
+      print("Error fetching user data: $e");
+    }
+  }
+
 
   Future<void> fetchCategories() async {
     try {
@@ -152,15 +185,22 @@ class _CategoriesScreenState extends State<CategoriesScreen> {
             children: [
               ListTile(
                 leading: CircleAvatar(
-                  child: ClipOval(
-                    // clipBehavior: Clip.,
-                    child: Image.asset('assets/images/profileman.jpeg' ),
-                  ),
+                  backgroundImage: image.isNotEmpty
+                      ? NetworkImage("$image?t=${DateTime.now().millisecondsSinceEpoch}") as ImageProvider
+                      : AssetImage('assets/images/defprofile.png') as ImageProvider,
+                  child: image.isEmpty
+                      ? Icon(Icons.person, size: 40, color: Colors.white)
+                      : null,
+
+
                 ),
-                title: Text('Carter Sam',style: GoogleFonts.poppins(
+                title: Text(username,style: GoogleFonts.poppins(
                     fontSize: Get.width*0.045
                 ),),
-                subtitle: Text('+91 9876543211',style: GoogleFonts.poppins(color: Colors.grey,fontSize: Get.width*0.033),),
+                subtitle: phoneNumber != null && phoneNumber != "Not Available" ? Text(phoneNumber,
+                  style: GoogleFonts.poppins( color: Colors.grey, fontSize: Get.width * 0.033),
+                ) : null,
+
               ),
               Padding(
                 padding: EdgeInsets.only(right: Get.width*0.18,left: Get.width*0.05),
@@ -174,7 +214,9 @@ class _CategoriesScreenState extends State<CategoriesScreen> {
                   padding: EdgeInsets.only(left: 8.0),
                   child: Text('Edit Profile',style: GoogleFonts.poppins(fontSize: Get.width*0.04),),
                 ),
-                onTap: (){},
+                onTap: (){
+                  Get.to(EditProfileScreen(currentUsername: username,currentEmail: email,));
+                },
               ),
               ListTile(
                 title: Padding(
