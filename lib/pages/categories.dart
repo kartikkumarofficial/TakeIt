@@ -91,29 +91,56 @@ class _CategoriesScreenState extends State<CategoriesScreen> {
   }
 
 
+  // Future<void> fetchCategories() async {
+  //   try {
+  //     var snapshot = await FirebaseFirestore.instance
+  //         .collection('categories').orderBy('order', descending: false).get();
+  //
+  //     List<Map<String, String>> fetchedCategories = snapshot.docs.map((doc) {
+  //       var data = doc.data();
+  //
+  //       return {
+  //         'name': data['name']?.toString() ?? 'Unknown',
+  //         'imageUrl': data['imageUrl']?.toString() ?? '',
+  //       };
+  //     }).toList();
+  //
+  //     if (fetchedCategories.isNotEmpty) {
+  //       if (mounted) {
+  //         setState(() {
+  //           categories = fetchedCategories;
+  //           selectedCategory = categories.first['name'] ?? '';
+  //         });
+  //       }
+  //     } else {
+  //       print("No categories found in Firestore.");
+  //     }
+  //   } catch (e) {
+  //     print("Error fetching categories: $e");
+  //   }
+  // }
   Future<void> fetchCategories() async {
     try {
-      var snapshot = await FirebaseFirestore.instance
-          .collection('categories').orderBy('order', descending: false).get();
+      var snapshot = await _firestore
+          .collection('categories')
+          .orderBy('order', descending: false)
+          .get();
 
-      List<Map<String, String>> fetchedCategories = snapshot.docs.map((doc) {
+      List<Map<String, String>> fetchedCategories = [];
+
+      for (var doc in snapshot.docs) {
         var data = doc.data();
-
-        return {
+        fetchedCategories.add({
           'name': data['name']?.toString() ?? 'Unknown',
           'imageUrl': data['imageUrl']?.toString() ?? '',
-        };
-      }).toList();
+        });
+      }
 
-      if (fetchedCategories.isNotEmpty) {
-        if (mounted) {
-          setState(() {
-            categories = fetchedCategories;
-            selectedCategory = categories.first['name'] ?? '';
-          });
-        }
-      } else {
-        print("No categories found in Firestore.");
+      if (mounted) {
+        setState(() {
+          categories = fetchedCategories;
+          selectedCategory = categories.isNotEmpty ? categories.first['name']! : '';
+        });
       }
     } catch (e) {
       print("Error fetching categories: $e");
