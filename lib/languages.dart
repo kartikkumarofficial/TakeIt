@@ -24,7 +24,7 @@ class Languages extends Translations{
       'TakeIt': 'TakeIt',
       'GET STARTED':'GET STARTED',
       'Quality,affordability, and convenience':'Quality,affordability, and convenience',
-      'in every click.':'in every click.',
+      'in every click.':'in every click.'
 
     },
   };
