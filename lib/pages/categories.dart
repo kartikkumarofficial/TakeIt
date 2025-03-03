@@ -1,3 +1,4 @@
+import 'package:TakeIt/pages/productdetails.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
@@ -423,13 +424,16 @@ class _CategoriesScreenState extends State<CategoriesScreen> {
                     ),
                     itemBuilder: (context, index) {
                       final product = products[index];
-                      return Column(
-                        children: [
-                          product["imageUrl"] != null
-                              ? Image.network(product["imageUrl"], height: 80, fit: BoxFit.cover,filterQuality: FilterQuality.high,)
-                              : Icon(Icons.image_not_supported),
-                          Text(product["name"] ?? "No Name",textAlign: TextAlign.center,overflow: TextOverflow.ellipsis,),
-                        ],
+                      return InkWell(
+                        onTap: (){  Get.to(() => ProductDetailsScreen(productId: products[index]['name']));},//todo this
+                        child: Column(
+                          children: [
+                            product["imageUrl"] != null
+                                ? Image.network(product["imageUrl"], height: 80, fit: BoxFit.cover,filterQuality: FilterQuality.high,)
+                                : Icon(Icons.image_not_supported),
+                            Text(product["name"] ?? "No Name",textAlign: TextAlign.center,overflow: TextOverflow.ellipsis,),
+                          ],
+                        ),
                       );
                     },
                   );
