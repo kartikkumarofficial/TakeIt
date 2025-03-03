@@ -6,6 +6,7 @@ import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 import '../pages/categories.dart';
+import '../pages/notifications.dart';
 
 
 class Homepage extends StatefulWidget {
@@ -37,7 +38,7 @@ class _HomepageState extends State<Homepage> {
       DashboardScreen(),
       CategoriesScreen(),
       CartScreen(),
-      DashboardScreen(),
+      NotificationScreen(),
       ProfileScreen(),
     ];
 
